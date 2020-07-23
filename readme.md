@@ -11,3 +11,6 @@
 `cd functions`<br/>
 `npm install`<br/>
 `firebase emulators:start --only functions`<br/>
+
+###### **GraphQL Server Endpoint**
+`https://eu1.prisma.sh/ernest-hayford-4ed24c/Consol/dev`
