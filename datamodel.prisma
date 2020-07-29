@@ -1,4 +1,79 @@
+enum Gender {
+    MALE
+    FEMALE
+}
+
+type FundType {
+    id: ID! @id
+    name: String! @unique
+}
+
+enum FundStatus {
+    PENDING
+    APPROVED
+    REJECTED
+}
+
 type User {
   id: ID! @id
-  name: String!
+
+  first_name: String!
+  last_name: String!
+  date_of_birth: DateTime!
+  gender: Gender!
+
+  phone_number: String!
+  home_address: String!
+  state: String!
+
+  businesses: [Business!]!
+
+  created_at: DateTime! @createdAt
+  updated_at: DateTime! @updatedAt
+}
+
+type Business {
+    id: ID! @id
+    name: String!
+    industry: Industry!
+
+    registration_type: String!
+    registation_id: String! @unique
+    business_start_year: DateTime!
+    bank_verification_number: String! @unique
+
+    fund_details: FundDetail
+    fund_status: FundStatus! @default(value: PENDING)
+
+    user: User! @relation(link: TABLE)
+
+    created_at: DateTime! @createdAt
+    updated_at: DateTime! @updatedAt
+}
+
+
+
+type FundDetail {
+    id: ID! @id
+    type: FundType!
+    reason: String!
+    payment_due_date: String
+    disbursement_date: DateTime!
+    amount: Float!
+}
+
+type Lender {
+    id: ID! @id
+    name: String!
+    preffered_industries: [Industry!]!
+    fund_types: [FundType!]!
+
+    created_at: DateTime! @createdAt
+    updated_at: DateTime! @updatedAt
+
+}
+
+type Industry {
+    id: ID! @id
+    name: String! @unique
 }

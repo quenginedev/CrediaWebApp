@@ -16,6 +16,11 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
+  business: (where?: BusinessWhereInput) => Promise<boolean>;
+  fundDetail: (where?: FundDetailWhereInput) => Promise<boolean>;
+  fundType: (where?: FundTypeWhereInput) => Promise<boolean>;
+  industry: (where?: IndustryWhereInput) => Promise<boolean>;
+  lender: (where?: LenderWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -38,6 +43,101 @@ export interface Prisma {
    * Queries
    */
 
+  business: (where: BusinessWhereUniqueInput) => BusinessNullablePromise;
+  businesses: (args?: {
+    where?: BusinessWhereInput;
+    orderBy?: BusinessOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Business>;
+  businessesConnection: (args?: {
+    where?: BusinessWhereInput;
+    orderBy?: BusinessOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => BusinessConnectionPromise;
+  fundDetail: (where: FundDetailWhereUniqueInput) => FundDetailNullablePromise;
+  fundDetails: (args?: {
+    where?: FundDetailWhereInput;
+    orderBy?: FundDetailOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<FundDetail>;
+  fundDetailsConnection: (args?: {
+    where?: FundDetailWhereInput;
+    orderBy?: FundDetailOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FundDetailConnectionPromise;
+  fundType: (where: FundTypeWhereUniqueInput) => FundTypeNullablePromise;
+  fundTypes: (args?: {
+    where?: FundTypeWhereInput;
+    orderBy?: FundTypeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<FundType>;
+  fundTypesConnection: (args?: {
+    where?: FundTypeWhereInput;
+    orderBy?: FundTypeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FundTypeConnectionPromise;
+  industry: (where: IndustryWhereUniqueInput) => IndustryNullablePromise;
+  industries: (args?: {
+    where?: IndustryWhereInput;
+    orderBy?: IndustryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Industry>;
+  industriesConnection: (args?: {
+    where?: IndustryWhereInput;
+    orderBy?: IndustryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => IndustryConnectionPromise;
+  lender: (where: LenderWhereUniqueInput) => LenderNullablePromise;
+  lenders: (args?: {
+    where?: LenderWhereInput;
+    orderBy?: LenderOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Lender>;
+  lendersConnection: (args?: {
+    where?: LenderWhereInput;
+    orderBy?: LenderOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => LenderConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -63,6 +163,86 @@ export interface Prisma {
    * Mutations
    */
 
+  createBusiness: (data: BusinessCreateInput) => BusinessPromise;
+  updateBusiness: (args: {
+    data: BusinessUpdateInput;
+    where: BusinessWhereUniqueInput;
+  }) => BusinessPromise;
+  updateManyBusinesses: (args: {
+    data: BusinessUpdateManyMutationInput;
+    where?: BusinessWhereInput;
+  }) => BatchPayloadPromise;
+  upsertBusiness: (args: {
+    where: BusinessWhereUniqueInput;
+    create: BusinessCreateInput;
+    update: BusinessUpdateInput;
+  }) => BusinessPromise;
+  deleteBusiness: (where: BusinessWhereUniqueInput) => BusinessPromise;
+  deleteManyBusinesses: (where?: BusinessWhereInput) => BatchPayloadPromise;
+  createFundDetail: (data: FundDetailCreateInput) => FundDetailPromise;
+  updateFundDetail: (args: {
+    data: FundDetailUpdateInput;
+    where: FundDetailWhereUniqueInput;
+  }) => FundDetailPromise;
+  updateManyFundDetails: (args: {
+    data: FundDetailUpdateManyMutationInput;
+    where?: FundDetailWhereInput;
+  }) => BatchPayloadPromise;
+  upsertFundDetail: (args: {
+    where: FundDetailWhereUniqueInput;
+    create: FundDetailCreateInput;
+    update: FundDetailUpdateInput;
+  }) => FundDetailPromise;
+  deleteFundDetail: (where: FundDetailWhereUniqueInput) => FundDetailPromise;
+  deleteManyFundDetails: (where?: FundDetailWhereInput) => BatchPayloadPromise;
+  createFundType: (data: FundTypeCreateInput) => FundTypePromise;
+  updateFundType: (args: {
+    data: FundTypeUpdateInput;
+    where: FundTypeWhereUniqueInput;
+  }) => FundTypePromise;
+  updateManyFundTypes: (args: {
+    data: FundTypeUpdateManyMutationInput;
+    where?: FundTypeWhereInput;
+  }) => BatchPayloadPromise;
+  upsertFundType: (args: {
+    where: FundTypeWhereUniqueInput;
+    create: FundTypeCreateInput;
+    update: FundTypeUpdateInput;
+  }) => FundTypePromise;
+  deleteFundType: (where: FundTypeWhereUniqueInput) => FundTypePromise;
+  deleteManyFundTypes: (where?: FundTypeWhereInput) => BatchPayloadPromise;
+  createIndustry: (data: IndustryCreateInput) => IndustryPromise;
+  updateIndustry: (args: {
+    data: IndustryUpdateInput;
+    where: IndustryWhereUniqueInput;
+  }) => IndustryPromise;
+  updateManyIndustries: (args: {
+    data: IndustryUpdateManyMutationInput;
+    where?: IndustryWhereInput;
+  }) => BatchPayloadPromise;
+  upsertIndustry: (args: {
+    where: IndustryWhereUniqueInput;
+    create: IndustryCreateInput;
+    update: IndustryUpdateInput;
+  }) => IndustryPromise;
+  deleteIndustry: (where: IndustryWhereUniqueInput) => IndustryPromise;
+  deleteManyIndustries: (where?: IndustryWhereInput) => BatchPayloadPromise;
+  createLender: (data: LenderCreateInput) => LenderPromise;
+  updateLender: (args: {
+    data: LenderUpdateInput;
+    where: LenderWhereUniqueInput;
+  }) => LenderPromise;
+  updateManyLenders: (args: {
+    data: LenderUpdateManyMutationInput;
+    where?: LenderWhereInput;
+  }) => BatchPayloadPromise;
+  upsertLender: (args: {
+    where: LenderWhereUniqueInput;
+    create: LenderCreateInput;
+    update: LenderUpdateInput;
+  }) => LenderPromise;
+  deleteLender: (where: LenderWhereUniqueInput) => LenderPromise;
+  deleteManyLenders: (where?: LenderWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -88,6 +268,21 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  business: (
+    where?: BusinessSubscriptionWhereInput
+  ) => BusinessSubscriptionPayloadSubscription;
+  fundDetail: (
+    where?: FundDetailSubscriptionWhereInput
+  ) => FundDetailSubscriptionPayloadSubscription;
+  fundType: (
+    where?: FundTypeSubscriptionWhereInput
+  ) => FundTypeSubscriptionPayloadSubscription;
+  industry: (
+    where?: IndustrySubscriptionWhereInput
+  ) => IndustrySubscriptionPayloadSubscription;
+  lender: (
+    where?: LenderSubscriptionWhereInput
+  ) => LenderSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -101,15 +296,95 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type UserOrderByInput = "id_ASC" | "id_DESC" | "name_ASC" | "name_DESC";
+export type FundStatus = "PENDING" | "APPROVED" | "REJECTED";
+
+export type Gender = "MALE" | "FEMALE";
+
+export type BusinessOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "registration_type_ASC"
+  | "registration_type_DESC"
+  | "registation_id_ASC"
+  | "registation_id_DESC"
+  | "business_start_year_ASC"
+  | "business_start_year_DESC"
+  | "bank_verification_number_ASC"
+  | "bank_verification_number_DESC"
+  | "fund_status_ASC"
+  | "fund_status_DESC"
+  | "created_at_ASC"
+  | "created_at_DESC"
+  | "updated_at_ASC"
+  | "updated_at_DESC";
+
+export type FundDetailOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "reason_ASC"
+  | "reason_DESC"
+  | "payment_due_date_ASC"
+  | "payment_due_date_DESC"
+  | "disbursement_date_ASC"
+  | "disbursement_date_DESC"
+  | "amount_ASC"
+  | "amount_DESC";
+
+export type FundTypeOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC";
+
+export type IndustryOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC";
+
+export type LenderOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "created_at_ASC"
+  | "created_at_DESC"
+  | "updated_at_ASC"
+  | "updated_at_DESC";
+
+export type UserOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "first_name_ASC"
+  | "first_name_DESC"
+  | "last_name_ASC"
+  | "last_name_DESC"
+  | "date_of_birth_ASC"
+  | "date_of_birth_DESC"
+  | "gender_ASC"
+  | "gender_DESC"
+  | "phone_number_ASC"
+  | "phone_number_DESC"
+  | "home_address_ASC"
+  | "home_address_DESC"
+  | "state_ASC"
+  | "state_DESC"
+  | "created_at_ASC"
+  | "created_at_DESC"
+  | "updated_at_ASC"
+  | "updated_at_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export type UserWhereUniqueInput = AtLeastOne<{
+export type BusinessWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  registation_id?: Maybe<String>;
+  bank_verification_number?: Maybe<String>;
 }>;
 
-export interface UserWhereInput {
+export interface BusinessWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -138,22 +413,1070 @@ export interface UserWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
+  industry?: Maybe<IndustryWhereInput>;
+  registration_type?: Maybe<String>;
+  registration_type_not?: Maybe<String>;
+  registration_type_in?: Maybe<String[] | String>;
+  registration_type_not_in?: Maybe<String[] | String>;
+  registration_type_lt?: Maybe<String>;
+  registration_type_lte?: Maybe<String>;
+  registration_type_gt?: Maybe<String>;
+  registration_type_gte?: Maybe<String>;
+  registration_type_contains?: Maybe<String>;
+  registration_type_not_contains?: Maybe<String>;
+  registration_type_starts_with?: Maybe<String>;
+  registration_type_not_starts_with?: Maybe<String>;
+  registration_type_ends_with?: Maybe<String>;
+  registration_type_not_ends_with?: Maybe<String>;
+  registation_id?: Maybe<String>;
+  registation_id_not?: Maybe<String>;
+  registation_id_in?: Maybe<String[] | String>;
+  registation_id_not_in?: Maybe<String[] | String>;
+  registation_id_lt?: Maybe<String>;
+  registation_id_lte?: Maybe<String>;
+  registation_id_gt?: Maybe<String>;
+  registation_id_gte?: Maybe<String>;
+  registation_id_contains?: Maybe<String>;
+  registation_id_not_contains?: Maybe<String>;
+  registation_id_starts_with?: Maybe<String>;
+  registation_id_not_starts_with?: Maybe<String>;
+  registation_id_ends_with?: Maybe<String>;
+  registation_id_not_ends_with?: Maybe<String>;
+  business_start_year?: Maybe<DateTimeInput>;
+  business_start_year_not?: Maybe<DateTimeInput>;
+  business_start_year_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  business_start_year_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  business_start_year_lt?: Maybe<DateTimeInput>;
+  business_start_year_lte?: Maybe<DateTimeInput>;
+  business_start_year_gt?: Maybe<DateTimeInput>;
+  business_start_year_gte?: Maybe<DateTimeInput>;
+  bank_verification_number?: Maybe<String>;
+  bank_verification_number_not?: Maybe<String>;
+  bank_verification_number_in?: Maybe<String[] | String>;
+  bank_verification_number_not_in?: Maybe<String[] | String>;
+  bank_verification_number_lt?: Maybe<String>;
+  bank_verification_number_lte?: Maybe<String>;
+  bank_verification_number_gt?: Maybe<String>;
+  bank_verification_number_gte?: Maybe<String>;
+  bank_verification_number_contains?: Maybe<String>;
+  bank_verification_number_not_contains?: Maybe<String>;
+  bank_verification_number_starts_with?: Maybe<String>;
+  bank_verification_number_not_starts_with?: Maybe<String>;
+  bank_verification_number_ends_with?: Maybe<String>;
+  bank_verification_number_not_ends_with?: Maybe<String>;
+  fund_details?: Maybe<FundDetailWhereInput>;
+  fund_status?: Maybe<FundStatus>;
+  fund_status_not?: Maybe<FundStatus>;
+  fund_status_in?: Maybe<FundStatus[] | FundStatus>;
+  fund_status_not_in?: Maybe<FundStatus[] | FundStatus>;
+  user?: Maybe<UserWhereInput>;
+  created_at?: Maybe<DateTimeInput>;
+  created_at_not?: Maybe<DateTimeInput>;
+  created_at_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  created_at_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  created_at_lt?: Maybe<DateTimeInput>;
+  created_at_lte?: Maybe<DateTimeInput>;
+  created_at_gt?: Maybe<DateTimeInput>;
+  created_at_gte?: Maybe<DateTimeInput>;
+  updated_at?: Maybe<DateTimeInput>;
+  updated_at_not?: Maybe<DateTimeInput>;
+  updated_at_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updated_at_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updated_at_lt?: Maybe<DateTimeInput>;
+  updated_at_lte?: Maybe<DateTimeInput>;
+  updated_at_gt?: Maybe<DateTimeInput>;
+  updated_at_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<BusinessWhereInput[] | BusinessWhereInput>;
+  OR?: Maybe<BusinessWhereInput[] | BusinessWhereInput>;
+  NOT?: Maybe<BusinessWhereInput[] | BusinessWhereInput>;
+}
+
+export interface IndustryWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  AND?: Maybe<IndustryWhereInput[] | IndustryWhereInput>;
+  OR?: Maybe<IndustryWhereInput[] | IndustryWhereInput>;
+  NOT?: Maybe<IndustryWhereInput[] | IndustryWhereInput>;
+}
+
+export interface FundDetailWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  type?: Maybe<FundTypeWhereInput>;
+  reason?: Maybe<String>;
+  reason_not?: Maybe<String>;
+  reason_in?: Maybe<String[] | String>;
+  reason_not_in?: Maybe<String[] | String>;
+  reason_lt?: Maybe<String>;
+  reason_lte?: Maybe<String>;
+  reason_gt?: Maybe<String>;
+  reason_gte?: Maybe<String>;
+  reason_contains?: Maybe<String>;
+  reason_not_contains?: Maybe<String>;
+  reason_starts_with?: Maybe<String>;
+  reason_not_starts_with?: Maybe<String>;
+  reason_ends_with?: Maybe<String>;
+  reason_not_ends_with?: Maybe<String>;
+  payment_due_date?: Maybe<String>;
+  payment_due_date_not?: Maybe<String>;
+  payment_due_date_in?: Maybe<String[] | String>;
+  payment_due_date_not_in?: Maybe<String[] | String>;
+  payment_due_date_lt?: Maybe<String>;
+  payment_due_date_lte?: Maybe<String>;
+  payment_due_date_gt?: Maybe<String>;
+  payment_due_date_gte?: Maybe<String>;
+  payment_due_date_contains?: Maybe<String>;
+  payment_due_date_not_contains?: Maybe<String>;
+  payment_due_date_starts_with?: Maybe<String>;
+  payment_due_date_not_starts_with?: Maybe<String>;
+  payment_due_date_ends_with?: Maybe<String>;
+  payment_due_date_not_ends_with?: Maybe<String>;
+  disbursement_date?: Maybe<DateTimeInput>;
+  disbursement_date_not?: Maybe<DateTimeInput>;
+  disbursement_date_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  disbursement_date_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  disbursement_date_lt?: Maybe<DateTimeInput>;
+  disbursement_date_lte?: Maybe<DateTimeInput>;
+  disbursement_date_gt?: Maybe<DateTimeInput>;
+  disbursement_date_gte?: Maybe<DateTimeInput>;
+  amount?: Maybe<Float>;
+  amount_not?: Maybe<Float>;
+  amount_in?: Maybe<Float[] | Float>;
+  amount_not_in?: Maybe<Float[] | Float>;
+  amount_lt?: Maybe<Float>;
+  amount_lte?: Maybe<Float>;
+  amount_gt?: Maybe<Float>;
+  amount_gte?: Maybe<Float>;
+  AND?: Maybe<FundDetailWhereInput[] | FundDetailWhereInput>;
+  OR?: Maybe<FundDetailWhereInput[] | FundDetailWhereInput>;
+  NOT?: Maybe<FundDetailWhereInput[] | FundDetailWhereInput>;
+}
+
+export interface FundTypeWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  AND?: Maybe<FundTypeWhereInput[] | FundTypeWhereInput>;
+  OR?: Maybe<FundTypeWhereInput[] | FundTypeWhereInput>;
+  NOT?: Maybe<FundTypeWhereInput[] | FundTypeWhereInput>;
+}
+
+export interface UserWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  first_name?: Maybe<String>;
+  first_name_not?: Maybe<String>;
+  first_name_in?: Maybe<String[] | String>;
+  first_name_not_in?: Maybe<String[] | String>;
+  first_name_lt?: Maybe<String>;
+  first_name_lte?: Maybe<String>;
+  first_name_gt?: Maybe<String>;
+  first_name_gte?: Maybe<String>;
+  first_name_contains?: Maybe<String>;
+  first_name_not_contains?: Maybe<String>;
+  first_name_starts_with?: Maybe<String>;
+  first_name_not_starts_with?: Maybe<String>;
+  first_name_ends_with?: Maybe<String>;
+  first_name_not_ends_with?: Maybe<String>;
+  last_name?: Maybe<String>;
+  last_name_not?: Maybe<String>;
+  last_name_in?: Maybe<String[] | String>;
+  last_name_not_in?: Maybe<String[] | String>;
+  last_name_lt?: Maybe<String>;
+  last_name_lte?: Maybe<String>;
+  last_name_gt?: Maybe<String>;
+  last_name_gte?: Maybe<String>;
+  last_name_contains?: Maybe<String>;
+  last_name_not_contains?: Maybe<String>;
+  last_name_starts_with?: Maybe<String>;
+  last_name_not_starts_with?: Maybe<String>;
+  last_name_ends_with?: Maybe<String>;
+  last_name_not_ends_with?: Maybe<String>;
+  date_of_birth?: Maybe<DateTimeInput>;
+  date_of_birth_not?: Maybe<DateTimeInput>;
+  date_of_birth_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  date_of_birth_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  date_of_birth_lt?: Maybe<DateTimeInput>;
+  date_of_birth_lte?: Maybe<DateTimeInput>;
+  date_of_birth_gt?: Maybe<DateTimeInput>;
+  date_of_birth_gte?: Maybe<DateTimeInput>;
+  gender?: Maybe<Gender>;
+  gender_not?: Maybe<Gender>;
+  gender_in?: Maybe<Gender[] | Gender>;
+  gender_not_in?: Maybe<Gender[] | Gender>;
+  phone_number?: Maybe<String>;
+  phone_number_not?: Maybe<String>;
+  phone_number_in?: Maybe<String[] | String>;
+  phone_number_not_in?: Maybe<String[] | String>;
+  phone_number_lt?: Maybe<String>;
+  phone_number_lte?: Maybe<String>;
+  phone_number_gt?: Maybe<String>;
+  phone_number_gte?: Maybe<String>;
+  phone_number_contains?: Maybe<String>;
+  phone_number_not_contains?: Maybe<String>;
+  phone_number_starts_with?: Maybe<String>;
+  phone_number_not_starts_with?: Maybe<String>;
+  phone_number_ends_with?: Maybe<String>;
+  phone_number_not_ends_with?: Maybe<String>;
+  home_address?: Maybe<String>;
+  home_address_not?: Maybe<String>;
+  home_address_in?: Maybe<String[] | String>;
+  home_address_not_in?: Maybe<String[] | String>;
+  home_address_lt?: Maybe<String>;
+  home_address_lte?: Maybe<String>;
+  home_address_gt?: Maybe<String>;
+  home_address_gte?: Maybe<String>;
+  home_address_contains?: Maybe<String>;
+  home_address_not_contains?: Maybe<String>;
+  home_address_starts_with?: Maybe<String>;
+  home_address_not_starts_with?: Maybe<String>;
+  home_address_ends_with?: Maybe<String>;
+  home_address_not_ends_with?: Maybe<String>;
+  state?: Maybe<String>;
+  state_not?: Maybe<String>;
+  state_in?: Maybe<String[] | String>;
+  state_not_in?: Maybe<String[] | String>;
+  state_lt?: Maybe<String>;
+  state_lte?: Maybe<String>;
+  state_gt?: Maybe<String>;
+  state_gte?: Maybe<String>;
+  state_contains?: Maybe<String>;
+  state_not_contains?: Maybe<String>;
+  state_starts_with?: Maybe<String>;
+  state_not_starts_with?: Maybe<String>;
+  state_ends_with?: Maybe<String>;
+  state_not_ends_with?: Maybe<String>;
+  businesses_every?: Maybe<BusinessWhereInput>;
+  businesses_some?: Maybe<BusinessWhereInput>;
+  businesses_none?: Maybe<BusinessWhereInput>;
+  created_at?: Maybe<DateTimeInput>;
+  created_at_not?: Maybe<DateTimeInput>;
+  created_at_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  created_at_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  created_at_lt?: Maybe<DateTimeInput>;
+  created_at_lte?: Maybe<DateTimeInput>;
+  created_at_gt?: Maybe<DateTimeInput>;
+  created_at_gte?: Maybe<DateTimeInput>;
+  updated_at?: Maybe<DateTimeInput>;
+  updated_at_not?: Maybe<DateTimeInput>;
+  updated_at_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updated_at_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updated_at_lt?: Maybe<DateTimeInput>;
+  updated_at_lte?: Maybe<DateTimeInput>;
+  updated_at_gt?: Maybe<DateTimeInput>;
+  updated_at_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
-export interface UserCreateInput {
+export type FundDetailWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type FundTypeWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  name?: Maybe<String>;
+}>;
+
+export type IndustryWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  name?: Maybe<String>;
+}>;
+
+export type LenderWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface LenderWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  preffered_industries_every?: Maybe<IndustryWhereInput>;
+  preffered_industries_some?: Maybe<IndustryWhereInput>;
+  preffered_industries_none?: Maybe<IndustryWhereInput>;
+  fund_types_every?: Maybe<FundTypeWhereInput>;
+  fund_types_some?: Maybe<FundTypeWhereInput>;
+  fund_types_none?: Maybe<FundTypeWhereInput>;
+  created_at?: Maybe<DateTimeInput>;
+  created_at_not?: Maybe<DateTimeInput>;
+  created_at_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  created_at_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  created_at_lt?: Maybe<DateTimeInput>;
+  created_at_lte?: Maybe<DateTimeInput>;
+  created_at_gt?: Maybe<DateTimeInput>;
+  created_at_gte?: Maybe<DateTimeInput>;
+  updated_at?: Maybe<DateTimeInput>;
+  updated_at_not?: Maybe<DateTimeInput>;
+  updated_at_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updated_at_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updated_at_lt?: Maybe<DateTimeInput>;
+  updated_at_lte?: Maybe<DateTimeInput>;
+  updated_at_gt?: Maybe<DateTimeInput>;
+  updated_at_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<LenderWhereInput[] | LenderWhereInput>;
+  OR?: Maybe<LenderWhereInput[] | LenderWhereInput>;
+  NOT?: Maybe<LenderWhereInput[] | LenderWhereInput>;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface BusinessCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  industry: IndustryCreateOneInput;
+  registration_type: String;
+  registation_id: String;
+  business_start_year: DateTimeInput;
+  bank_verification_number: String;
+  fund_details?: Maybe<FundDetailCreateOneInput>;
+  fund_status?: Maybe<FundStatus>;
+  user: UserCreateOneWithoutBusinessesInput;
+}
+
+export interface IndustryCreateOneInput {
+  create?: Maybe<IndustryCreateInput>;
+  connect?: Maybe<IndustryWhereUniqueInput>;
+}
+
+export interface IndustryCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
 }
 
-export interface UserUpdateInput {
+export interface FundDetailCreateOneInput {
+  create?: Maybe<FundDetailCreateInput>;
+  connect?: Maybe<FundDetailWhereUniqueInput>;
+}
+
+export interface FundDetailCreateInput {
+  id?: Maybe<ID_Input>;
+  type: FundTypeCreateOneInput;
+  reason: String;
+  payment_due_date?: Maybe<String>;
+  disbursement_date: DateTimeInput;
+  amount: Float;
+}
+
+export interface FundTypeCreateOneInput {
+  create?: Maybe<FundTypeCreateInput>;
+  connect?: Maybe<FundTypeWhereUniqueInput>;
+}
+
+export interface FundTypeCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+}
+
+export interface UserCreateOneWithoutBusinessesInput {
+  create?: Maybe<UserCreateWithoutBusinessesInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutBusinessesInput {
+  id?: Maybe<ID_Input>;
+  first_name: String;
+  last_name: String;
+  date_of_birth: DateTimeInput;
+  gender: Gender;
+  phone_number: String;
+  home_address: String;
+  state: String;
+}
+
+export interface BusinessUpdateInput {
+  name?: Maybe<String>;
+  industry?: Maybe<IndustryUpdateOneRequiredInput>;
+  registration_type?: Maybe<String>;
+  registation_id?: Maybe<String>;
+  business_start_year?: Maybe<DateTimeInput>;
+  bank_verification_number?: Maybe<String>;
+  fund_details?: Maybe<FundDetailUpdateOneInput>;
+  fund_status?: Maybe<FundStatus>;
+  user?: Maybe<UserUpdateOneRequiredWithoutBusinessesInput>;
+}
+
+export interface IndustryUpdateOneRequiredInput {
+  create?: Maybe<IndustryCreateInput>;
+  update?: Maybe<IndustryUpdateDataInput>;
+  upsert?: Maybe<IndustryUpsertNestedInput>;
+  connect?: Maybe<IndustryWhereUniqueInput>;
+}
+
+export interface IndustryUpdateDataInput {
   name?: Maybe<String>;
 }
 
-export interface UserUpdateManyMutationInput {
+export interface IndustryUpsertNestedInput {
+  update: IndustryUpdateDataInput;
+  create: IndustryCreateInput;
+}
+
+export interface FundDetailUpdateOneInput {
+  create?: Maybe<FundDetailCreateInput>;
+  update?: Maybe<FundDetailUpdateDataInput>;
+  upsert?: Maybe<FundDetailUpsertNestedInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<FundDetailWhereUniqueInput>;
+}
+
+export interface FundDetailUpdateDataInput {
+  type?: Maybe<FundTypeUpdateOneRequiredInput>;
+  reason?: Maybe<String>;
+  payment_due_date?: Maybe<String>;
+  disbursement_date?: Maybe<DateTimeInput>;
+  amount?: Maybe<Float>;
+}
+
+export interface FundTypeUpdateOneRequiredInput {
+  create?: Maybe<FundTypeCreateInput>;
+  update?: Maybe<FundTypeUpdateDataInput>;
+  upsert?: Maybe<FundTypeUpsertNestedInput>;
+  connect?: Maybe<FundTypeWhereUniqueInput>;
+}
+
+export interface FundTypeUpdateDataInput {
   name?: Maybe<String>;
+}
+
+export interface FundTypeUpsertNestedInput {
+  update: FundTypeUpdateDataInput;
+  create: FundTypeCreateInput;
+}
+
+export interface FundDetailUpsertNestedInput {
+  update: FundDetailUpdateDataInput;
+  create: FundDetailCreateInput;
+}
+
+export interface UserUpdateOneRequiredWithoutBusinessesInput {
+  create?: Maybe<UserCreateWithoutBusinessesInput>;
+  update?: Maybe<UserUpdateWithoutBusinessesDataInput>;
+  upsert?: Maybe<UserUpsertWithoutBusinessesInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutBusinessesDataInput {
+  first_name?: Maybe<String>;
+  last_name?: Maybe<String>;
+  date_of_birth?: Maybe<DateTimeInput>;
+  gender?: Maybe<Gender>;
+  phone_number?: Maybe<String>;
+  home_address?: Maybe<String>;
+  state?: Maybe<String>;
+}
+
+export interface UserUpsertWithoutBusinessesInput {
+  update: UserUpdateWithoutBusinessesDataInput;
+  create: UserCreateWithoutBusinessesInput;
+}
+
+export interface BusinessUpdateManyMutationInput {
+  name?: Maybe<String>;
+  registration_type?: Maybe<String>;
+  registation_id?: Maybe<String>;
+  business_start_year?: Maybe<DateTimeInput>;
+  bank_verification_number?: Maybe<String>;
+  fund_status?: Maybe<FundStatus>;
+}
+
+export interface FundDetailUpdateInput {
+  type?: Maybe<FundTypeUpdateOneRequiredInput>;
+  reason?: Maybe<String>;
+  payment_due_date?: Maybe<String>;
+  disbursement_date?: Maybe<DateTimeInput>;
+  amount?: Maybe<Float>;
+}
+
+export interface FundDetailUpdateManyMutationInput {
+  reason?: Maybe<String>;
+  payment_due_date?: Maybe<String>;
+  disbursement_date?: Maybe<DateTimeInput>;
+  amount?: Maybe<Float>;
+}
+
+export interface FundTypeUpdateInput {
+  name?: Maybe<String>;
+}
+
+export interface FundTypeUpdateManyMutationInput {
+  name?: Maybe<String>;
+}
+
+export interface IndustryUpdateInput {
+  name?: Maybe<String>;
+}
+
+export interface IndustryUpdateManyMutationInput {
+  name?: Maybe<String>;
+}
+
+export interface LenderCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  preffered_industries?: Maybe<IndustryCreateManyInput>;
+  fund_types?: Maybe<FundTypeCreateManyInput>;
+}
+
+export interface IndustryCreateManyInput {
+  create?: Maybe<IndustryCreateInput[] | IndustryCreateInput>;
+  connect?: Maybe<IndustryWhereUniqueInput[] | IndustryWhereUniqueInput>;
+}
+
+export interface FundTypeCreateManyInput {
+  create?: Maybe<FundTypeCreateInput[] | FundTypeCreateInput>;
+  connect?: Maybe<FundTypeWhereUniqueInput[] | FundTypeWhereUniqueInput>;
+}
+
+export interface LenderUpdateInput {
+  name?: Maybe<String>;
+  preffered_industries?: Maybe<IndustryUpdateManyInput>;
+  fund_types?: Maybe<FundTypeUpdateManyInput>;
+}
+
+export interface IndustryUpdateManyInput {
+  create?: Maybe<IndustryCreateInput[] | IndustryCreateInput>;
+  update?: Maybe<
+    | IndustryUpdateWithWhereUniqueNestedInput[]
+    | IndustryUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | IndustryUpsertWithWhereUniqueNestedInput[]
+    | IndustryUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<IndustryWhereUniqueInput[] | IndustryWhereUniqueInput>;
+  connect?: Maybe<IndustryWhereUniqueInput[] | IndustryWhereUniqueInput>;
+  set?: Maybe<IndustryWhereUniqueInput[] | IndustryWhereUniqueInput>;
+  disconnect?: Maybe<IndustryWhereUniqueInput[] | IndustryWhereUniqueInput>;
+  deleteMany?: Maybe<IndustryScalarWhereInput[] | IndustryScalarWhereInput>;
+  updateMany?: Maybe<
+    | IndustryUpdateManyWithWhereNestedInput[]
+    | IndustryUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface IndustryUpdateWithWhereUniqueNestedInput {
+  where: IndustryWhereUniqueInput;
+  data: IndustryUpdateDataInput;
+}
+
+export interface IndustryUpsertWithWhereUniqueNestedInput {
+  where: IndustryWhereUniqueInput;
+  update: IndustryUpdateDataInput;
+  create: IndustryCreateInput;
+}
+
+export interface IndustryScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  AND?: Maybe<IndustryScalarWhereInput[] | IndustryScalarWhereInput>;
+  OR?: Maybe<IndustryScalarWhereInput[] | IndustryScalarWhereInput>;
+  NOT?: Maybe<IndustryScalarWhereInput[] | IndustryScalarWhereInput>;
+}
+
+export interface IndustryUpdateManyWithWhereNestedInput {
+  where: IndustryScalarWhereInput;
+  data: IndustryUpdateManyDataInput;
+}
+
+export interface IndustryUpdateManyDataInput {
+  name?: Maybe<String>;
+}
+
+export interface FundTypeUpdateManyInput {
+  create?: Maybe<FundTypeCreateInput[] | FundTypeCreateInput>;
+  update?: Maybe<
+    | FundTypeUpdateWithWhereUniqueNestedInput[]
+    | FundTypeUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | FundTypeUpsertWithWhereUniqueNestedInput[]
+    | FundTypeUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<FundTypeWhereUniqueInput[] | FundTypeWhereUniqueInput>;
+  connect?: Maybe<FundTypeWhereUniqueInput[] | FundTypeWhereUniqueInput>;
+  set?: Maybe<FundTypeWhereUniqueInput[] | FundTypeWhereUniqueInput>;
+  disconnect?: Maybe<FundTypeWhereUniqueInput[] | FundTypeWhereUniqueInput>;
+  deleteMany?: Maybe<FundTypeScalarWhereInput[] | FundTypeScalarWhereInput>;
+  updateMany?: Maybe<
+    | FundTypeUpdateManyWithWhereNestedInput[]
+    | FundTypeUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface FundTypeUpdateWithWhereUniqueNestedInput {
+  where: FundTypeWhereUniqueInput;
+  data: FundTypeUpdateDataInput;
+}
+
+export interface FundTypeUpsertWithWhereUniqueNestedInput {
+  where: FundTypeWhereUniqueInput;
+  update: FundTypeUpdateDataInput;
+  create: FundTypeCreateInput;
+}
+
+export interface FundTypeScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  AND?: Maybe<FundTypeScalarWhereInput[] | FundTypeScalarWhereInput>;
+  OR?: Maybe<FundTypeScalarWhereInput[] | FundTypeScalarWhereInput>;
+  NOT?: Maybe<FundTypeScalarWhereInput[] | FundTypeScalarWhereInput>;
+}
+
+export interface FundTypeUpdateManyWithWhereNestedInput {
+  where: FundTypeScalarWhereInput;
+  data: FundTypeUpdateManyDataInput;
+}
+
+export interface FundTypeUpdateManyDataInput {
+  name?: Maybe<String>;
+}
+
+export interface LenderUpdateManyMutationInput {
+  name?: Maybe<String>;
+}
+
+export interface UserCreateInput {
+  id?: Maybe<ID_Input>;
+  first_name: String;
+  last_name: String;
+  date_of_birth: DateTimeInput;
+  gender: Gender;
+  phone_number: String;
+  home_address: String;
+  state: String;
+  businesses?: Maybe<BusinessCreateManyWithoutUserInput>;
+}
+
+export interface BusinessCreateManyWithoutUserInput {
+  create?: Maybe<
+    BusinessCreateWithoutUserInput[] | BusinessCreateWithoutUserInput
+  >;
+  connect?: Maybe<BusinessWhereUniqueInput[] | BusinessWhereUniqueInput>;
+}
+
+export interface BusinessCreateWithoutUserInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  industry: IndustryCreateOneInput;
+  registration_type: String;
+  registation_id: String;
+  business_start_year: DateTimeInput;
+  bank_verification_number: String;
+  fund_details?: Maybe<FundDetailCreateOneInput>;
+  fund_status?: Maybe<FundStatus>;
+}
+
+export interface UserUpdateInput {
+  first_name?: Maybe<String>;
+  last_name?: Maybe<String>;
+  date_of_birth?: Maybe<DateTimeInput>;
+  gender?: Maybe<Gender>;
+  phone_number?: Maybe<String>;
+  home_address?: Maybe<String>;
+  state?: Maybe<String>;
+  businesses?: Maybe<BusinessUpdateManyWithoutUserInput>;
+}
+
+export interface BusinessUpdateManyWithoutUserInput {
+  create?: Maybe<
+    BusinessCreateWithoutUserInput[] | BusinessCreateWithoutUserInput
+  >;
+  delete?: Maybe<BusinessWhereUniqueInput[] | BusinessWhereUniqueInput>;
+  connect?: Maybe<BusinessWhereUniqueInput[] | BusinessWhereUniqueInput>;
+  set?: Maybe<BusinessWhereUniqueInput[] | BusinessWhereUniqueInput>;
+  disconnect?: Maybe<BusinessWhereUniqueInput[] | BusinessWhereUniqueInput>;
+  update?: Maybe<
+    | BusinessUpdateWithWhereUniqueWithoutUserInput[]
+    | BusinessUpdateWithWhereUniqueWithoutUserInput
+  >;
+  upsert?: Maybe<
+    | BusinessUpsertWithWhereUniqueWithoutUserInput[]
+    | BusinessUpsertWithWhereUniqueWithoutUserInput
+  >;
+  deleteMany?: Maybe<BusinessScalarWhereInput[] | BusinessScalarWhereInput>;
+  updateMany?: Maybe<
+    | BusinessUpdateManyWithWhereNestedInput[]
+    | BusinessUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface BusinessUpdateWithWhereUniqueWithoutUserInput {
+  where: BusinessWhereUniqueInput;
+  data: BusinessUpdateWithoutUserDataInput;
+}
+
+export interface BusinessUpdateWithoutUserDataInput {
+  name?: Maybe<String>;
+  industry?: Maybe<IndustryUpdateOneRequiredInput>;
+  registration_type?: Maybe<String>;
+  registation_id?: Maybe<String>;
+  business_start_year?: Maybe<DateTimeInput>;
+  bank_verification_number?: Maybe<String>;
+  fund_details?: Maybe<FundDetailUpdateOneInput>;
+  fund_status?: Maybe<FundStatus>;
+}
+
+export interface BusinessUpsertWithWhereUniqueWithoutUserInput {
+  where: BusinessWhereUniqueInput;
+  update: BusinessUpdateWithoutUserDataInput;
+  create: BusinessCreateWithoutUserInput;
+}
+
+export interface BusinessScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  registration_type?: Maybe<String>;
+  registration_type_not?: Maybe<String>;
+  registration_type_in?: Maybe<String[] | String>;
+  registration_type_not_in?: Maybe<String[] | String>;
+  registration_type_lt?: Maybe<String>;
+  registration_type_lte?: Maybe<String>;
+  registration_type_gt?: Maybe<String>;
+  registration_type_gte?: Maybe<String>;
+  registration_type_contains?: Maybe<String>;
+  registration_type_not_contains?: Maybe<String>;
+  registration_type_starts_with?: Maybe<String>;
+  registration_type_not_starts_with?: Maybe<String>;
+  registration_type_ends_with?: Maybe<String>;
+  registration_type_not_ends_with?: Maybe<String>;
+  registation_id?: Maybe<String>;
+  registation_id_not?: Maybe<String>;
+  registation_id_in?: Maybe<String[] | String>;
+  registation_id_not_in?: Maybe<String[] | String>;
+  registation_id_lt?: Maybe<String>;
+  registation_id_lte?: Maybe<String>;
+  registation_id_gt?: Maybe<String>;
+  registation_id_gte?: Maybe<String>;
+  registation_id_contains?: Maybe<String>;
+  registation_id_not_contains?: Maybe<String>;
+  registation_id_starts_with?: Maybe<String>;
+  registation_id_not_starts_with?: Maybe<String>;
+  registation_id_ends_with?: Maybe<String>;
+  registation_id_not_ends_with?: Maybe<String>;
+  business_start_year?: Maybe<DateTimeInput>;
+  business_start_year_not?: Maybe<DateTimeInput>;
+  business_start_year_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  business_start_year_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  business_start_year_lt?: Maybe<DateTimeInput>;
+  business_start_year_lte?: Maybe<DateTimeInput>;
+  business_start_year_gt?: Maybe<DateTimeInput>;
+  business_start_year_gte?: Maybe<DateTimeInput>;
+  bank_verification_number?: Maybe<String>;
+  bank_verification_number_not?: Maybe<String>;
+  bank_verification_number_in?: Maybe<String[] | String>;
+  bank_verification_number_not_in?: Maybe<String[] | String>;
+  bank_verification_number_lt?: Maybe<String>;
+  bank_verification_number_lte?: Maybe<String>;
+  bank_verification_number_gt?: Maybe<String>;
+  bank_verification_number_gte?: Maybe<String>;
+  bank_verification_number_contains?: Maybe<String>;
+  bank_verification_number_not_contains?: Maybe<String>;
+  bank_verification_number_starts_with?: Maybe<String>;
+  bank_verification_number_not_starts_with?: Maybe<String>;
+  bank_verification_number_ends_with?: Maybe<String>;
+  bank_verification_number_not_ends_with?: Maybe<String>;
+  fund_status?: Maybe<FundStatus>;
+  fund_status_not?: Maybe<FundStatus>;
+  fund_status_in?: Maybe<FundStatus[] | FundStatus>;
+  fund_status_not_in?: Maybe<FundStatus[] | FundStatus>;
+  created_at?: Maybe<DateTimeInput>;
+  created_at_not?: Maybe<DateTimeInput>;
+  created_at_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  created_at_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  created_at_lt?: Maybe<DateTimeInput>;
+  created_at_lte?: Maybe<DateTimeInput>;
+  created_at_gt?: Maybe<DateTimeInput>;
+  created_at_gte?: Maybe<DateTimeInput>;
+  updated_at?: Maybe<DateTimeInput>;
+  updated_at_not?: Maybe<DateTimeInput>;
+  updated_at_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updated_at_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updated_at_lt?: Maybe<DateTimeInput>;
+  updated_at_lte?: Maybe<DateTimeInput>;
+  updated_at_gt?: Maybe<DateTimeInput>;
+  updated_at_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<BusinessScalarWhereInput[] | BusinessScalarWhereInput>;
+  OR?: Maybe<BusinessScalarWhereInput[] | BusinessScalarWhereInput>;
+  NOT?: Maybe<BusinessScalarWhereInput[] | BusinessScalarWhereInput>;
+}
+
+export interface BusinessUpdateManyWithWhereNestedInput {
+  where: BusinessScalarWhereInput;
+  data: BusinessUpdateManyDataInput;
+}
+
+export interface BusinessUpdateManyDataInput {
+  name?: Maybe<String>;
+  registration_type?: Maybe<String>;
+  registation_id?: Maybe<String>;
+  business_start_year?: Maybe<DateTimeInput>;
+  bank_verification_number?: Maybe<String>;
+  fund_status?: Maybe<FundStatus>;
+}
+
+export interface UserUpdateManyMutationInput {
+  first_name?: Maybe<String>;
+  last_name?: Maybe<String>;
+  date_of_birth?: Maybe<DateTimeInput>;
+  gender?: Maybe<Gender>;
+  phone_number?: Maybe<String>;
+  home_address?: Maybe<String>;
+  state?: Maybe<String>;
+}
+
+export interface BusinessSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<BusinessWhereInput>;
+  AND?: Maybe<
+    BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
+  >;
+  OR?: Maybe<BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput>;
+  NOT?: Maybe<
+    BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
+  >;
+}
+
+export interface FundDetailSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<FundDetailWhereInput>;
+  AND?: Maybe<
+    FundDetailSubscriptionWhereInput[] | FundDetailSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    FundDetailSubscriptionWhereInput[] | FundDetailSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    FundDetailSubscriptionWhereInput[] | FundDetailSubscriptionWhereInput
+  >;
+}
+
+export interface FundTypeSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<FundTypeWhereInput>;
+  AND?: Maybe<
+    FundTypeSubscriptionWhereInput[] | FundTypeSubscriptionWhereInput
+  >;
+  OR?: Maybe<FundTypeSubscriptionWhereInput[] | FundTypeSubscriptionWhereInput>;
+  NOT?: Maybe<
+    FundTypeSubscriptionWhereInput[] | FundTypeSubscriptionWhereInput
+  >;
+}
+
+export interface IndustrySubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<IndustryWhereInput>;
+  AND?: Maybe<
+    IndustrySubscriptionWhereInput[] | IndustrySubscriptionWhereInput
+  >;
+  OR?: Maybe<IndustrySubscriptionWhereInput[] | IndustrySubscriptionWhereInput>;
+  NOT?: Maybe<
+    IndustrySubscriptionWhereInput[] | IndustrySubscriptionWhereInput
+  >;
+}
+
+export interface LenderSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<LenderWhereInput>;
+  AND?: Maybe<LenderSubscriptionWhereInput[] | LenderSubscriptionWhereInput>;
+  OR?: Maybe<LenderSubscriptionWhereInput[] | LenderSubscriptionWhereInput>;
+  NOT?: Maybe<LenderSubscriptionWhereInput[] | LenderSubscriptionWhereInput>;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -171,49 +1494,256 @@ export interface NodeNode {
   id: ID_Output;
 }
 
-export interface User {
+export interface Business {
+  id: ID_Output;
+  name: String;
+  registration_type: String;
+  registation_id: String;
+  business_start_year: DateTimeOutput;
+  bank_verification_number: String;
+  fund_status: FundStatus;
+  created_at: DateTimeOutput;
+  updated_at: DateTimeOutput;
+}
+
+export interface BusinessPromise extends Promise<Business>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  industry: <T = IndustryPromise>() => T;
+  registration_type: () => Promise<String>;
+  registation_id: () => Promise<String>;
+  business_start_year: () => Promise<DateTimeOutput>;
+  bank_verification_number: () => Promise<String>;
+  fund_details: <T = FundDetailPromise>() => T;
+  fund_status: () => Promise<FundStatus>;
+  user: <T = UserPromise>() => T;
+  created_at: () => Promise<DateTimeOutput>;
+  updated_at: () => Promise<DateTimeOutput>;
+}
+
+export interface BusinessSubscription
+  extends Promise<AsyncIterator<Business>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  industry: <T = IndustrySubscription>() => T;
+  registration_type: () => Promise<AsyncIterator<String>>;
+  registation_id: () => Promise<AsyncIterator<String>>;
+  business_start_year: () => Promise<AsyncIterator<DateTimeOutput>>;
+  bank_verification_number: () => Promise<AsyncIterator<String>>;
+  fund_details: <T = FundDetailSubscription>() => T;
+  fund_status: () => Promise<AsyncIterator<FundStatus>>;
+  user: <T = UserSubscription>() => T;
+  created_at: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updated_at: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface BusinessNullablePromise
+  extends Promise<Business | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  industry: <T = IndustryPromise>() => T;
+  registration_type: () => Promise<String>;
+  registation_id: () => Promise<String>;
+  business_start_year: () => Promise<DateTimeOutput>;
+  bank_verification_number: () => Promise<String>;
+  fund_details: <T = FundDetailPromise>() => T;
+  fund_status: () => Promise<FundStatus>;
+  user: <T = UserPromise>() => T;
+  created_at: () => Promise<DateTimeOutput>;
+  updated_at: () => Promise<DateTimeOutput>;
+}
+
+export interface Industry {
   id: ID_Output;
   name: String;
 }
 
-export interface UserPromise extends Promise<User>, Fragmentable {
+export interface IndustryPromise extends Promise<Industry>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+}
+
+export interface IndustrySubscription
+  extends Promise<AsyncIterator<Industry>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface IndustryNullablePromise
+  extends Promise<Industry | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface FundDetail {
+  id: ID_Output;
+  reason: String;
+  payment_due_date?: String;
+  disbursement_date: DateTimeOutput;
+  amount: Float;
+}
+
+export interface FundDetailPromise extends Promise<FundDetail>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  type: <T = FundTypePromise>() => T;
+  reason: () => Promise<String>;
+  payment_due_date: () => Promise<String>;
+  disbursement_date: () => Promise<DateTimeOutput>;
+  amount: () => Promise<Float>;
+}
+
+export interface FundDetailSubscription
+  extends Promise<AsyncIterator<FundDetail>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  type: <T = FundTypeSubscription>() => T;
+  reason: () => Promise<AsyncIterator<String>>;
+  payment_due_date: () => Promise<AsyncIterator<String>>;
+  disbursement_date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  amount: () => Promise<AsyncIterator<Float>>;
+}
+
+export interface FundDetailNullablePromise
+  extends Promise<FundDetail | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  type: <T = FundTypePromise>() => T;
+  reason: () => Promise<String>;
+  payment_due_date: () => Promise<String>;
+  disbursement_date: () => Promise<DateTimeOutput>;
+  amount: () => Promise<Float>;
+}
+
+export interface FundType {
+  id: ID_Output;
+  name: String;
+}
+
+export interface FundTypePromise extends Promise<FundType>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface FundTypeSubscription
+  extends Promise<AsyncIterator<FundType>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface FundTypeNullablePromise
+  extends Promise<FundType | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface User {
+  id: ID_Output;
+  first_name: String;
+  last_name: String;
+  date_of_birth: DateTimeOutput;
+  gender: Gender;
+  phone_number: String;
+  home_address: String;
+  state: String;
+  created_at: DateTimeOutput;
+  updated_at: DateTimeOutput;
+}
+
+export interface UserPromise extends Promise<User>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  first_name: () => Promise<String>;
+  last_name: () => Promise<String>;
+  date_of_birth: () => Promise<DateTimeOutput>;
+  gender: () => Promise<Gender>;
+  phone_number: () => Promise<String>;
+  home_address: () => Promise<String>;
+  state: () => Promise<String>;
+  businesses: <T = FragmentableArray<Business>>(args?: {
+    where?: BusinessWhereInput;
+    orderBy?: BusinessOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  created_at: () => Promise<DateTimeOutput>;
+  updated_at: () => Promise<DateTimeOutput>;
 }
 
 export interface UserSubscription
   extends Promise<AsyncIterator<User>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
+  first_name: () => Promise<AsyncIterator<String>>;
+  last_name: () => Promise<AsyncIterator<String>>;
+  date_of_birth: () => Promise<AsyncIterator<DateTimeOutput>>;
+  gender: () => Promise<AsyncIterator<Gender>>;
+  phone_number: () => Promise<AsyncIterator<String>>;
+  home_address: () => Promise<AsyncIterator<String>>;
+  state: () => Promise<AsyncIterator<String>>;
+  businesses: <T = Promise<AsyncIterator<BusinessSubscription>>>(args?: {
+    where?: BusinessWhereInput;
+    orderBy?: BusinessOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  created_at: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updated_at: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface UserNullablePromise
   extends Promise<User | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
+  first_name: () => Promise<String>;
+  last_name: () => Promise<String>;
+  date_of_birth: () => Promise<DateTimeOutput>;
+  gender: () => Promise<Gender>;
+  phone_number: () => Promise<String>;
+  home_address: () => Promise<String>;
+  state: () => Promise<String>;
+  businesses: <T = FragmentableArray<Business>>(args?: {
+    where?: BusinessWhereInput;
+    orderBy?: BusinessOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  created_at: () => Promise<DateTimeOutput>;
+  updated_at: () => Promise<DateTimeOutput>;
 }
 
-export interface UserConnection {
+export interface BusinessConnection {
   pageInfo: PageInfo;
-  edges: UserEdge[];
+  edges: BusinessEdge[];
 }
 
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
+export interface BusinessConnectionPromise
+  extends Promise<BusinessConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
+  edges: <T = FragmentableArray<BusinessEdge>>() => T;
+  aggregate: <T = AggregateBusinessPromise>() => T;
 }
 
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
+export interface BusinessConnectionSubscription
+  extends Promise<AsyncIterator<BusinessConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<BusinessEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateBusinessSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -237,6 +1767,372 @@ export interface PageInfoSubscription
   hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
   startCursor: () => Promise<AsyncIterator<String>>;
   endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface BusinessEdge {
+  node: Business;
+  cursor: String;
+}
+
+export interface BusinessEdgePromise
+  extends Promise<BusinessEdge>,
+    Fragmentable {
+  node: <T = BusinessPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface BusinessEdgeSubscription
+  extends Promise<AsyncIterator<BusinessEdge>>,
+    Fragmentable {
+  node: <T = BusinessSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateBusiness {
+  count: Int;
+}
+
+export interface AggregateBusinessPromise
+  extends Promise<AggregateBusiness>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateBusinessSubscription
+  extends Promise<AsyncIterator<AggregateBusiness>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface FundDetailConnection {
+  pageInfo: PageInfo;
+  edges: FundDetailEdge[];
+}
+
+export interface FundDetailConnectionPromise
+  extends Promise<FundDetailConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<FundDetailEdge>>() => T;
+  aggregate: <T = AggregateFundDetailPromise>() => T;
+}
+
+export interface FundDetailConnectionSubscription
+  extends Promise<AsyncIterator<FundDetailConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<FundDetailEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateFundDetailSubscription>() => T;
+}
+
+export interface FundDetailEdge {
+  node: FundDetail;
+  cursor: String;
+}
+
+export interface FundDetailEdgePromise
+  extends Promise<FundDetailEdge>,
+    Fragmentable {
+  node: <T = FundDetailPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface FundDetailEdgeSubscription
+  extends Promise<AsyncIterator<FundDetailEdge>>,
+    Fragmentable {
+  node: <T = FundDetailSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateFundDetail {
+  count: Int;
+}
+
+export interface AggregateFundDetailPromise
+  extends Promise<AggregateFundDetail>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateFundDetailSubscription
+  extends Promise<AsyncIterator<AggregateFundDetail>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface FundTypeConnection {
+  pageInfo: PageInfo;
+  edges: FundTypeEdge[];
+}
+
+export interface FundTypeConnectionPromise
+  extends Promise<FundTypeConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<FundTypeEdge>>() => T;
+  aggregate: <T = AggregateFundTypePromise>() => T;
+}
+
+export interface FundTypeConnectionSubscription
+  extends Promise<AsyncIterator<FundTypeConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<FundTypeEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateFundTypeSubscription>() => T;
+}
+
+export interface FundTypeEdge {
+  node: FundType;
+  cursor: String;
+}
+
+export interface FundTypeEdgePromise
+  extends Promise<FundTypeEdge>,
+    Fragmentable {
+  node: <T = FundTypePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface FundTypeEdgeSubscription
+  extends Promise<AsyncIterator<FundTypeEdge>>,
+    Fragmentable {
+  node: <T = FundTypeSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateFundType {
+  count: Int;
+}
+
+export interface AggregateFundTypePromise
+  extends Promise<AggregateFundType>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateFundTypeSubscription
+  extends Promise<AsyncIterator<AggregateFundType>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface IndustryConnection {
+  pageInfo: PageInfo;
+  edges: IndustryEdge[];
+}
+
+export interface IndustryConnectionPromise
+  extends Promise<IndustryConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<IndustryEdge>>() => T;
+  aggregate: <T = AggregateIndustryPromise>() => T;
+}
+
+export interface IndustryConnectionSubscription
+  extends Promise<AsyncIterator<IndustryConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<IndustryEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateIndustrySubscription>() => T;
+}
+
+export interface IndustryEdge {
+  node: Industry;
+  cursor: String;
+}
+
+export interface IndustryEdgePromise
+  extends Promise<IndustryEdge>,
+    Fragmentable {
+  node: <T = IndustryPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface IndustryEdgeSubscription
+  extends Promise<AsyncIterator<IndustryEdge>>,
+    Fragmentable {
+  node: <T = IndustrySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateIndustry {
+  count: Int;
+}
+
+export interface AggregateIndustryPromise
+  extends Promise<AggregateIndustry>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateIndustrySubscription
+  extends Promise<AsyncIterator<AggregateIndustry>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Lender {
+  id: ID_Output;
+  name: String;
+  created_at: DateTimeOutput;
+  updated_at: DateTimeOutput;
+}
+
+export interface LenderPromise extends Promise<Lender>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  preffered_industries: <T = FragmentableArray<Industry>>(args?: {
+    where?: IndustryWhereInput;
+    orderBy?: IndustryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  fund_types: <T = FragmentableArray<FundType>>(args?: {
+    where?: FundTypeWhereInput;
+    orderBy?: FundTypeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  created_at: () => Promise<DateTimeOutput>;
+  updated_at: () => Promise<DateTimeOutput>;
+}
+
+export interface LenderSubscription
+  extends Promise<AsyncIterator<Lender>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  preffered_industries: <
+    T = Promise<AsyncIterator<IndustrySubscription>>
+  >(args?: {
+    where?: IndustryWhereInput;
+    orderBy?: IndustryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  fund_types: <T = Promise<AsyncIterator<FundTypeSubscription>>>(args?: {
+    where?: FundTypeWhereInput;
+    orderBy?: FundTypeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  created_at: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updated_at: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface LenderNullablePromise
+  extends Promise<Lender | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  preffered_industries: <T = FragmentableArray<Industry>>(args?: {
+    where?: IndustryWhereInput;
+    orderBy?: IndustryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  fund_types: <T = FragmentableArray<FundType>>(args?: {
+    where?: FundTypeWhereInput;
+    orderBy?: FundTypeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  created_at: () => Promise<DateTimeOutput>;
+  updated_at: () => Promise<DateTimeOutput>;
+}
+
+export interface LenderConnection {
+  pageInfo: PageInfo;
+  edges: LenderEdge[];
+}
+
+export interface LenderConnectionPromise
+  extends Promise<LenderConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<LenderEdge>>() => T;
+  aggregate: <T = AggregateLenderPromise>() => T;
+}
+
+export interface LenderConnectionSubscription
+  extends Promise<AsyncIterator<LenderConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<LenderEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateLenderSubscription>() => T;
+}
+
+export interface LenderEdge {
+  node: Lender;
+  cursor: String;
+}
+
+export interface LenderEdgePromise extends Promise<LenderEdge>, Fragmentable {
+  node: <T = LenderPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface LenderEdgeSubscription
+  extends Promise<AsyncIterator<LenderEdge>>,
+    Fragmentable {
+  node: <T = LenderSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateLender {
+  count: Int;
+}
+
+export interface AggregateLenderPromise
+  extends Promise<AggregateLender>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateLenderSubscription
+  extends Promise<AsyncIterator<AggregateLender>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
+}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
 }
 
 export interface UserEdge {
@@ -288,6 +2184,262 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
+export interface BusinessSubscriptionPayload {
+  mutation: MutationType;
+  node: Business;
+  updatedFields: String[];
+  previousValues: BusinessPreviousValues;
+}
+
+export interface BusinessSubscriptionPayloadPromise
+  extends Promise<BusinessSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = BusinessPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = BusinessPreviousValuesPromise>() => T;
+}
+
+export interface BusinessSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<BusinessSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = BusinessSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = BusinessPreviousValuesSubscription>() => T;
+}
+
+export interface BusinessPreviousValues {
+  id: ID_Output;
+  name: String;
+  registration_type: String;
+  registation_id: String;
+  business_start_year: DateTimeOutput;
+  bank_verification_number: String;
+  fund_status: FundStatus;
+  created_at: DateTimeOutput;
+  updated_at: DateTimeOutput;
+}
+
+export interface BusinessPreviousValuesPromise
+  extends Promise<BusinessPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  registration_type: () => Promise<String>;
+  registation_id: () => Promise<String>;
+  business_start_year: () => Promise<DateTimeOutput>;
+  bank_verification_number: () => Promise<String>;
+  fund_status: () => Promise<FundStatus>;
+  created_at: () => Promise<DateTimeOutput>;
+  updated_at: () => Promise<DateTimeOutput>;
+}
+
+export interface BusinessPreviousValuesSubscription
+  extends Promise<AsyncIterator<BusinessPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  registration_type: () => Promise<AsyncIterator<String>>;
+  registation_id: () => Promise<AsyncIterator<String>>;
+  business_start_year: () => Promise<AsyncIterator<DateTimeOutput>>;
+  bank_verification_number: () => Promise<AsyncIterator<String>>;
+  fund_status: () => Promise<AsyncIterator<FundStatus>>;
+  created_at: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updated_at: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface FundDetailSubscriptionPayload {
+  mutation: MutationType;
+  node: FundDetail;
+  updatedFields: String[];
+  previousValues: FundDetailPreviousValues;
+}
+
+export interface FundDetailSubscriptionPayloadPromise
+  extends Promise<FundDetailSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = FundDetailPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = FundDetailPreviousValuesPromise>() => T;
+}
+
+export interface FundDetailSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<FundDetailSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = FundDetailSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = FundDetailPreviousValuesSubscription>() => T;
+}
+
+export interface FundDetailPreviousValues {
+  id: ID_Output;
+  reason: String;
+  payment_due_date?: String;
+  disbursement_date: DateTimeOutput;
+  amount: Float;
+}
+
+export interface FundDetailPreviousValuesPromise
+  extends Promise<FundDetailPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  reason: () => Promise<String>;
+  payment_due_date: () => Promise<String>;
+  disbursement_date: () => Promise<DateTimeOutput>;
+  amount: () => Promise<Float>;
+}
+
+export interface FundDetailPreviousValuesSubscription
+  extends Promise<AsyncIterator<FundDetailPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  reason: () => Promise<AsyncIterator<String>>;
+  payment_due_date: () => Promise<AsyncIterator<String>>;
+  disbursement_date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  amount: () => Promise<AsyncIterator<Float>>;
+}
+
+export interface FundTypeSubscriptionPayload {
+  mutation: MutationType;
+  node: FundType;
+  updatedFields: String[];
+  previousValues: FundTypePreviousValues;
+}
+
+export interface FundTypeSubscriptionPayloadPromise
+  extends Promise<FundTypeSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = FundTypePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = FundTypePreviousValuesPromise>() => T;
+}
+
+export interface FundTypeSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<FundTypeSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = FundTypeSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = FundTypePreviousValuesSubscription>() => T;
+}
+
+export interface FundTypePreviousValues {
+  id: ID_Output;
+  name: String;
+}
+
+export interface FundTypePreviousValuesPromise
+  extends Promise<FundTypePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface FundTypePreviousValuesSubscription
+  extends Promise<AsyncIterator<FundTypePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface IndustrySubscriptionPayload {
+  mutation: MutationType;
+  node: Industry;
+  updatedFields: String[];
+  previousValues: IndustryPreviousValues;
+}
+
+export interface IndustrySubscriptionPayloadPromise
+  extends Promise<IndustrySubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = IndustryPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = IndustryPreviousValuesPromise>() => T;
+}
+
+export interface IndustrySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<IndustrySubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = IndustrySubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = IndustryPreviousValuesSubscription>() => T;
+}
+
+export interface IndustryPreviousValues {
+  id: ID_Output;
+  name: String;
+}
+
+export interface IndustryPreviousValuesPromise
+  extends Promise<IndustryPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface IndustryPreviousValuesSubscription
+  extends Promise<AsyncIterator<IndustryPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface LenderSubscriptionPayload {
+  mutation: MutationType;
+  node: Lender;
+  updatedFields: String[];
+  previousValues: LenderPreviousValues;
+}
+
+export interface LenderSubscriptionPayloadPromise
+  extends Promise<LenderSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = LenderPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = LenderPreviousValuesPromise>() => T;
+}
+
+export interface LenderSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<LenderSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = LenderSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = LenderPreviousValuesSubscription>() => T;
+}
+
+export interface LenderPreviousValues {
+  id: ID_Output;
+  name: String;
+  created_at: DateTimeOutput;
+  updated_at: DateTimeOutput;
+}
+
+export interface LenderPreviousValuesPromise
+  extends Promise<LenderPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  created_at: () => Promise<DateTimeOutput>;
+  updated_at: () => Promise<DateTimeOutput>;
+}
+
+export interface LenderPreviousValuesSubscription
+  extends Promise<AsyncIterator<LenderPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  created_at: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updated_at: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
 export interface UserSubscriptionPayload {
   mutation: MutationType;
   node: User;
@@ -315,21 +2467,45 @@ export interface UserSubscriptionPayloadSubscription
 
 export interface UserPreviousValues {
   id: ID_Output;
-  name: String;
+  first_name: String;
+  last_name: String;
+  date_of_birth: DateTimeOutput;
+  gender: Gender;
+  phone_number: String;
+  home_address: String;
+  state: String;
+  created_at: DateTimeOutput;
+  updated_at: DateTimeOutput;
 }
 
 export interface UserPreviousValuesPromise
   extends Promise<UserPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
+  first_name: () => Promise<String>;
+  last_name: () => Promise<String>;
+  date_of_birth: () => Promise<DateTimeOutput>;
+  gender: () => Promise<Gender>;
+  phone_number: () => Promise<String>;
+  home_address: () => Promise<String>;
+  state: () => Promise<String>;
+  created_at: () => Promise<DateTimeOutput>;
+  updated_at: () => Promise<DateTimeOutput>;
 }
 
 export interface UserPreviousValuesSubscription
   extends Promise<AsyncIterator<UserPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
+  first_name: () => Promise<AsyncIterator<String>>;
+  last_name: () => Promise<AsyncIterator<String>>;
+  date_of_birth: () => Promise<AsyncIterator<DateTimeOutput>>;
+  gender: () => Promise<AsyncIterator<Gender>>;
+  phone_number: () => Promise<AsyncIterator<String>>;
+  home_address: () => Promise<AsyncIterator<String>>;
+  state: () => Promise<AsyncIterator<String>>;
+  created_at: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updated_at: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 /*
@@ -342,6 +2518,21 @@ export type ID_Output = string;
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string;
+
+/*
+DateTime scalar input type, allowing Date
+*/
+export type DateTimeInput = Date | string;
+
+/*
+DateTime scalar output type, which is always a string
+*/
+export type DateTimeOutput = string;
+
+/*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
+*/
+export type Float = number;
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
@@ -361,7 +2552,35 @@ export type Long = string;
 
 export const models: Model[] = [
   {
+    name: "Gender",
+    embedded: false
+  },
+  {
+    name: "FundType",
+    embedded: false
+  },
+  {
+    name: "FundStatus",
+    embedded: false
+  },
+  {
     name: "User",
+    embedded: false
+  },
+  {
+    name: "Business",
+    embedded: false
+  },
+  {
+    name: "FundDetail",
+    embedded: false
+  },
+  {
+    name: "Lender",
+    embedded: false
+  },
+  {
+    name: "Industry",
     embedded: false
   }
 ];
