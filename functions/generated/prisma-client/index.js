@@ -17,19 +17,39 @@ var models = [
     embedded: false
   },
   {
-    name: "User",
+    name: "Auth",
     embedded: false
   },
   {
-    name: "Business",
+    name: "SocialMedia",
+    embedded: false
+  },
+  {
+    name: "PersonalDetail",
+    embedded: false
+  },
+  {
+    name: "Application",
+    embedded: false
+  },
+  {
+    name: "FinanceOption",
+    embedded: false
+  },
+  {
+    name: "FundRange",
+    embedded: false
+  },
+  {
+    name: "NextOfKinDetail",
+    embedded: false
+  },
+  {
+    name: "BusinessDetail",
     embedded: false
   },
   {
     name: "FundDetail",
-    embedded: false
-  },
-  {
-    name: "Lender",
     embedded: false
   },
   {

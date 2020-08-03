@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueApollo from 'vue-apollo'
 import { createApolloClient, restartWebsockets } from 'vue-cli-plugin-apollo/graphql-client'
+import { prisma } from './configs'
 
 // Install the vue plugin
 Vue.use(VueApollo)
@@ -9,7 +10,7 @@ Vue.use(VueApollo)
 const AUTH_TOKEN = 'apollo-token'
 
 // Http endpoint
-const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP || 'https://eu1.prisma.sh/ernest-hayford-4ed24c/Consol/dev'
+const httpEndpoint = prisma.http
 
 // Config
 const defaultOptions = {
@@ -17,7 +18,7 @@ const defaultOptions = {
   httpEndpoint,
   // You can use `wss` for secure connection (recommended in production)
   // Use `null` to disable subscriptions
-  wsEndpoint: process.env.VUE_APP_GRAPHQL_WS || 'wss://eu1.prisma.sh/ernest-hayford-4ed24c/Consol/dev',
+  wsEndpoint: prisma.ws,
   // LocalStorage token
   tokenName: AUTH_TOKEN,
   // Enable Automatic Query persisting with Apollo Engine
