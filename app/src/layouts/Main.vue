@@ -1,5 +1,5 @@
 <template>
-    <v-col class="fill-height">
+    <div class="fill-height">
         <v-row v-if="loading" justify="center" align="center" class="fill-height">
             <div class="text-center">
                 <v-progress-circular size="48" indeterminate color="primary"/>
@@ -15,6 +15,17 @@
                 class="pr-2 pl-2"
             >
                 <v-spacer></v-spacer>
+                <v-text-field
+                        v-if="$vuetify.breakpoint.mdAndUp"
+                        filled
+                        dense
+                        hide-details
+                        prepend-inner-icon="mdi-magnify"
+                        placeholder="Search"
+                        class="mr-5 blue-grey lighten-5"
+                        >
+
+                </v-text-field>
                 <v-btn class="mr-3" icon color="primary">
                     <v-badge dot overlap content="1" bordered>
                         <v-icon>mdi-bell</v-icon>
@@ -50,7 +61,12 @@
                         <span class="display-1">Logo</span>
                     </v-list-item>
 
-                    <v-list-item class="mb-5" selectable v-ripple v-for="(nav, i) in navs" :key="i">
+                    <v-list-item
+                            :to="nav.to"
+                            class="mb-5"
+                            selectable
+                            v-ripple
+                            v-for="(nav, i) in navs" :key="i">
                         <v-list-item-icon>
                             <v-icon>{{nav.icon}}</v-icon>
                         </v-list-item-icon>
@@ -73,11 +89,13 @@
 <!--                    </v-list-item>-->
                 </v-list>
             </v-navigation-drawer>
-            <v-main>
-                <router-view></router-view>
+            <v-main class="blue-grey lighten-5 fill-height">
+                <v-container>
+                    <router-view class="pt-3"></router-view>
+                </v-container>
             </v-main>
         </template>
-    </v-col>
+    </div>
 </template>
 
 <script>
@@ -88,23 +106,20 @@
             return {
                 userDetails: this.$store.getters['user/getDetails'],
                 loading: true,
-                drawer: false,
+                drawer: !this.$vuetify.breakpoint.smAndDown,
                 navs: [
-                    {icon: 'mdi-view-grid-outline', name: 'Home'},
-                    {icon: 'mdi-file-outline', name: 'Credit Report'},
-                    {icon: 'mdi-file-document-edit-outline', name: 'Application'},
-                    {icon: 'mdi-book-outline', name: 'Resources'},
-                    {icon: 'mdi-account-multiple-outline', name: 'Lenders'},
-                    {icon: 'mdi-cog-outline', name: 'Settings'},
-                    {icon: 'mdi-help-circle-outline', name: 'Settings'},
-
+                    {icon: 'mdi-view-grid-outline', name: 'Home', to: { name: 'home' }},
+                    {icon: 'mdi-file-document-edit-outline', name: 'Application', to: '#'},
+                    {icon: 'mdi-book-outline', name: 'Resources', to: '#'},
+                    {icon: 'mdi-account-multiple-outline', name: 'Lenders', to: '#'},
+                    {icon: 'mdi-cog-outline', name: 'Settings', to: '#'},
+                    {icon: 'mdi-help-circle-outline', name: 'Settings', to: '#'},
                 ]
             }
         },
         mounted() {
             this.$firebase.auth().onAuthStateChanged(user=>{
                 if(!user){
-                    console.log('no user')
                     this.$router.push({name: 'login'})
                 }else{
                     this.$apollo.query({

@@ -1,6 +1,5 @@
 <template>
   <v-app>
-<!--    <v-btn block color="primary" @click="toggle">Dark Mode</v-btn>-->
     <router-view/>
   </v-app>
 </template>
