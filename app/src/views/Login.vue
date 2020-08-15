@@ -1,9 +1,11 @@
 <template>
-    <v-main class="primary">
+    <v-main class="blue-grey lighten-5 auth-bg">
         <v-row class="fill-height">
-            <v-col v-if="$vuetify.breakpoint.smAndUp" sm="2" md="5" lg="6"></v-col>
-            <v-col class="py-0 fill-height" sm="10" md="7" lg="6">
-                <v-card tile class="px-8 px-sm-16 fill-height" :class="{ 'pt-12': !alert.show }">
+            <v-col class="pa-0" v-if="$vuetify.breakpoint.smAndUp" sm="2" md="5" lg="6">
+                <v-img height="100vh" src="../assets/img/auth_bg.png"></v-img>
+            </v-col>
+            <v-col class="pa-0 fill-height" sm="10" md="7" lg="6">
+                <v-card style="overflow-y: scroll; height: 100vh" tile class="px-8 px-sm-16 fill-height" :class="{ 'pt-12': !alert.show }">
                     <v-alert dense v-if="alert.show" :type="alert.type || 'info'">
                         {{alert.message}}
                         <v-btn @click="alert.show = false" absolute right small icon><v-icon size="18">mdi-close</v-icon></v-btn>
@@ -14,11 +16,11 @@
                             v-model="validators.valid"
                             lazy-validation
                     >
-                        <v-card-title class="grey--text justify-center">
-                            <h1 class="display-1">LOGO</h1>
+                        <v-card-title class="grey--text justify-center mb-7">
+                            <img height="46px" src="../assets/img/credia-logo.svg"></img>
                         </v-card-title>
                         <v-card-subtitle class="text-center">
-                            <h3 class="headline mt-10 mb-7 primary--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit</h3>
+                            <h3 class="headline mt-10 mb-7 primary--text">Welcome to Credia</h3>
                             <p class="">Don't have an account? <router-link :to="{name: 'signup'}" class="font-weight-bold">Sign Up</router-link></p>
                         </v-card-subtitle>
                         <v-card-text>

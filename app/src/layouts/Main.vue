@@ -14,18 +14,22 @@
                 :color="$vuetify.theme.isDark ? 'black' : 'white'"
                 class="pr-2 pl-2"
             >
-                <v-spacer></v-spacer>
-                <v-text-field
-                        v-if="$vuetify.breakpoint.mdAndUp"
-                        filled
-                        dense
-                        hide-details
-                        prepend-inner-icon="mdi-magnify"
-                        placeholder="Search"
-                        class="mr-5 blue-grey lighten-5"
-                        >
+                <v-spacer/>
+                <v-col md="5" lg="7">
+                    <v-text-field
+                            v-if="$vuetify.breakpoint.mdAndUp"
+                            filled
+                            dense
+                            filled
+                            background-color="blue-grey lighten-5"
+                            hide-details
+                            prepend-inner-icon="mdi-magnify"
+                            placeholder="Search"
+                            class="mr-5 elevation-0"
+                            >
 
-                </v-text-field>
+                    </v-text-field>
+                </v-col>
                 <v-btn class="mr-3" icon color="primary">
                     <v-badge dot overlap content="1" bordered>
                         <v-icon>mdi-bell</v-icon>
@@ -46,6 +50,7 @@
                 </v-app-bar-nav-icon>
             </v-app-bar>
             <v-navigation-drawer
+                width="195px"
                 app
                 v-model="drawer"
                 color="primary"
@@ -58,13 +63,17 @@
                         class="py-0"
                 >
                     <v-list-item class="mt-3 mb-12  justify-center">
-                        <span class="display-1">Logo</span>
+                        <v-list-item-icon>
+                            <v-img contain src="../assets/img/logo_full_white.svg" height="32"></v-img>
+
+                        </v-list-item-icon>
                     </v-list-item>
 
                     <v-list-item
                             :to="nav.to"
                             class="mb-5"
                             selectable
+                            :exact="nav.exact"
                             v-ripple
                             v-for="(nav, i) in navs" :key="i">
                         <v-list-item-icon>
@@ -108,8 +117,8 @@
                 loading: true,
                 drawer: !this.$vuetify.breakpoint.smAndDown,
                 navs: [
-                    {icon: 'mdi-view-grid-outline', name: 'Home', to: { name: 'home' }},
-                    {icon: 'mdi-file-document-edit-outline', name: 'Application', to: '#'},
+                    {icon: 'mdi-view-grid-outline', name: 'Home', to: { name: 'home'}, exact: true},
+                    {icon: 'mdi-file-document-edit-outline', name: 'Applications', to: '/application'},
                     {icon: 'mdi-book-outline', name: 'Resources', to: '#'},
                     {icon: 'mdi-account-multiple-outline', name: 'Lenders', to: '#'},
                     {icon: 'mdi-cog-outline', name: 'Settings', to: '#'},
@@ -131,6 +140,7 @@
                         }
                     }).then(res=>{
                         let auth = res.data.auth
+                        console.log(auth)
                         this.$store.commit('user/setAuth', auth)
                         this.userDetails = auth.details
                     }).catch(err=>{

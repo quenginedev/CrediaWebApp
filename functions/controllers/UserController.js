@@ -16,11 +16,12 @@ module.exports = {
             })
 
             // Store created firebase User ID with first name and last name
-            await prisma.createUser({
+            await prisma.createAuth({
                 firebase_id: createdUser.uid,
-                email: createdUser.email,
+                account_type: userData.account_type,
                 details: {
                     create: {
+                        email: createdUser.email,
                         first_name: userData.first_name,
                         last_name: userData.last_name
                     }
@@ -31,6 +32,7 @@ module.exports = {
                 message: 'user created successfully'
             })
         }catch (e) {
+            console.error(e)
             res.status(500).json(e)
         }
     }

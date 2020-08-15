@@ -3,7 +3,13 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateApplication {
+/* GraphQL */ `enum AccountType {
+  SME
+  LENDER
+  ADMIN
+}
+
+type AggregateApplication {
   count: Int!
 }
 
@@ -15,15 +21,15 @@ type AggregateBusinessDetail {
   count: Int!
 }
 
-type AggregateFinanceOption {
+type AggregateBusinessFinancial {
+  count: Int!
+}
+
+type AggregateBusinessValidation {
   count: Int!
 }
 
 type AggregateFundDetail {
-  count: Int!
-}
-
-type AggregateFundRange {
   count: Int!
 }
 
@@ -45,11 +51,14 @@ type AggregateSocialMedia {
 
 type Application {
   id: ID!
-  auth: Auth!
+  application_type: String!
+  auth: Auth
+  fund_details: FundDetail!
   personal_details: PersonalDetail!
-  next_of_kin: NextOfKinDetail!
   business_details: BusinessDetail!
-  finance_options: FinanceOption!
+  business_financials: BusinessFinancial!
+  validations: BusinessValidation!
+  fund_status: FundStatus!
 }
 
 type ApplicationConnection {
@@ -60,11 +69,14 @@ type ApplicationConnection {
 
 input ApplicationCreateInput {
   id: ID
-  auth: AuthCreateOneWithoutApplicationsInput!
+  application_type: String!
+  auth: AuthCreateOneWithoutApplicationsInput
+  fund_details: FundDetailCreateOneInput!
   personal_details: PersonalDetailCreateOneInput!
-  next_of_kin: NextOfKinDetailCreateOneInput!
-  business_details: BusinessDetailCreateOneWithoutApplicationInput!
-  finance_options: FinanceOptionCreateOneWithoutApplicationInput!
+  business_details: BusinessDetailCreateOneInput!
+  business_financials: BusinessFinancialCreateOneInput!
+  validations: BusinessValidationCreateOneInput!
+  fund_status: FundStatus
 }
 
 input ApplicationCreateManyWithoutAuthInput {
@@ -72,38 +84,15 @@ input ApplicationCreateManyWithoutAuthInput {
   connect: [ApplicationWhereUniqueInput!]
 }
 
-input ApplicationCreateOneWithoutBusiness_detailsInput {
-  create: ApplicationCreateWithoutBusiness_detailsInput
-  connect: ApplicationWhereUniqueInput
-}
-
-input ApplicationCreateOneWithoutFinance_optionsInput {
-  create: ApplicationCreateWithoutFinance_optionsInput
-  connect: ApplicationWhereUniqueInput
-}
-
 input ApplicationCreateWithoutAuthInput {
   id: ID
+  application_type: String!
+  fund_details: FundDetailCreateOneInput!
   personal_details: PersonalDetailCreateOneInput!
-  next_of_kin: NextOfKinDetailCreateOneInput!
-  business_details: BusinessDetailCreateOneWithoutApplicationInput!
-  finance_options: FinanceOptionCreateOneWithoutApplicationInput!
-}
-
-input ApplicationCreateWithoutBusiness_detailsInput {
-  id: ID
-  auth: AuthCreateOneWithoutApplicationsInput!
-  personal_details: PersonalDetailCreateOneInput!
-  next_of_kin: NextOfKinDetailCreateOneInput!
-  finance_options: FinanceOptionCreateOneWithoutApplicationInput!
-}
-
-input ApplicationCreateWithoutFinance_optionsInput {
-  id: ID
-  auth: AuthCreateOneWithoutApplicationsInput!
-  personal_details: PersonalDetailCreateOneInput!
-  next_of_kin: NextOfKinDetailCreateOneInput!
-  business_details: BusinessDetailCreateOneWithoutApplicationInput!
+  business_details: BusinessDetailCreateOneInput!
+  business_financials: BusinessFinancialCreateOneInput!
+  validations: BusinessValidationCreateOneInput!
+  fund_status: FundStatus
 }
 
 type ApplicationEdge {
@@ -114,10 +103,16 @@ type ApplicationEdge {
 enum ApplicationOrderByInput {
   id_ASC
   id_DESC
+  application_type_ASC
+  application_type_DESC
+  fund_status_ASC
+  fund_status_DESC
 }
 
 type ApplicationPreviousValues {
   id: ID!
+  application_type: String!
+  fund_status: FundStatus!
 }
 
 input ApplicationScalarWhereInput {
@@ -135,6 +130,24 @@ input ApplicationScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  application_type: String
+  application_type_not: String
+  application_type_in: [String!]
+  application_type_not_in: [String!]
+  application_type_lt: String
+  application_type_lte: String
+  application_type_gt: String
+  application_type_gte: String
+  application_type_contains: String
+  application_type_not_contains: String
+  application_type_starts_with: String
+  application_type_not_starts_with: String
+  application_type_ends_with: String
+  application_type_not_ends_with: String
+  fund_status: FundStatus
+  fund_status_not: FundStatus
+  fund_status_in: [FundStatus!]
+  fund_status_not_in: [FundStatus!]
   AND: [ApplicationScalarWhereInput!]
   OR: [ApplicationScalarWhereInput!]
   NOT: [ApplicationScalarWhereInput!]
@@ -159,11 +172,24 @@ input ApplicationSubscriptionWhereInput {
 }
 
 input ApplicationUpdateInput {
-  auth: AuthUpdateOneRequiredWithoutApplicationsInput
+  application_type: String
+  auth: AuthUpdateOneWithoutApplicationsInput
+  fund_details: FundDetailUpdateOneRequiredInput
   personal_details: PersonalDetailUpdateOneRequiredInput
-  next_of_kin: NextOfKinDetailUpdateOneRequiredInput
-  business_details: BusinessDetailUpdateOneRequiredWithoutApplicationInput
-  finance_options: FinanceOptionUpdateOneRequiredWithoutApplicationInput
+  business_details: BusinessDetailUpdateOneRequiredInput
+  business_financials: BusinessFinancialUpdateOneRequiredInput
+  validations: BusinessValidationUpdateOneRequiredInput
+  fund_status: FundStatus
+}
+
+input ApplicationUpdateManyDataInput {
+  application_type: String
+  fund_status: FundStatus
+}
+
+input ApplicationUpdateManyMutationInput {
+  application_type: String
+  fund_status: FundStatus
 }
 
 input ApplicationUpdateManyWithoutAuthInput {
@@ -175,56 +201,27 @@ input ApplicationUpdateManyWithoutAuthInput {
   update: [ApplicationUpdateWithWhereUniqueWithoutAuthInput!]
   upsert: [ApplicationUpsertWithWhereUniqueWithoutAuthInput!]
   deleteMany: [ApplicationScalarWhereInput!]
+  updateMany: [ApplicationUpdateManyWithWhereNestedInput!]
 }
 
-input ApplicationUpdateOneRequiredWithoutBusiness_detailsInput {
-  create: ApplicationCreateWithoutBusiness_detailsInput
-  update: ApplicationUpdateWithoutBusiness_detailsDataInput
-  upsert: ApplicationUpsertWithoutBusiness_detailsInput
-  connect: ApplicationWhereUniqueInput
-}
-
-input ApplicationUpdateOneRequiredWithoutFinance_optionsInput {
-  create: ApplicationCreateWithoutFinance_optionsInput
-  update: ApplicationUpdateWithoutFinance_optionsDataInput
-  upsert: ApplicationUpsertWithoutFinance_optionsInput
-  connect: ApplicationWhereUniqueInput
+input ApplicationUpdateManyWithWhereNestedInput {
+  where: ApplicationScalarWhereInput!
+  data: ApplicationUpdateManyDataInput!
 }
 
 input ApplicationUpdateWithoutAuthDataInput {
+  application_type: String
+  fund_details: FundDetailUpdateOneRequiredInput
   personal_details: PersonalDetailUpdateOneRequiredInput
-  next_of_kin: NextOfKinDetailUpdateOneRequiredInput
-  business_details: BusinessDetailUpdateOneRequiredWithoutApplicationInput
-  finance_options: FinanceOptionUpdateOneRequiredWithoutApplicationInput
-}
-
-input ApplicationUpdateWithoutBusiness_detailsDataInput {
-  auth: AuthUpdateOneRequiredWithoutApplicationsInput
-  personal_details: PersonalDetailUpdateOneRequiredInput
-  next_of_kin: NextOfKinDetailUpdateOneRequiredInput
-  finance_options: FinanceOptionUpdateOneRequiredWithoutApplicationInput
-}
-
-input ApplicationUpdateWithoutFinance_optionsDataInput {
-  auth: AuthUpdateOneRequiredWithoutApplicationsInput
-  personal_details: PersonalDetailUpdateOneRequiredInput
-  next_of_kin: NextOfKinDetailUpdateOneRequiredInput
-  business_details: BusinessDetailUpdateOneRequiredWithoutApplicationInput
+  business_details: BusinessDetailUpdateOneRequiredInput
+  business_financials: BusinessFinancialUpdateOneRequiredInput
+  validations: BusinessValidationUpdateOneRequiredInput
+  fund_status: FundStatus
 }
 
 input ApplicationUpdateWithWhereUniqueWithoutAuthInput {
   where: ApplicationWhereUniqueInput!
   data: ApplicationUpdateWithoutAuthDataInput!
-}
-
-input ApplicationUpsertWithoutBusiness_detailsInput {
-  update: ApplicationUpdateWithoutBusiness_detailsDataInput!
-  create: ApplicationCreateWithoutBusiness_detailsInput!
-}
-
-input ApplicationUpsertWithoutFinance_optionsInput {
-  update: ApplicationUpdateWithoutFinance_optionsDataInput!
-  create: ApplicationCreateWithoutFinance_optionsInput!
 }
 
 input ApplicationUpsertWithWhereUniqueWithoutAuthInput {
@@ -248,11 +245,30 @@ input ApplicationWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  application_type: String
+  application_type_not: String
+  application_type_in: [String!]
+  application_type_not_in: [String!]
+  application_type_lt: String
+  application_type_lte: String
+  application_type_gt: String
+  application_type_gte: String
+  application_type_contains: String
+  application_type_not_contains: String
+  application_type_starts_with: String
+  application_type_not_starts_with: String
+  application_type_ends_with: String
+  application_type_not_ends_with: String
   auth: AuthWhereInput
+  fund_details: FundDetailWhereInput
   personal_details: PersonalDetailWhereInput
-  next_of_kin: NextOfKinDetailWhereInput
   business_details: BusinessDetailWhereInput
-  finance_options: FinanceOptionWhereInput
+  business_financials: BusinessFinancialWhereInput
+  validations: BusinessValidationWhereInput
+  fund_status: FundStatus
+  fund_status_not: FundStatus
+  fund_status_in: [FundStatus!]
+  fund_status_not_in: [FundStatus!]
   AND: [ApplicationWhereInput!]
   OR: [ApplicationWhereInput!]
   NOT: [ApplicationWhereInput!]
@@ -265,8 +281,8 @@ input ApplicationWhereUniqueInput {
 type Auth {
   id: ID!
   firebase_id: String!
-  email: String!
-  details: PersonalDetail
+  account_type: AccountType!
+  details: PersonalDetail!
   social_media(where: SocialMediaWhereInput, orderBy: SocialMediaOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SocialMedia!]
   applications(where: ApplicationWhereInput, orderBy: ApplicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Application!]
   created_at: DateTime!
@@ -282,8 +298,8 @@ type AuthConnection {
 input AuthCreateInput {
   id: ID
   firebase_id: String!
-  email: String!
-  details: PersonalDetailCreateOneWithoutAuth_idInput
+  account_type: AccountType
+  details: PersonalDetailCreateOneWithoutAuthInput!
   social_media: SocialMediaCreateManyWithoutAuthInput
   applications: ApplicationCreateManyWithoutAuthInput
 }
@@ -306,15 +322,15 @@ input AuthCreateOneWithoutSocial_mediaInput {
 input AuthCreateWithoutApplicationsInput {
   id: ID
   firebase_id: String!
-  email: String!
-  details: PersonalDetailCreateOneWithoutAuth_idInput
+  account_type: AccountType
+  details: PersonalDetailCreateOneWithoutAuthInput!
   social_media: SocialMediaCreateManyWithoutAuthInput
 }
 
 input AuthCreateWithoutDetailsInput {
   id: ID
   firebase_id: String!
-  email: String!
+  account_type: AccountType
   social_media: SocialMediaCreateManyWithoutAuthInput
   applications: ApplicationCreateManyWithoutAuthInput
 }
@@ -322,8 +338,8 @@ input AuthCreateWithoutDetailsInput {
 input AuthCreateWithoutSocial_mediaInput {
   id: ID
   firebase_id: String!
-  email: String!
-  details: PersonalDetailCreateOneWithoutAuth_idInput
+  account_type: AccountType
+  details: PersonalDetailCreateOneWithoutAuthInput!
   applications: ApplicationCreateManyWithoutAuthInput
 }
 
@@ -337,8 +353,8 @@ enum AuthOrderByInput {
   id_DESC
   firebase_id_ASC
   firebase_id_DESC
-  email_ASC
-  email_DESC
+  account_type_ASC
+  account_type_DESC
   created_at_ASC
   created_at_DESC
   updated_at_ASC
@@ -348,7 +364,7 @@ enum AuthOrderByInput {
 type AuthPreviousValues {
   id: ID!
   firebase_id: String!
-  email: String!
+  account_type: AccountType!
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -373,29 +389,15 @@ input AuthSubscriptionWhereInput {
 
 input AuthUpdateInput {
   firebase_id: String
-  email: String
-  details: PersonalDetailUpdateOneWithoutAuth_idInput
+  account_type: AccountType
+  details: PersonalDetailUpdateOneRequiredWithoutAuthInput
   social_media: SocialMediaUpdateManyWithoutAuthInput
   applications: ApplicationUpdateManyWithoutAuthInput
 }
 
 input AuthUpdateManyMutationInput {
   firebase_id: String
-  email: String
-}
-
-input AuthUpdateOneRequiredWithoutApplicationsInput {
-  create: AuthCreateWithoutApplicationsInput
-  update: AuthUpdateWithoutApplicationsDataInput
-  upsert: AuthUpsertWithoutApplicationsInput
-  connect: AuthWhereUniqueInput
-}
-
-input AuthUpdateOneRequiredWithoutDetailsInput {
-  create: AuthCreateWithoutDetailsInput
-  update: AuthUpdateWithoutDetailsDataInput
-  upsert: AuthUpsertWithoutDetailsInput
-  connect: AuthWhereUniqueInput
+  account_type: AccountType
 }
 
 input AuthUpdateOneRequiredWithoutSocial_mediaInput {
@@ -405,24 +407,42 @@ input AuthUpdateOneRequiredWithoutSocial_mediaInput {
   connect: AuthWhereUniqueInput
 }
 
+input AuthUpdateOneWithoutApplicationsInput {
+  create: AuthCreateWithoutApplicationsInput
+  update: AuthUpdateWithoutApplicationsDataInput
+  upsert: AuthUpsertWithoutApplicationsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: AuthWhereUniqueInput
+}
+
+input AuthUpdateOneWithoutDetailsInput {
+  create: AuthCreateWithoutDetailsInput
+  update: AuthUpdateWithoutDetailsDataInput
+  upsert: AuthUpsertWithoutDetailsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: AuthWhereUniqueInput
+}
+
 input AuthUpdateWithoutApplicationsDataInput {
   firebase_id: String
-  email: String
-  details: PersonalDetailUpdateOneWithoutAuth_idInput
+  account_type: AccountType
+  details: PersonalDetailUpdateOneRequiredWithoutAuthInput
   social_media: SocialMediaUpdateManyWithoutAuthInput
 }
 
 input AuthUpdateWithoutDetailsDataInput {
   firebase_id: String
-  email: String
+  account_type: AccountType
   social_media: SocialMediaUpdateManyWithoutAuthInput
   applications: ApplicationUpdateManyWithoutAuthInput
 }
 
 input AuthUpdateWithoutSocial_mediaDataInput {
   firebase_id: String
-  email: String
-  details: PersonalDetailUpdateOneWithoutAuth_idInput
+  account_type: AccountType
+  details: PersonalDetailUpdateOneRequiredWithoutAuthInput
   applications: ApplicationUpdateManyWithoutAuthInput
 }
 
@@ -470,20 +490,10 @@ input AuthWhereInput {
   firebase_id_not_starts_with: String
   firebase_id_ends_with: String
   firebase_id_not_ends_with: String
-  email: String
-  email_not: String
-  email_in: [String!]
-  email_not_in: [String!]
-  email_lt: String
-  email_lte: String
-  email_gt: String
-  email_gte: String
-  email_contains: String
-  email_not_contains: String
-  email_starts_with: String
-  email_not_starts_with: String
-  email_ends_with: String
-  email_not_ends_with: String
+  account_type: AccountType
+  account_type_not: AccountType
+  account_type_in: [AccountType!]
+  account_type_not_in: [AccountType!]
   details: PersonalDetailWhereInput
   social_media_every: SocialMediaWhereInput
   social_media_some: SocialMediaWhereInput
@@ -515,7 +525,6 @@ input AuthWhereInput {
 input AuthWhereUniqueInput {
   id: ID
   firebase_id: String
-  email: String
 }
 
 type BatchPayload {
@@ -525,15 +534,16 @@ type BatchPayload {
 type BusinessDetail {
   id: ID!
   name: String!
-  industry_type: String!
   business_type: String!
-  registration_type: String!
   registation_id: String!
-  business_start_year: DateTime!
-  bank_verification_number: String!
-  fund_details: FundDetail
-  fund_status: FundStatus!
-  application: Application!
+  cac_file_link: String!
+  industry_type: String!
+  business_start_year: Int!
+  street_address: String!
+  state: String!
+  local_goverment_area: String!
+  website_url: String
+  social_media_url: String
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -547,33 +557,21 @@ type BusinessDetailConnection {
 input BusinessDetailCreateInput {
   id: ID
   name: String!
-  industry_type: String!
   business_type: String!
-  registration_type: String!
   registation_id: String!
-  business_start_year: DateTime!
-  bank_verification_number: String!
-  fund_details: FundDetailCreateOneInput
-  fund_status: FundStatus
-  application: ApplicationCreateOneWithoutBusiness_detailsInput!
+  cac_file_link: String!
+  industry_type: String!
+  business_start_year: Int!
+  street_address: String!
+  state: String!
+  local_goverment_area: String!
+  website_url: String
+  social_media_url: String
 }
 
-input BusinessDetailCreateOneWithoutApplicationInput {
-  create: BusinessDetailCreateWithoutApplicationInput
+input BusinessDetailCreateOneInput {
+  create: BusinessDetailCreateInput
   connect: BusinessDetailWhereUniqueInput
-}
-
-input BusinessDetailCreateWithoutApplicationInput {
-  id: ID
-  name: String!
-  industry_type: String!
-  business_type: String!
-  registration_type: String!
-  registation_id: String!
-  business_start_year: DateTime!
-  bank_verification_number: String!
-  fund_details: FundDetailCreateOneInput
-  fund_status: FundStatus
 }
 
 type BusinessDetailEdge {
@@ -586,20 +584,26 @@ enum BusinessDetailOrderByInput {
   id_DESC
   name_ASC
   name_DESC
-  industry_type_ASC
-  industry_type_DESC
   business_type_ASC
   business_type_DESC
-  registration_type_ASC
-  registration_type_DESC
   registation_id_ASC
   registation_id_DESC
+  cac_file_link_ASC
+  cac_file_link_DESC
+  industry_type_ASC
+  industry_type_DESC
   business_start_year_ASC
   business_start_year_DESC
-  bank_verification_number_ASC
-  bank_verification_number_DESC
-  fund_status_ASC
-  fund_status_DESC
+  street_address_ASC
+  street_address_DESC
+  state_ASC
+  state_DESC
+  local_goverment_area_ASC
+  local_goverment_area_DESC
+  website_url_ASC
+  website_url_DESC
+  social_media_url_ASC
+  social_media_url_DESC
   created_at_ASC
   created_at_DESC
   updated_at_ASC
@@ -609,13 +613,16 @@ enum BusinessDetailOrderByInput {
 type BusinessDetailPreviousValues {
   id: ID!
   name: String!
-  industry_type: String!
   business_type: String!
-  registration_type: String!
   registation_id: String!
-  business_start_year: DateTime!
-  bank_verification_number: String!
-  fund_status: FundStatus!
+  cac_file_link: String!
+  industry_type: String!
+  business_start_year: Int!
+  street_address: String!
+  state: String!
+  local_goverment_area: String!
+  website_url: String
+  social_media_url: String
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -638,52 +645,58 @@ input BusinessDetailSubscriptionWhereInput {
   NOT: [BusinessDetailSubscriptionWhereInput!]
 }
 
+input BusinessDetailUpdateDataInput {
+  name: String
+  business_type: String
+  registation_id: String
+  cac_file_link: String
+  industry_type: String
+  business_start_year: Int
+  street_address: String
+  state: String
+  local_goverment_area: String
+  website_url: String
+  social_media_url: String
+}
+
 input BusinessDetailUpdateInput {
   name: String
-  industry_type: String
   business_type: String
-  registration_type: String
   registation_id: String
-  business_start_year: DateTime
-  bank_verification_number: String
-  fund_details: FundDetailUpdateOneInput
-  fund_status: FundStatus
-  application: ApplicationUpdateOneRequiredWithoutBusiness_detailsInput
+  cac_file_link: String
+  industry_type: String
+  business_start_year: Int
+  street_address: String
+  state: String
+  local_goverment_area: String
+  website_url: String
+  social_media_url: String
 }
 
 input BusinessDetailUpdateManyMutationInput {
   name: String
-  industry_type: String
   business_type: String
-  registration_type: String
   registation_id: String
-  business_start_year: DateTime
-  bank_verification_number: String
-  fund_status: FundStatus
+  cac_file_link: String
+  industry_type: String
+  business_start_year: Int
+  street_address: String
+  state: String
+  local_goverment_area: String
+  website_url: String
+  social_media_url: String
 }
 
-input BusinessDetailUpdateOneRequiredWithoutApplicationInput {
-  create: BusinessDetailCreateWithoutApplicationInput
-  update: BusinessDetailUpdateWithoutApplicationDataInput
-  upsert: BusinessDetailUpsertWithoutApplicationInput
+input BusinessDetailUpdateOneRequiredInput {
+  create: BusinessDetailCreateInput
+  update: BusinessDetailUpdateDataInput
+  upsert: BusinessDetailUpsertNestedInput
   connect: BusinessDetailWhereUniqueInput
 }
 
-input BusinessDetailUpdateWithoutApplicationDataInput {
-  name: String
-  industry_type: String
-  business_type: String
-  registration_type: String
-  registation_id: String
-  business_start_year: DateTime
-  bank_verification_number: String
-  fund_details: FundDetailUpdateOneInput
-  fund_status: FundStatus
-}
-
-input BusinessDetailUpsertWithoutApplicationInput {
-  update: BusinessDetailUpdateWithoutApplicationDataInput!
-  create: BusinessDetailCreateWithoutApplicationInput!
+input BusinessDetailUpsertNestedInput {
+  update: BusinessDetailUpdateDataInput!
+  create: BusinessDetailCreateInput!
 }
 
 input BusinessDetailWhereInput {
@@ -715,20 +728,6 @@ input BusinessDetailWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  industry_type: String
-  industry_type_not: String
-  industry_type_in: [String!]
-  industry_type_not_in: [String!]
-  industry_type_lt: String
-  industry_type_lte: String
-  industry_type_gt: String
-  industry_type_gte: String
-  industry_type_contains: String
-  industry_type_not_contains: String
-  industry_type_starts_with: String
-  industry_type_not_starts_with: String
-  industry_type_ends_with: String
-  industry_type_not_ends_with: String
   business_type: String
   business_type_not: String
   business_type_in: [String!]
@@ -743,20 +742,6 @@ input BusinessDetailWhereInput {
   business_type_not_starts_with: String
   business_type_ends_with: String
   business_type_not_ends_with: String
-  registration_type: String
-  registration_type_not: String
-  registration_type_in: [String!]
-  registration_type_not_in: [String!]
-  registration_type_lt: String
-  registration_type_lte: String
-  registration_type_gt: String
-  registration_type_gte: String
-  registration_type_contains: String
-  registration_type_not_contains: String
-  registration_type_starts_with: String
-  registration_type_not_starts_with: String
-  registration_type_ends_with: String
-  registration_type_not_ends_with: String
   registation_id: String
   registation_id_not: String
   registation_id_in: [String!]
@@ -771,34 +756,112 @@ input BusinessDetailWhereInput {
   registation_id_not_starts_with: String
   registation_id_ends_with: String
   registation_id_not_ends_with: String
-  business_start_year: DateTime
-  business_start_year_not: DateTime
-  business_start_year_in: [DateTime!]
-  business_start_year_not_in: [DateTime!]
-  business_start_year_lt: DateTime
-  business_start_year_lte: DateTime
-  business_start_year_gt: DateTime
-  business_start_year_gte: DateTime
-  bank_verification_number: String
-  bank_verification_number_not: String
-  bank_verification_number_in: [String!]
-  bank_verification_number_not_in: [String!]
-  bank_verification_number_lt: String
-  bank_verification_number_lte: String
-  bank_verification_number_gt: String
-  bank_verification_number_gte: String
-  bank_verification_number_contains: String
-  bank_verification_number_not_contains: String
-  bank_verification_number_starts_with: String
-  bank_verification_number_not_starts_with: String
-  bank_verification_number_ends_with: String
-  bank_verification_number_not_ends_with: String
-  fund_details: FundDetailWhereInput
-  fund_status: FundStatus
-  fund_status_not: FundStatus
-  fund_status_in: [FundStatus!]
-  fund_status_not_in: [FundStatus!]
-  application: ApplicationWhereInput
+  cac_file_link: String
+  cac_file_link_not: String
+  cac_file_link_in: [String!]
+  cac_file_link_not_in: [String!]
+  cac_file_link_lt: String
+  cac_file_link_lte: String
+  cac_file_link_gt: String
+  cac_file_link_gte: String
+  cac_file_link_contains: String
+  cac_file_link_not_contains: String
+  cac_file_link_starts_with: String
+  cac_file_link_not_starts_with: String
+  cac_file_link_ends_with: String
+  cac_file_link_not_ends_with: String
+  industry_type: String
+  industry_type_not: String
+  industry_type_in: [String!]
+  industry_type_not_in: [String!]
+  industry_type_lt: String
+  industry_type_lte: String
+  industry_type_gt: String
+  industry_type_gte: String
+  industry_type_contains: String
+  industry_type_not_contains: String
+  industry_type_starts_with: String
+  industry_type_not_starts_with: String
+  industry_type_ends_with: String
+  industry_type_not_ends_with: String
+  business_start_year: Int
+  business_start_year_not: Int
+  business_start_year_in: [Int!]
+  business_start_year_not_in: [Int!]
+  business_start_year_lt: Int
+  business_start_year_lte: Int
+  business_start_year_gt: Int
+  business_start_year_gte: Int
+  street_address: String
+  street_address_not: String
+  street_address_in: [String!]
+  street_address_not_in: [String!]
+  street_address_lt: String
+  street_address_lte: String
+  street_address_gt: String
+  street_address_gte: String
+  street_address_contains: String
+  street_address_not_contains: String
+  street_address_starts_with: String
+  street_address_not_starts_with: String
+  street_address_ends_with: String
+  street_address_not_ends_with: String
+  state: String
+  state_not: String
+  state_in: [String!]
+  state_not_in: [String!]
+  state_lt: String
+  state_lte: String
+  state_gt: String
+  state_gte: String
+  state_contains: String
+  state_not_contains: String
+  state_starts_with: String
+  state_not_starts_with: String
+  state_ends_with: String
+  state_not_ends_with: String
+  local_goverment_area: String
+  local_goverment_area_not: String
+  local_goverment_area_in: [String!]
+  local_goverment_area_not_in: [String!]
+  local_goverment_area_lt: String
+  local_goverment_area_lte: String
+  local_goverment_area_gt: String
+  local_goverment_area_gte: String
+  local_goverment_area_contains: String
+  local_goverment_area_not_contains: String
+  local_goverment_area_starts_with: String
+  local_goverment_area_not_starts_with: String
+  local_goverment_area_ends_with: String
+  local_goverment_area_not_ends_with: String
+  website_url: String
+  website_url_not: String
+  website_url_in: [String!]
+  website_url_not_in: [String!]
+  website_url_lt: String
+  website_url_lte: String
+  website_url_gt: String
+  website_url_gte: String
+  website_url_contains: String
+  website_url_not_contains: String
+  website_url_starts_with: String
+  website_url_not_starts_with: String
+  website_url_ends_with: String
+  website_url_not_ends_with: String
+  social_media_url: String
+  social_media_url_not: String
+  social_media_url_in: [String!]
+  social_media_url_not_in: [String!]
+  social_media_url_lt: String
+  social_media_url_lte: String
+  social_media_url_gt: String
+  social_media_url_gte: String
+  social_media_url_contains: String
+  social_media_url_not_contains: String
+  social_media_url_starts_with: String
+  social_media_url_not_starts_with: String
+  social_media_url_ends_with: String
+  social_media_url_not_ends_with: String
   created_at: DateTime
   created_at_not: DateTime
   created_at_in: [DateTime!]
@@ -823,150 +886,129 @@ input BusinessDetailWhereInput {
 input BusinessDetailWhereUniqueInput {
   id: ID
   registation_id: String
-  bank_verification_number: String
 }
 
-scalar DateTime
-
-type FinanceOption {
+type BusinessFinancial {
   id: ID!
-  fund_type: FundType!
-  fund_range: FundRange!
-  reason_for_fund: String!
-  disbursement_time: DateTime!
-  avg_month_rev: Float!
-  avg_month_exp: Float!
-  is_serving_loan: Boolean!
-  application: Application!
+  avg_monthly_revenue: Float!
+  avg_monthly_expense: Float!
+  serving_loan: Boolean!
+  bank_account_name: String!
+  bank_account_number: String!
+  bank_name: String!
 }
 
-type FinanceOptionConnection {
+type BusinessFinancialConnection {
   pageInfo: PageInfo!
-  edges: [FinanceOptionEdge]!
-  aggregate: AggregateFinanceOption!
+  edges: [BusinessFinancialEdge]!
+  aggregate: AggregateBusinessFinancial!
 }
 
-input FinanceOptionCreateInput {
+input BusinessFinancialCreateInput {
   id: ID
-  fund_type: FundType!
-  fund_range: FundRangeCreateOneInput!
-  reason_for_fund: String!
-  disbursement_time: DateTime!
-  avg_month_rev: Float!
-  avg_month_exp: Float!
-  is_serving_loan: Boolean!
-  application: ApplicationCreateOneWithoutFinance_optionsInput!
+  avg_monthly_revenue: Float!
+  avg_monthly_expense: Float!
+  serving_loan: Boolean!
+  bank_account_name: String!
+  bank_account_number: String!
+  bank_name: String!
 }
 
-input FinanceOptionCreateOneWithoutApplicationInput {
-  create: FinanceOptionCreateWithoutApplicationInput
-  connect: FinanceOptionWhereUniqueInput
+input BusinessFinancialCreateOneInput {
+  create: BusinessFinancialCreateInput
+  connect: BusinessFinancialWhereUniqueInput
 }
 
-input FinanceOptionCreateWithoutApplicationInput {
-  id: ID
-  fund_type: FundType!
-  fund_range: FundRangeCreateOneInput!
-  reason_for_fund: String!
-  disbursement_time: DateTime!
-  avg_month_rev: Float!
-  avg_month_exp: Float!
-  is_serving_loan: Boolean!
-}
-
-type FinanceOptionEdge {
-  node: FinanceOption!
+type BusinessFinancialEdge {
+  node: BusinessFinancial!
   cursor: String!
 }
 
-enum FinanceOptionOrderByInput {
+enum BusinessFinancialOrderByInput {
   id_ASC
   id_DESC
-  fund_type_ASC
-  fund_type_DESC
-  reason_for_fund_ASC
-  reason_for_fund_DESC
-  disbursement_time_ASC
-  disbursement_time_DESC
-  avg_month_rev_ASC
-  avg_month_rev_DESC
-  avg_month_exp_ASC
-  avg_month_exp_DESC
-  is_serving_loan_ASC
-  is_serving_loan_DESC
+  avg_monthly_revenue_ASC
+  avg_monthly_revenue_DESC
+  avg_monthly_expense_ASC
+  avg_monthly_expense_DESC
+  serving_loan_ASC
+  serving_loan_DESC
+  bank_account_name_ASC
+  bank_account_name_DESC
+  bank_account_number_ASC
+  bank_account_number_DESC
+  bank_name_ASC
+  bank_name_DESC
 }
 
-type FinanceOptionPreviousValues {
+type BusinessFinancialPreviousValues {
   id: ID!
-  fund_type: FundType!
-  reason_for_fund: String!
-  disbursement_time: DateTime!
-  avg_month_rev: Float!
-  avg_month_exp: Float!
-  is_serving_loan: Boolean!
+  avg_monthly_revenue: Float!
+  avg_monthly_expense: Float!
+  serving_loan: Boolean!
+  bank_account_name: String!
+  bank_account_number: String!
+  bank_name: String!
 }
 
-type FinanceOptionSubscriptionPayload {
+type BusinessFinancialSubscriptionPayload {
   mutation: MutationType!
-  node: FinanceOption
+  node: BusinessFinancial
   updatedFields: [String!]
-  previousValues: FinanceOptionPreviousValues
+  previousValues: BusinessFinancialPreviousValues
 }
 
-input FinanceOptionSubscriptionWhereInput {
+input BusinessFinancialSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: FinanceOptionWhereInput
-  AND: [FinanceOptionSubscriptionWhereInput!]
-  OR: [FinanceOptionSubscriptionWhereInput!]
-  NOT: [FinanceOptionSubscriptionWhereInput!]
+  node: BusinessFinancialWhereInput
+  AND: [BusinessFinancialSubscriptionWhereInput!]
+  OR: [BusinessFinancialSubscriptionWhereInput!]
+  NOT: [BusinessFinancialSubscriptionWhereInput!]
 }
 
-input FinanceOptionUpdateInput {
-  fund_type: FundType
-  fund_range: FundRangeUpdateOneRequiredInput
-  reason_for_fund: String
-  disbursement_time: DateTime
-  avg_month_rev: Float
-  avg_month_exp: Float
-  is_serving_loan: Boolean
-  application: ApplicationUpdateOneRequiredWithoutFinance_optionsInput
+input BusinessFinancialUpdateDataInput {
+  avg_monthly_revenue: Float
+  avg_monthly_expense: Float
+  serving_loan: Boolean
+  bank_account_name: String
+  bank_account_number: String
+  bank_name: String
 }
 
-input FinanceOptionUpdateManyMutationInput {
-  fund_type: FundType
-  reason_for_fund: String
-  disbursement_time: DateTime
-  avg_month_rev: Float
-  avg_month_exp: Float
-  is_serving_loan: Boolean
+input BusinessFinancialUpdateInput {
+  avg_monthly_revenue: Float
+  avg_monthly_expense: Float
+  serving_loan: Boolean
+  bank_account_name: String
+  bank_account_number: String
+  bank_name: String
 }
 
-input FinanceOptionUpdateOneRequiredWithoutApplicationInput {
-  create: FinanceOptionCreateWithoutApplicationInput
-  update: FinanceOptionUpdateWithoutApplicationDataInput
-  upsert: FinanceOptionUpsertWithoutApplicationInput
-  connect: FinanceOptionWhereUniqueInput
+input BusinessFinancialUpdateManyMutationInput {
+  avg_monthly_revenue: Float
+  avg_monthly_expense: Float
+  serving_loan: Boolean
+  bank_account_name: String
+  bank_account_number: String
+  bank_name: String
 }
 
-input FinanceOptionUpdateWithoutApplicationDataInput {
-  fund_type: FundType
-  fund_range: FundRangeUpdateOneRequiredInput
-  reason_for_fund: String
-  disbursement_time: DateTime
-  avg_month_rev: Float
-  avg_month_exp: Float
-  is_serving_loan: Boolean
+input BusinessFinancialUpdateOneRequiredInput {
+  create: BusinessFinancialCreateInput
+  update: BusinessFinancialUpdateDataInput
+  upsert: BusinessFinancialUpsertNestedInput
+  connect: BusinessFinancialWhereUniqueInput
 }
 
-input FinanceOptionUpsertWithoutApplicationInput {
-  update: FinanceOptionUpdateWithoutApplicationDataInput!
-  create: FinanceOptionCreateWithoutApplicationInput!
+input BusinessFinancialUpsertNestedInput {
+  update: BusinessFinancialUpdateDataInput!
+  create: BusinessFinancialCreateInput!
 }
 
-input FinanceOptionWhereInput {
+input BusinessFinancialWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -981,68 +1023,267 @@ input FinanceOptionWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  fund_type: FundType
-  fund_type_not: FundType
-  fund_type_in: [FundType!]
-  fund_type_not_in: [FundType!]
-  fund_range: FundRangeWhereInput
-  reason_for_fund: String
-  reason_for_fund_not: String
-  reason_for_fund_in: [String!]
-  reason_for_fund_not_in: [String!]
-  reason_for_fund_lt: String
-  reason_for_fund_lte: String
-  reason_for_fund_gt: String
-  reason_for_fund_gte: String
-  reason_for_fund_contains: String
-  reason_for_fund_not_contains: String
-  reason_for_fund_starts_with: String
-  reason_for_fund_not_starts_with: String
-  reason_for_fund_ends_with: String
-  reason_for_fund_not_ends_with: String
-  disbursement_time: DateTime
-  disbursement_time_not: DateTime
-  disbursement_time_in: [DateTime!]
-  disbursement_time_not_in: [DateTime!]
-  disbursement_time_lt: DateTime
-  disbursement_time_lte: DateTime
-  disbursement_time_gt: DateTime
-  disbursement_time_gte: DateTime
-  avg_month_rev: Float
-  avg_month_rev_not: Float
-  avg_month_rev_in: [Float!]
-  avg_month_rev_not_in: [Float!]
-  avg_month_rev_lt: Float
-  avg_month_rev_lte: Float
-  avg_month_rev_gt: Float
-  avg_month_rev_gte: Float
-  avg_month_exp: Float
-  avg_month_exp_not: Float
-  avg_month_exp_in: [Float!]
-  avg_month_exp_not_in: [Float!]
-  avg_month_exp_lt: Float
-  avg_month_exp_lte: Float
-  avg_month_exp_gt: Float
-  avg_month_exp_gte: Float
-  is_serving_loan: Boolean
-  is_serving_loan_not: Boolean
-  application: ApplicationWhereInput
-  AND: [FinanceOptionWhereInput!]
-  OR: [FinanceOptionWhereInput!]
-  NOT: [FinanceOptionWhereInput!]
+  avg_monthly_revenue: Float
+  avg_monthly_revenue_not: Float
+  avg_monthly_revenue_in: [Float!]
+  avg_monthly_revenue_not_in: [Float!]
+  avg_monthly_revenue_lt: Float
+  avg_monthly_revenue_lte: Float
+  avg_monthly_revenue_gt: Float
+  avg_monthly_revenue_gte: Float
+  avg_monthly_expense: Float
+  avg_monthly_expense_not: Float
+  avg_monthly_expense_in: [Float!]
+  avg_monthly_expense_not_in: [Float!]
+  avg_monthly_expense_lt: Float
+  avg_monthly_expense_lte: Float
+  avg_monthly_expense_gt: Float
+  avg_monthly_expense_gte: Float
+  serving_loan: Boolean
+  serving_loan_not: Boolean
+  bank_account_name: String
+  bank_account_name_not: String
+  bank_account_name_in: [String!]
+  bank_account_name_not_in: [String!]
+  bank_account_name_lt: String
+  bank_account_name_lte: String
+  bank_account_name_gt: String
+  bank_account_name_gte: String
+  bank_account_name_contains: String
+  bank_account_name_not_contains: String
+  bank_account_name_starts_with: String
+  bank_account_name_not_starts_with: String
+  bank_account_name_ends_with: String
+  bank_account_name_not_ends_with: String
+  bank_account_number: String
+  bank_account_number_not: String
+  bank_account_number_in: [String!]
+  bank_account_number_not_in: [String!]
+  bank_account_number_lt: String
+  bank_account_number_lte: String
+  bank_account_number_gt: String
+  bank_account_number_gte: String
+  bank_account_number_contains: String
+  bank_account_number_not_contains: String
+  bank_account_number_starts_with: String
+  bank_account_number_not_starts_with: String
+  bank_account_number_ends_with: String
+  bank_account_number_not_ends_with: String
+  bank_name: String
+  bank_name_not: String
+  bank_name_in: [String!]
+  bank_name_not_in: [String!]
+  bank_name_lt: String
+  bank_name_lte: String
+  bank_name_gt: String
+  bank_name_gte: String
+  bank_name_contains: String
+  bank_name_not_contains: String
+  bank_name_starts_with: String
+  bank_name_not_starts_with: String
+  bank_name_ends_with: String
+  bank_name_not_ends_with: String
+  AND: [BusinessFinancialWhereInput!]
+  OR: [BusinessFinancialWhereInput!]
+  NOT: [BusinessFinancialWhereInput!]
 }
 
-input FinanceOptionWhereUniqueInput {
+input BusinessFinancialWhereUniqueInput {
   id: ID
 }
 
+type BusinessValidation {
+  id: ID!
+  bvn: String!
+  person_id_type: String!
+  person_id_number: String!
+  statement_url: String!
+}
+
+type BusinessValidationConnection {
+  pageInfo: PageInfo!
+  edges: [BusinessValidationEdge]!
+  aggregate: AggregateBusinessValidation!
+}
+
+input BusinessValidationCreateInput {
+  id: ID
+  bvn: String!
+  person_id_type: String!
+  person_id_number: String!
+  statement_url: String!
+}
+
+input BusinessValidationCreateOneInput {
+  create: BusinessValidationCreateInput
+  connect: BusinessValidationWhereUniqueInput
+}
+
+type BusinessValidationEdge {
+  node: BusinessValidation!
+  cursor: String!
+}
+
+enum BusinessValidationOrderByInput {
+  id_ASC
+  id_DESC
+  bvn_ASC
+  bvn_DESC
+  person_id_type_ASC
+  person_id_type_DESC
+  person_id_number_ASC
+  person_id_number_DESC
+  statement_url_ASC
+  statement_url_DESC
+}
+
+type BusinessValidationPreviousValues {
+  id: ID!
+  bvn: String!
+  person_id_type: String!
+  person_id_number: String!
+  statement_url: String!
+}
+
+type BusinessValidationSubscriptionPayload {
+  mutation: MutationType!
+  node: BusinessValidation
+  updatedFields: [String!]
+  previousValues: BusinessValidationPreviousValues
+}
+
+input BusinessValidationSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: BusinessValidationWhereInput
+  AND: [BusinessValidationSubscriptionWhereInput!]
+  OR: [BusinessValidationSubscriptionWhereInput!]
+  NOT: [BusinessValidationSubscriptionWhereInput!]
+}
+
+input BusinessValidationUpdateDataInput {
+  bvn: String
+  person_id_type: String
+  person_id_number: String
+  statement_url: String
+}
+
+input BusinessValidationUpdateInput {
+  bvn: String
+  person_id_type: String
+  person_id_number: String
+  statement_url: String
+}
+
+input BusinessValidationUpdateManyMutationInput {
+  bvn: String
+  person_id_type: String
+  person_id_number: String
+  statement_url: String
+}
+
+input BusinessValidationUpdateOneRequiredInput {
+  create: BusinessValidationCreateInput
+  update: BusinessValidationUpdateDataInput
+  upsert: BusinessValidationUpsertNestedInput
+  connect: BusinessValidationWhereUniqueInput
+}
+
+input BusinessValidationUpsertNestedInput {
+  update: BusinessValidationUpdateDataInput!
+  create: BusinessValidationCreateInput!
+}
+
+input BusinessValidationWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  bvn: String
+  bvn_not: String
+  bvn_in: [String!]
+  bvn_not_in: [String!]
+  bvn_lt: String
+  bvn_lte: String
+  bvn_gt: String
+  bvn_gte: String
+  bvn_contains: String
+  bvn_not_contains: String
+  bvn_starts_with: String
+  bvn_not_starts_with: String
+  bvn_ends_with: String
+  bvn_not_ends_with: String
+  person_id_type: String
+  person_id_type_not: String
+  person_id_type_in: [String!]
+  person_id_type_not_in: [String!]
+  person_id_type_lt: String
+  person_id_type_lte: String
+  person_id_type_gt: String
+  person_id_type_gte: String
+  person_id_type_contains: String
+  person_id_type_not_contains: String
+  person_id_type_starts_with: String
+  person_id_type_not_starts_with: String
+  person_id_type_ends_with: String
+  person_id_type_not_ends_with: String
+  person_id_number: String
+  person_id_number_not: String
+  person_id_number_in: [String!]
+  person_id_number_not_in: [String!]
+  person_id_number_lt: String
+  person_id_number_lte: String
+  person_id_number_gt: String
+  person_id_number_gte: String
+  person_id_number_contains: String
+  person_id_number_not_contains: String
+  person_id_number_starts_with: String
+  person_id_number_not_starts_with: String
+  person_id_number_ends_with: String
+  person_id_number_not_ends_with: String
+  statement_url: String
+  statement_url_not: String
+  statement_url_in: [String!]
+  statement_url_not_in: [String!]
+  statement_url_lt: String
+  statement_url_lte: String
+  statement_url_gt: String
+  statement_url_gte: String
+  statement_url_contains: String
+  statement_url_not_contains: String
+  statement_url_starts_with: String
+  statement_url_not_starts_with: String
+  statement_url_ends_with: String
+  statement_url_not_ends_with: String
+  AND: [BusinessValidationWhereInput!]
+  OR: [BusinessValidationWhereInput!]
+  NOT: [BusinessValidationWhereInput!]
+}
+
+input BusinessValidationWhereUniqueInput {
+  id: ID
+}
+
+scalar DateTime
+
 type FundDetail {
   id: ID!
-  fund_type: FundType!
-  reason: String!
-  payment_due_date: String
-  disbursement_date: DateTime!
   amount: Float!
+  reason: String!
+  dispense_date: DateTime!
+  spread: Float
 }
 
 type FundDetailConnection {
@@ -1053,11 +1294,10 @@ type FundDetailConnection {
 
 input FundDetailCreateInput {
   id: ID
-  fund_type: FundType!
-  reason: String!
-  payment_due_date: String
-  disbursement_date: DateTime!
   amount: Float!
+  reason: String!
+  dispense_date: DateTime!
+  spread: Float
 }
 
 input FundDetailCreateOneInput {
@@ -1073,25 +1313,22 @@ type FundDetailEdge {
 enum FundDetailOrderByInput {
   id_ASC
   id_DESC
-  fund_type_ASC
-  fund_type_DESC
-  reason_ASC
-  reason_DESC
-  payment_due_date_ASC
-  payment_due_date_DESC
-  disbursement_date_ASC
-  disbursement_date_DESC
   amount_ASC
   amount_DESC
+  reason_ASC
+  reason_DESC
+  dispense_date_ASC
+  dispense_date_DESC
+  spread_ASC
+  spread_DESC
 }
 
 type FundDetailPreviousValues {
   id: ID!
-  fund_type: FundType!
-  reason: String!
-  payment_due_date: String
-  disbursement_date: DateTime!
   amount: Float!
+  reason: String!
+  dispense_date: DateTime!
+  spread: Float
 }
 
 type FundDetailSubscriptionPayload {
@@ -1113,35 +1350,30 @@ input FundDetailSubscriptionWhereInput {
 }
 
 input FundDetailUpdateDataInput {
-  fund_type: FundType
-  reason: String
-  payment_due_date: String
-  disbursement_date: DateTime
   amount: Float
+  reason: String
+  dispense_date: DateTime
+  spread: Float
 }
 
 input FundDetailUpdateInput {
-  fund_type: FundType
-  reason: String
-  payment_due_date: String
-  disbursement_date: DateTime
   amount: Float
+  reason: String
+  dispense_date: DateTime
+  spread: Float
 }
 
 input FundDetailUpdateManyMutationInput {
-  fund_type: FundType
-  reason: String
-  payment_due_date: String
-  disbursement_date: DateTime
   amount: Float
+  reason: String
+  dispense_date: DateTime
+  spread: Float
 }
 
-input FundDetailUpdateOneInput {
+input FundDetailUpdateOneRequiredInput {
   create: FundDetailCreateInput
   update: FundDetailUpdateDataInput
   upsert: FundDetailUpsertNestedInput
-  delete: Boolean
-  disconnect: Boolean
   connect: FundDetailWhereUniqueInput
 }
 
@@ -1165,10 +1397,14 @@ input FundDetailWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  fund_type: FundType
-  fund_type_not: FundType
-  fund_type_in: [FundType!]
-  fund_type_not_in: [FundType!]
+  amount: Float
+  amount_not: Float
+  amount_in: [Float!]
+  amount_not_in: [Float!]
+  amount_lt: Float
+  amount_lte: Float
+  amount_gt: Float
+  amount_gte: Float
   reason: String
   reason_not: String
   reason_in: [String!]
@@ -1183,36 +1419,22 @@ input FundDetailWhereInput {
   reason_not_starts_with: String
   reason_ends_with: String
   reason_not_ends_with: String
-  payment_due_date: String
-  payment_due_date_not: String
-  payment_due_date_in: [String!]
-  payment_due_date_not_in: [String!]
-  payment_due_date_lt: String
-  payment_due_date_lte: String
-  payment_due_date_gt: String
-  payment_due_date_gte: String
-  payment_due_date_contains: String
-  payment_due_date_not_contains: String
-  payment_due_date_starts_with: String
-  payment_due_date_not_starts_with: String
-  payment_due_date_ends_with: String
-  payment_due_date_not_ends_with: String
-  disbursement_date: DateTime
-  disbursement_date_not: DateTime
-  disbursement_date_in: [DateTime!]
-  disbursement_date_not_in: [DateTime!]
-  disbursement_date_lt: DateTime
-  disbursement_date_lte: DateTime
-  disbursement_date_gt: DateTime
-  disbursement_date_gte: DateTime
-  amount: Float
-  amount_not: Float
-  amount_in: [Float!]
-  amount_not_in: [Float!]
-  amount_lt: Float
-  amount_lte: Float
-  amount_gt: Float
-  amount_gte: Float
+  dispense_date: DateTime
+  dispense_date_not: DateTime
+  dispense_date_in: [DateTime!]
+  dispense_date_not_in: [DateTime!]
+  dispense_date_lt: DateTime
+  dispense_date_lte: DateTime
+  dispense_date_gt: DateTime
+  dispense_date_gte: DateTime
+  spread: Float
+  spread_not: Float
+  spread_in: [Float!]
+  spread_not_in: [Float!]
+  spread_lt: Float
+  spread_lte: Float
+  spread_gt: Float
+  spread_gte: Float
   AND: [FundDetailWhereInput!]
   OR: [FundDetailWhereInput!]
   NOT: [FundDetailWhereInput!]
@@ -1222,143 +1444,10 @@ input FundDetailWhereUniqueInput {
   id: ID
 }
 
-type FundRange {
-  id: ID!
-  min: Float!
-  max: Float!
-}
-
-type FundRangeConnection {
-  pageInfo: PageInfo!
-  edges: [FundRangeEdge]!
-  aggregate: AggregateFundRange!
-}
-
-input FundRangeCreateInput {
-  id: ID
-  min: Float!
-  max: Float!
-}
-
-input FundRangeCreateOneInput {
-  create: FundRangeCreateInput
-  connect: FundRangeWhereUniqueInput
-}
-
-type FundRangeEdge {
-  node: FundRange!
-  cursor: String!
-}
-
-enum FundRangeOrderByInput {
-  id_ASC
-  id_DESC
-  min_ASC
-  min_DESC
-  max_ASC
-  max_DESC
-}
-
-type FundRangePreviousValues {
-  id: ID!
-  min: Float!
-  max: Float!
-}
-
-type FundRangeSubscriptionPayload {
-  mutation: MutationType!
-  node: FundRange
-  updatedFields: [String!]
-  previousValues: FundRangePreviousValues
-}
-
-input FundRangeSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: FundRangeWhereInput
-  AND: [FundRangeSubscriptionWhereInput!]
-  OR: [FundRangeSubscriptionWhereInput!]
-  NOT: [FundRangeSubscriptionWhereInput!]
-}
-
-input FundRangeUpdateDataInput {
-  min: Float
-  max: Float
-}
-
-input FundRangeUpdateInput {
-  min: Float
-  max: Float
-}
-
-input FundRangeUpdateManyMutationInput {
-  min: Float
-  max: Float
-}
-
-input FundRangeUpdateOneRequiredInput {
-  create: FundRangeCreateInput
-  update: FundRangeUpdateDataInput
-  upsert: FundRangeUpsertNestedInput
-  connect: FundRangeWhereUniqueInput
-}
-
-input FundRangeUpsertNestedInput {
-  update: FundRangeUpdateDataInput!
-  create: FundRangeCreateInput!
-}
-
-input FundRangeWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  min: Float
-  min_not: Float
-  min_in: [Float!]
-  min_not_in: [Float!]
-  min_lt: Float
-  min_lte: Float
-  min_gt: Float
-  min_gte: Float
-  max: Float
-  max_not: Float
-  max_in: [Float!]
-  max_not_in: [Float!]
-  max_lt: Float
-  max_lte: Float
-  max_gt: Float
-  max_gte: Float
-  AND: [FundRangeWhereInput!]
-  OR: [FundRangeWhereInput!]
-  NOT: [FundRangeWhereInput!]
-}
-
-input FundRangeWhereUniqueInput {
-  id: ID
-}
-
 enum FundStatus {
   PENDING
   APPROVED
   REJECTED
-}
-
-enum FundType {
-  LOAN
-  GRANT
 }
 
 enum Gender {
@@ -1469,6 +1558,7 @@ scalar Long
 type Mutation {
   createApplication(data: ApplicationCreateInput!): Application!
   updateApplication(data: ApplicationUpdateInput!, where: ApplicationWhereUniqueInput!): Application
+  updateManyApplications(data: ApplicationUpdateManyMutationInput!, where: ApplicationWhereInput): BatchPayload!
   upsertApplication(where: ApplicationWhereUniqueInput!, create: ApplicationCreateInput!, update: ApplicationUpdateInput!): Application!
   deleteApplication(where: ApplicationWhereUniqueInput!): Application
   deleteManyApplications(where: ApplicationWhereInput): BatchPayload!
@@ -1484,24 +1574,24 @@ type Mutation {
   upsertBusinessDetail(where: BusinessDetailWhereUniqueInput!, create: BusinessDetailCreateInput!, update: BusinessDetailUpdateInput!): BusinessDetail!
   deleteBusinessDetail(where: BusinessDetailWhereUniqueInput!): BusinessDetail
   deleteManyBusinessDetails(where: BusinessDetailWhereInput): BatchPayload!
-  createFinanceOption(data: FinanceOptionCreateInput!): FinanceOption!
-  updateFinanceOption(data: FinanceOptionUpdateInput!, where: FinanceOptionWhereUniqueInput!): FinanceOption
-  updateManyFinanceOptions(data: FinanceOptionUpdateManyMutationInput!, where: FinanceOptionWhereInput): BatchPayload!
-  upsertFinanceOption(where: FinanceOptionWhereUniqueInput!, create: FinanceOptionCreateInput!, update: FinanceOptionUpdateInput!): FinanceOption!
-  deleteFinanceOption(where: FinanceOptionWhereUniqueInput!): FinanceOption
-  deleteManyFinanceOptions(where: FinanceOptionWhereInput): BatchPayload!
+  createBusinessFinancial(data: BusinessFinancialCreateInput!): BusinessFinancial!
+  updateBusinessFinancial(data: BusinessFinancialUpdateInput!, where: BusinessFinancialWhereUniqueInput!): BusinessFinancial
+  updateManyBusinessFinancials(data: BusinessFinancialUpdateManyMutationInput!, where: BusinessFinancialWhereInput): BatchPayload!
+  upsertBusinessFinancial(where: BusinessFinancialWhereUniqueInput!, create: BusinessFinancialCreateInput!, update: BusinessFinancialUpdateInput!): BusinessFinancial!
+  deleteBusinessFinancial(where: BusinessFinancialWhereUniqueInput!): BusinessFinancial
+  deleteManyBusinessFinancials(where: BusinessFinancialWhereInput): BatchPayload!
+  createBusinessValidation(data: BusinessValidationCreateInput!): BusinessValidation!
+  updateBusinessValidation(data: BusinessValidationUpdateInput!, where: BusinessValidationWhereUniqueInput!): BusinessValidation
+  updateManyBusinessValidations(data: BusinessValidationUpdateManyMutationInput!, where: BusinessValidationWhereInput): BatchPayload!
+  upsertBusinessValidation(where: BusinessValidationWhereUniqueInput!, create: BusinessValidationCreateInput!, update: BusinessValidationUpdateInput!): BusinessValidation!
+  deleteBusinessValidation(where: BusinessValidationWhereUniqueInput!): BusinessValidation
+  deleteManyBusinessValidations(where: BusinessValidationWhereInput): BatchPayload!
   createFundDetail(data: FundDetailCreateInput!): FundDetail!
   updateFundDetail(data: FundDetailUpdateInput!, where: FundDetailWhereUniqueInput!): FundDetail
   updateManyFundDetails(data: FundDetailUpdateManyMutationInput!, where: FundDetailWhereInput): BatchPayload!
   upsertFundDetail(where: FundDetailWhereUniqueInput!, create: FundDetailCreateInput!, update: FundDetailUpdateInput!): FundDetail!
   deleteFundDetail(where: FundDetailWhereUniqueInput!): FundDetail
   deleteManyFundDetails(where: FundDetailWhereInput): BatchPayload!
-  createFundRange(data: FundRangeCreateInput!): FundRange!
-  updateFundRange(data: FundRangeUpdateInput!, where: FundRangeWhereUniqueInput!): FundRange
-  updateManyFundRanges(data: FundRangeUpdateManyMutationInput!, where: FundRangeWhereInput): BatchPayload!
-  upsertFundRange(where: FundRangeWhereUniqueInput!, create: FundRangeCreateInput!, update: FundRangeUpdateInput!): FundRange!
-  deleteFundRange(where: FundRangeWhereUniqueInput!): FundRange
-  deleteManyFundRanges(where: FundRangeWhereInput): BatchPayload!
   createIndustry(data: IndustryCreateInput!): Industry!
   updateIndustry(data: IndustryUpdateInput!, where: IndustryWhereUniqueInput!): Industry
   updateManyIndustries(data: IndustryUpdateManyMutationInput!, where: IndustryWhereInput): BatchPayload!
@@ -1556,11 +1646,6 @@ input NextOfKinDetailCreateInput {
   relationship: String!
 }
 
-input NextOfKinDetailCreateOneInput {
-  create: NextOfKinDetailCreateInput
-  connect: NextOfKinDetailWhereUniqueInput
-}
-
 type NextOfKinDetailEdge {
   node: NextOfKinDetail!
   cursor: String!
@@ -1605,13 +1690,6 @@ input NextOfKinDetailSubscriptionWhereInput {
   NOT: [NextOfKinDetailSubscriptionWhereInput!]
 }
 
-input NextOfKinDetailUpdateDataInput {
-  first_name: String
-  last_name: String
-  phone_number: String
-  relationship: String
-}
-
 input NextOfKinDetailUpdateInput {
   first_name: String
   last_name: String
@@ -1624,18 +1702,6 @@ input NextOfKinDetailUpdateManyMutationInput {
   last_name: String
   phone_number: String
   relationship: String
-}
-
-input NextOfKinDetailUpdateOneRequiredInput {
-  create: NextOfKinDetailCreateInput
-  update: NextOfKinDetailUpdateDataInput
-  upsert: NextOfKinDetailUpsertNestedInput
-  connect: NextOfKinDetailWhereUniqueInput
-}
-
-input NextOfKinDetailUpsertNestedInput {
-  update: NextOfKinDetailUpdateDataInput!
-  create: NextOfKinDetailCreateInput!
 }
 
 input NextOfKinDetailWhereInput {
@@ -1731,7 +1797,8 @@ type PageInfo {
 
 type PersonalDetail {
   id: ID!
-  auth_id: Auth!
+  email: String!
+  auth: Auth
   first_name: String!
   last_name: String!
   phone_number: String
@@ -1741,6 +1808,10 @@ type PersonalDetail {
   nationality: String
   state: String
   home_address: String
+  social_handle: String
+  kin_name: String
+  kin_phone: String
+  kin_relation: String
 }
 
 type PersonalDetailConnection {
@@ -1751,7 +1822,8 @@ type PersonalDetailConnection {
 
 input PersonalDetailCreateInput {
   id: ID
-  auth_id: AuthCreateOneWithoutDetailsInput!
+  email: String!
+  auth: AuthCreateOneWithoutDetailsInput
   first_name: String!
   last_name: String!
   phone_number: String
@@ -1761,6 +1833,10 @@ input PersonalDetailCreateInput {
   nationality: String
   state: String
   home_address: String
+  social_handle: String
+  kin_name: String
+  kin_phone: String
+  kin_relation: String
 }
 
 input PersonalDetailCreateOneInput {
@@ -1768,13 +1844,14 @@ input PersonalDetailCreateOneInput {
   connect: PersonalDetailWhereUniqueInput
 }
 
-input PersonalDetailCreateOneWithoutAuth_idInput {
-  create: PersonalDetailCreateWithoutAuth_idInput
+input PersonalDetailCreateOneWithoutAuthInput {
+  create: PersonalDetailCreateWithoutAuthInput
   connect: PersonalDetailWhereUniqueInput
 }
 
-input PersonalDetailCreateWithoutAuth_idInput {
+input PersonalDetailCreateWithoutAuthInput {
   id: ID
+  email: String!
   first_name: String!
   last_name: String!
   phone_number: String
@@ -1784,6 +1861,10 @@ input PersonalDetailCreateWithoutAuth_idInput {
   nationality: String
   state: String
   home_address: String
+  social_handle: String
+  kin_name: String
+  kin_phone: String
+  kin_relation: String
 }
 
 type PersonalDetailEdge {
@@ -1794,6 +1875,8 @@ type PersonalDetailEdge {
 enum PersonalDetailOrderByInput {
   id_ASC
   id_DESC
+  email_ASC
+  email_DESC
   first_name_ASC
   first_name_DESC
   last_name_ASC
@@ -1812,10 +1895,19 @@ enum PersonalDetailOrderByInput {
   state_DESC
   home_address_ASC
   home_address_DESC
+  social_handle_ASC
+  social_handle_DESC
+  kin_name_ASC
+  kin_name_DESC
+  kin_phone_ASC
+  kin_phone_DESC
+  kin_relation_ASC
+  kin_relation_DESC
 }
 
 type PersonalDetailPreviousValues {
   id: ID!
+  email: String!
   first_name: String!
   last_name: String!
   phone_number: String
@@ -1825,6 +1917,10 @@ type PersonalDetailPreviousValues {
   nationality: String
   state: String
   home_address: String
+  social_handle: String
+  kin_name: String
+  kin_phone: String
+  kin_relation: String
 }
 
 type PersonalDetailSubscriptionPayload {
@@ -1846,7 +1942,8 @@ input PersonalDetailSubscriptionWhereInput {
 }
 
 input PersonalDetailUpdateDataInput {
-  auth_id: AuthUpdateOneRequiredWithoutDetailsInput
+  email: String
+  auth: AuthUpdateOneWithoutDetailsInput
   first_name: String
   last_name: String
   phone_number: String
@@ -1856,10 +1953,15 @@ input PersonalDetailUpdateDataInput {
   nationality: String
   state: String
   home_address: String
+  social_handle: String
+  kin_name: String
+  kin_phone: String
+  kin_relation: String
 }
 
 input PersonalDetailUpdateInput {
-  auth_id: AuthUpdateOneRequiredWithoutDetailsInput
+  email: String
+  auth: AuthUpdateOneWithoutDetailsInput
   first_name: String
   last_name: String
   phone_number: String
@@ -1869,9 +1971,14 @@ input PersonalDetailUpdateInput {
   nationality: String
   state: String
   home_address: String
+  social_handle: String
+  kin_name: String
+  kin_phone: String
+  kin_relation: String
 }
 
 input PersonalDetailUpdateManyMutationInput {
+  email: String
   first_name: String
   last_name: String
   phone_number: String
@@ -1881,6 +1988,10 @@ input PersonalDetailUpdateManyMutationInput {
   nationality: String
   state: String
   home_address: String
+  social_handle: String
+  kin_name: String
+  kin_phone: String
+  kin_relation: String
 }
 
 input PersonalDetailUpdateOneRequiredInput {
@@ -1890,16 +2001,15 @@ input PersonalDetailUpdateOneRequiredInput {
   connect: PersonalDetailWhereUniqueInput
 }
 
-input PersonalDetailUpdateOneWithoutAuth_idInput {
-  create: PersonalDetailCreateWithoutAuth_idInput
-  update: PersonalDetailUpdateWithoutAuth_idDataInput
-  upsert: PersonalDetailUpsertWithoutAuth_idInput
-  delete: Boolean
-  disconnect: Boolean
+input PersonalDetailUpdateOneRequiredWithoutAuthInput {
+  create: PersonalDetailCreateWithoutAuthInput
+  update: PersonalDetailUpdateWithoutAuthDataInput
+  upsert: PersonalDetailUpsertWithoutAuthInput
   connect: PersonalDetailWhereUniqueInput
 }
 
-input PersonalDetailUpdateWithoutAuth_idDataInput {
+input PersonalDetailUpdateWithoutAuthDataInput {
+  email: String
   first_name: String
   last_name: String
   phone_number: String
@@ -1909,6 +2019,10 @@ input PersonalDetailUpdateWithoutAuth_idDataInput {
   nationality: String
   state: String
   home_address: String
+  social_handle: String
+  kin_name: String
+  kin_phone: String
+  kin_relation: String
 }
 
 input PersonalDetailUpsertNestedInput {
@@ -1916,9 +2030,9 @@ input PersonalDetailUpsertNestedInput {
   create: PersonalDetailCreateInput!
 }
 
-input PersonalDetailUpsertWithoutAuth_idInput {
-  update: PersonalDetailUpdateWithoutAuth_idDataInput!
-  create: PersonalDetailCreateWithoutAuth_idInput!
+input PersonalDetailUpsertWithoutAuthInput {
+  update: PersonalDetailUpdateWithoutAuthDataInput!
+  create: PersonalDetailCreateWithoutAuthInput!
 }
 
 input PersonalDetailWhereInput {
@@ -1936,7 +2050,21 @@ input PersonalDetailWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  auth_id: AuthWhereInput
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  auth: AuthWhereInput
   first_name: String
   first_name_not: String
   first_name_in: [String!]
@@ -2047,6 +2175,62 @@ input PersonalDetailWhereInput {
   home_address_not_starts_with: String
   home_address_ends_with: String
   home_address_not_ends_with: String
+  social_handle: String
+  social_handle_not: String
+  social_handle_in: [String!]
+  social_handle_not_in: [String!]
+  social_handle_lt: String
+  social_handle_lte: String
+  social_handle_gt: String
+  social_handle_gte: String
+  social_handle_contains: String
+  social_handle_not_contains: String
+  social_handle_starts_with: String
+  social_handle_not_starts_with: String
+  social_handle_ends_with: String
+  social_handle_not_ends_with: String
+  kin_name: String
+  kin_name_not: String
+  kin_name_in: [String!]
+  kin_name_not_in: [String!]
+  kin_name_lt: String
+  kin_name_lte: String
+  kin_name_gt: String
+  kin_name_gte: String
+  kin_name_contains: String
+  kin_name_not_contains: String
+  kin_name_starts_with: String
+  kin_name_not_starts_with: String
+  kin_name_ends_with: String
+  kin_name_not_ends_with: String
+  kin_phone: String
+  kin_phone_not: String
+  kin_phone_in: [String!]
+  kin_phone_not_in: [String!]
+  kin_phone_lt: String
+  kin_phone_lte: String
+  kin_phone_gt: String
+  kin_phone_gte: String
+  kin_phone_contains: String
+  kin_phone_not_contains: String
+  kin_phone_starts_with: String
+  kin_phone_not_starts_with: String
+  kin_phone_ends_with: String
+  kin_phone_not_ends_with: String
+  kin_relation: String
+  kin_relation_not: String
+  kin_relation_in: [String!]
+  kin_relation_not_in: [String!]
+  kin_relation_lt: String
+  kin_relation_lte: String
+  kin_relation_gt: String
+  kin_relation_gte: String
+  kin_relation_contains: String
+  kin_relation_not_contains: String
+  kin_relation_starts_with: String
+  kin_relation_not_starts_with: String
+  kin_relation_ends_with: String
+  kin_relation_not_ends_with: String
   AND: [PersonalDetailWhereInput!]
   OR: [PersonalDetailWhereInput!]
   NOT: [PersonalDetailWhereInput!]
@@ -2066,15 +2250,15 @@ type Query {
   businessDetail(where: BusinessDetailWhereUniqueInput!): BusinessDetail
   businessDetails(where: BusinessDetailWhereInput, orderBy: BusinessDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BusinessDetail]!
   businessDetailsConnection(where: BusinessDetailWhereInput, orderBy: BusinessDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BusinessDetailConnection!
-  financeOption(where: FinanceOptionWhereUniqueInput!): FinanceOption
-  financeOptions(where: FinanceOptionWhereInput, orderBy: FinanceOptionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FinanceOption]!
-  financeOptionsConnection(where: FinanceOptionWhereInput, orderBy: FinanceOptionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FinanceOptionConnection!
+  businessFinancial(where: BusinessFinancialWhereUniqueInput!): BusinessFinancial
+  businessFinancials(where: BusinessFinancialWhereInput, orderBy: BusinessFinancialOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BusinessFinancial]!
+  businessFinancialsConnection(where: BusinessFinancialWhereInput, orderBy: BusinessFinancialOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BusinessFinancialConnection!
+  businessValidation(where: BusinessValidationWhereUniqueInput!): BusinessValidation
+  businessValidations(where: BusinessValidationWhereInput, orderBy: BusinessValidationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BusinessValidation]!
+  businessValidationsConnection(where: BusinessValidationWhereInput, orderBy: BusinessValidationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BusinessValidationConnection!
   fundDetail(where: FundDetailWhereUniqueInput!): FundDetail
   fundDetails(where: FundDetailWhereInput, orderBy: FundDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FundDetail]!
   fundDetailsConnection(where: FundDetailWhereInput, orderBy: FundDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FundDetailConnection!
-  fundRange(where: FundRangeWhereUniqueInput!): FundRange
-  fundRanges(where: FundRangeWhereInput, orderBy: FundRangeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FundRange]!
-  fundRangesConnection(where: FundRangeWhereInput, orderBy: FundRangeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FundRangeConnection!
   industry(where: IndustryWhereUniqueInput!): Industry
   industries(where: IndustryWhereInput, orderBy: IndustryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Industry]!
   industriesConnection(where: IndustryWhereInput, orderBy: IndustryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IndustryConnection!
@@ -2092,9 +2276,9 @@ type Query {
 
 type SocialMedia {
   id: ID!
+  auth: Auth!
   media_type: String!
   link: String!
-  auth: Auth!
 }
 
 type SocialMediaConnection {
@@ -2105,9 +2289,9 @@ type SocialMediaConnection {
 
 input SocialMediaCreateInput {
   id: ID
+  auth: AuthCreateOneWithoutSocial_mediaInput!
   media_type: String!
   link: String!
-  auth: AuthCreateOneWithoutSocial_mediaInput!
 }
 
 input SocialMediaCreateManyWithoutAuthInput {
@@ -2208,9 +2392,9 @@ input SocialMediaSubscriptionWhereInput {
 }
 
 input SocialMediaUpdateInput {
+  auth: AuthUpdateOneRequiredWithoutSocial_mediaInput
   media_type: String
   link: String
-  auth: AuthUpdateOneRequiredWithoutSocial_mediaInput
 }
 
 input SocialMediaUpdateManyDataInput {
@@ -2271,6 +2455,7 @@ input SocialMediaWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  auth: AuthWhereInput
   media_type: String
   media_type_not: String
   media_type_in: [String!]
@@ -2299,7 +2484,6 @@ input SocialMediaWhereInput {
   link_not_starts_with: String
   link_ends_with: String
   link_not_ends_with: String
-  auth: AuthWhereInput
   AND: [SocialMediaWhereInput!]
   OR: [SocialMediaWhereInput!]
   NOT: [SocialMediaWhereInput!]
@@ -2313,9 +2497,9 @@ type Subscription {
   application(where: ApplicationSubscriptionWhereInput): ApplicationSubscriptionPayload
   auth(where: AuthSubscriptionWhereInput): AuthSubscriptionPayload
   businessDetail(where: BusinessDetailSubscriptionWhereInput): BusinessDetailSubscriptionPayload
-  financeOption(where: FinanceOptionSubscriptionWhereInput): FinanceOptionSubscriptionPayload
+  businessFinancial(where: BusinessFinancialSubscriptionWhereInput): BusinessFinancialSubscriptionPayload
+  businessValidation(where: BusinessValidationSubscriptionWhereInput): BusinessValidationSubscriptionPayload
   fundDetail(where: FundDetailSubscriptionWhereInput): FundDetailSubscriptionPayload
-  fundRange(where: FundRangeSubscriptionWhereInput): FundRangeSubscriptionPayload
   industry(where: IndustrySubscriptionWhereInput): IndustrySubscriptionPayload
   nextOfKinDetail(where: NextOfKinDetailSubscriptionWhereInput): NextOfKinDetailSubscriptionPayload
   personalDetail(where: PersonalDetailSubscriptionWhereInput): PersonalDetailSubscriptionPayload

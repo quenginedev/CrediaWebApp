@@ -8,10 +8,14 @@ import verifyNG from './plugins/veriefied.ng'
 import firebasePlugin from './plugins/firebase'
 import firebaseConfig from "./firebase-config";
 import creadia from './plugins/credia'
+import VueClipboards from 'vue-clipboards';
+
+
 
 Vue.use(firebasePlugin, firebaseConfig)
 Vue.use(verifyNG)
 Vue.use(creadia)
+Vue.use(VueClipboards);
 
 Vue.config.productionTip = false
 

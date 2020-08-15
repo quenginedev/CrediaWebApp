@@ -19,9 +19,11 @@ export interface Exists {
   application: (where?: ApplicationWhereInput) => Promise<boolean>;
   auth: (where?: AuthWhereInput) => Promise<boolean>;
   businessDetail: (where?: BusinessDetailWhereInput) => Promise<boolean>;
-  financeOption: (where?: FinanceOptionWhereInput) => Promise<boolean>;
+  businessFinancial: (where?: BusinessFinancialWhereInput) => Promise<boolean>;
+  businessValidation: (
+    where?: BusinessValidationWhereInput
+  ) => Promise<boolean>;
   fundDetail: (where?: FundDetailWhereInput) => Promise<boolean>;
-  fundRange: (where?: FundRangeWhereInput) => Promise<boolean>;
   industry: (where?: IndustryWhereInput) => Promise<boolean>;
   nextOfKinDetail: (where?: NextOfKinDetailWhereInput) => Promise<boolean>;
   personalDetail: (where?: PersonalDetailWhereInput) => Promise<boolean>;
@@ -108,27 +110,48 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => BusinessDetailConnectionPromise;
-  financeOption: (
-    where: FinanceOptionWhereUniqueInput
-  ) => FinanceOptionNullablePromise;
-  financeOptions: (args?: {
-    where?: FinanceOptionWhereInput;
-    orderBy?: FinanceOptionOrderByInput;
+  businessFinancial: (
+    where: BusinessFinancialWhereUniqueInput
+  ) => BusinessFinancialNullablePromise;
+  businessFinancials: (args?: {
+    where?: BusinessFinancialWhereInput;
+    orderBy?: BusinessFinancialOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => FragmentableArray<FinanceOption>;
-  financeOptionsConnection: (args?: {
-    where?: FinanceOptionWhereInput;
-    orderBy?: FinanceOptionOrderByInput;
+  }) => FragmentableArray<BusinessFinancial>;
+  businessFinancialsConnection: (args?: {
+    where?: BusinessFinancialWhereInput;
+    orderBy?: BusinessFinancialOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => FinanceOptionConnectionPromise;
+  }) => BusinessFinancialConnectionPromise;
+  businessValidation: (
+    where: BusinessValidationWhereUniqueInput
+  ) => BusinessValidationNullablePromise;
+  businessValidations: (args?: {
+    where?: BusinessValidationWhereInput;
+    orderBy?: BusinessValidationOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<BusinessValidation>;
+  businessValidationsConnection: (args?: {
+    where?: BusinessValidationWhereInput;
+    orderBy?: BusinessValidationOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => BusinessValidationConnectionPromise;
   fundDetail: (where: FundDetailWhereUniqueInput) => FundDetailNullablePromise;
   fundDetails: (args?: {
     where?: FundDetailWhereInput;
@@ -148,25 +171,6 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => FundDetailConnectionPromise;
-  fundRange: (where: FundRangeWhereUniqueInput) => FundRangeNullablePromise;
-  fundRanges: (args?: {
-    where?: FundRangeWhereInput;
-    orderBy?: FundRangeOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => FragmentableArray<FundRange>;
-  fundRangesConnection: (args?: {
-    where?: FundRangeWhereInput;
-    orderBy?: FundRangeOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => FundRangeConnectionPromise;
   industry: (where: IndustryWhereUniqueInput) => IndustryNullablePromise;
   industries: (args?: {
     where?: IndustryWhereInput;
@@ -260,6 +264,10 @@ export interface Prisma {
     data: ApplicationUpdateInput;
     where: ApplicationWhereUniqueInput;
   }) => ApplicationPromise;
+  updateManyApplications: (args: {
+    data: ApplicationUpdateManyMutationInput;
+    where?: ApplicationWhereInput;
+  }) => BatchPayloadPromise;
   upsertApplication: (args: {
     where: ApplicationWhereUniqueInput;
     create: ApplicationCreateInput;
@@ -307,25 +315,49 @@ export interface Prisma {
   deleteManyBusinessDetails: (
     where?: BusinessDetailWhereInput
   ) => BatchPayloadPromise;
-  createFinanceOption: (data: FinanceOptionCreateInput) => FinanceOptionPromise;
-  updateFinanceOption: (args: {
-    data: FinanceOptionUpdateInput;
-    where: FinanceOptionWhereUniqueInput;
-  }) => FinanceOptionPromise;
-  updateManyFinanceOptions: (args: {
-    data: FinanceOptionUpdateManyMutationInput;
-    where?: FinanceOptionWhereInput;
+  createBusinessFinancial: (
+    data: BusinessFinancialCreateInput
+  ) => BusinessFinancialPromise;
+  updateBusinessFinancial: (args: {
+    data: BusinessFinancialUpdateInput;
+    where: BusinessFinancialWhereUniqueInput;
+  }) => BusinessFinancialPromise;
+  updateManyBusinessFinancials: (args: {
+    data: BusinessFinancialUpdateManyMutationInput;
+    where?: BusinessFinancialWhereInput;
   }) => BatchPayloadPromise;
-  upsertFinanceOption: (args: {
-    where: FinanceOptionWhereUniqueInput;
-    create: FinanceOptionCreateInput;
-    update: FinanceOptionUpdateInput;
-  }) => FinanceOptionPromise;
-  deleteFinanceOption: (
-    where: FinanceOptionWhereUniqueInput
-  ) => FinanceOptionPromise;
-  deleteManyFinanceOptions: (
-    where?: FinanceOptionWhereInput
+  upsertBusinessFinancial: (args: {
+    where: BusinessFinancialWhereUniqueInput;
+    create: BusinessFinancialCreateInput;
+    update: BusinessFinancialUpdateInput;
+  }) => BusinessFinancialPromise;
+  deleteBusinessFinancial: (
+    where: BusinessFinancialWhereUniqueInput
+  ) => BusinessFinancialPromise;
+  deleteManyBusinessFinancials: (
+    where?: BusinessFinancialWhereInput
+  ) => BatchPayloadPromise;
+  createBusinessValidation: (
+    data: BusinessValidationCreateInput
+  ) => BusinessValidationPromise;
+  updateBusinessValidation: (args: {
+    data: BusinessValidationUpdateInput;
+    where: BusinessValidationWhereUniqueInput;
+  }) => BusinessValidationPromise;
+  updateManyBusinessValidations: (args: {
+    data: BusinessValidationUpdateManyMutationInput;
+    where?: BusinessValidationWhereInput;
+  }) => BatchPayloadPromise;
+  upsertBusinessValidation: (args: {
+    where: BusinessValidationWhereUniqueInput;
+    create: BusinessValidationCreateInput;
+    update: BusinessValidationUpdateInput;
+  }) => BusinessValidationPromise;
+  deleteBusinessValidation: (
+    where: BusinessValidationWhereUniqueInput
+  ) => BusinessValidationPromise;
+  deleteManyBusinessValidations: (
+    where?: BusinessValidationWhereInput
   ) => BatchPayloadPromise;
   createFundDetail: (data: FundDetailCreateInput) => FundDetailPromise;
   updateFundDetail: (args: {
@@ -343,22 +375,6 @@ export interface Prisma {
   }) => FundDetailPromise;
   deleteFundDetail: (where: FundDetailWhereUniqueInput) => FundDetailPromise;
   deleteManyFundDetails: (where?: FundDetailWhereInput) => BatchPayloadPromise;
-  createFundRange: (data: FundRangeCreateInput) => FundRangePromise;
-  updateFundRange: (args: {
-    data: FundRangeUpdateInput;
-    where: FundRangeWhereUniqueInput;
-  }) => FundRangePromise;
-  updateManyFundRanges: (args: {
-    data: FundRangeUpdateManyMutationInput;
-    where?: FundRangeWhereInput;
-  }) => BatchPayloadPromise;
-  upsertFundRange: (args: {
-    where: FundRangeWhereUniqueInput;
-    create: FundRangeCreateInput;
-    update: FundRangeUpdateInput;
-  }) => FundRangePromise;
-  deleteFundRange: (where: FundRangeWhereUniqueInput) => FundRangePromise;
-  deleteManyFundRanges: (where?: FundRangeWhereInput) => BatchPayloadPromise;
   createIndustry: (data: IndustryCreateInput) => IndustryPromise;
   updateIndustry: (args: {
     data: IndustryUpdateInput;
@@ -455,15 +471,15 @@ export interface Subscription {
   businessDetail: (
     where?: BusinessDetailSubscriptionWhereInput
   ) => BusinessDetailSubscriptionPayloadSubscription;
-  financeOption: (
-    where?: FinanceOptionSubscriptionWhereInput
-  ) => FinanceOptionSubscriptionPayloadSubscription;
+  businessFinancial: (
+    where?: BusinessFinancialSubscriptionWhereInput
+  ) => BusinessFinancialSubscriptionPayloadSubscription;
+  businessValidation: (
+    where?: BusinessValidationSubscriptionWhereInput
+  ) => BusinessValidationSubscriptionPayloadSubscription;
   fundDetail: (
     where?: FundDetailSubscriptionWhereInput
   ) => FundDetailSubscriptionPayloadSubscription;
-  fundRange: (
-    where?: FundRangeSubscriptionWhereInput
-  ) => FundRangeSubscriptionPayloadSubscription;
   industry: (
     where?: IndustrySubscriptionWhereInput
   ) => IndustrySubscriptionPayloadSubscription;
@@ -486,9 +502,9 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type Gender = "MALE" | "FEMALE";
+export type AccountType = "SME" | "LENDER" | "ADMIN";
 
-export type FundType = "LOAN" | "GRANT";
+export type Gender = "MALE" | "FEMALE";
 
 export type FundStatus = "PENDING" | "APPROVED" | "REJECTED";
 
@@ -500,15 +516,21 @@ export type SocialMediaOrderByInput =
   | "link_ASC"
   | "link_DESC";
 
-export type ApplicationOrderByInput = "id_ASC" | "id_DESC";
+export type ApplicationOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "application_type_ASC"
+  | "application_type_DESC"
+  | "fund_status_ASC"
+  | "fund_status_DESC";
 
 export type AuthOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "firebase_id_ASC"
   | "firebase_id_DESC"
-  | "email_ASC"
-  | "email_DESC"
+  | "account_type_ASC"
+  | "account_type_DESC"
   | "created_at_ASC"
   | "created_at_DESC"
   | "updated_at_ASC"
@@ -519,62 +541,70 @@ export type BusinessDetailOrderByInput =
   | "id_DESC"
   | "name_ASC"
   | "name_DESC"
-  | "industry_type_ASC"
-  | "industry_type_DESC"
   | "business_type_ASC"
   | "business_type_DESC"
-  | "registration_type_ASC"
-  | "registration_type_DESC"
   | "registation_id_ASC"
   | "registation_id_DESC"
+  | "cac_file_link_ASC"
+  | "cac_file_link_DESC"
+  | "industry_type_ASC"
+  | "industry_type_DESC"
   | "business_start_year_ASC"
   | "business_start_year_DESC"
-  | "bank_verification_number_ASC"
-  | "bank_verification_number_DESC"
-  | "fund_status_ASC"
-  | "fund_status_DESC"
+  | "street_address_ASC"
+  | "street_address_DESC"
+  | "state_ASC"
+  | "state_DESC"
+  | "local_goverment_area_ASC"
+  | "local_goverment_area_DESC"
+  | "website_url_ASC"
+  | "website_url_DESC"
+  | "social_media_url_ASC"
+  | "social_media_url_DESC"
   | "created_at_ASC"
   | "created_at_DESC"
   | "updated_at_ASC"
   | "updated_at_DESC";
 
-export type FinanceOptionOrderByInput =
+export type BusinessFinancialOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "fund_type_ASC"
-  | "fund_type_DESC"
-  | "reason_for_fund_ASC"
-  | "reason_for_fund_DESC"
-  | "disbursement_time_ASC"
-  | "disbursement_time_DESC"
-  | "avg_month_rev_ASC"
-  | "avg_month_rev_DESC"
-  | "avg_month_exp_ASC"
-  | "avg_month_exp_DESC"
-  | "is_serving_loan_ASC"
-  | "is_serving_loan_DESC";
+  | "avg_monthly_revenue_ASC"
+  | "avg_monthly_revenue_DESC"
+  | "avg_monthly_expense_ASC"
+  | "avg_monthly_expense_DESC"
+  | "serving_loan_ASC"
+  | "serving_loan_DESC"
+  | "bank_account_name_ASC"
+  | "bank_account_name_DESC"
+  | "bank_account_number_ASC"
+  | "bank_account_number_DESC"
+  | "bank_name_ASC"
+  | "bank_name_DESC";
+
+export type BusinessValidationOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "bvn_ASC"
+  | "bvn_DESC"
+  | "person_id_type_ASC"
+  | "person_id_type_DESC"
+  | "person_id_number_ASC"
+  | "person_id_number_DESC"
+  | "statement_url_ASC"
+  | "statement_url_DESC";
 
 export type FundDetailOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "fund_type_ASC"
-  | "fund_type_DESC"
+  | "amount_ASC"
+  | "amount_DESC"
   | "reason_ASC"
   | "reason_DESC"
-  | "payment_due_date_ASC"
-  | "payment_due_date_DESC"
-  | "disbursement_date_ASC"
-  | "disbursement_date_DESC"
-  | "amount_ASC"
-  | "amount_DESC";
-
-export type FundRangeOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "min_ASC"
-  | "min_DESC"
-  | "max_ASC"
-  | "max_DESC";
+  | "dispense_date_ASC"
+  | "dispense_date_DESC"
+  | "spread_ASC"
+  | "spread_DESC";
 
 export type IndustryOrderByInput =
   | "id_ASC"
@@ -597,6 +627,8 @@ export type NextOfKinDetailOrderByInput =
 export type PersonalDetailOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "email_ASC"
+  | "email_DESC"
   | "first_name_ASC"
   | "first_name_DESC"
   | "last_name_ASC"
@@ -614,7 +646,15 @@ export type PersonalDetailOrderByInput =
   | "state_ASC"
   | "state_DESC"
   | "home_address_ASC"
-  | "home_address_DESC";
+  | "home_address_DESC"
+  | "social_handle_ASC"
+  | "social_handle_DESC"
+  | "kin_name_ASC"
+  | "kin_name_DESC"
+  | "kin_phone_ASC"
+  | "kin_phone_DESC"
+  | "kin_relation_ASC"
+  | "kin_relation_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -637,6 +677,7 @@ export interface SocialMediaWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  auth?: Maybe<AuthWhereInput>;
   media_type?: Maybe<String>;
   media_type_not?: Maybe<String>;
   media_type_in?: Maybe<String[] | String>;
@@ -665,7 +706,6 @@ export interface SocialMediaWhereInput {
   link_not_starts_with?: Maybe<String>;
   link_ends_with?: Maybe<String>;
   link_not_ends_with?: Maybe<String>;
-  auth?: Maybe<AuthWhereInput>;
   AND?: Maybe<SocialMediaWhereInput[] | SocialMediaWhereInput>;
   OR?: Maybe<SocialMediaWhereInput[] | SocialMediaWhereInput>;
   NOT?: Maybe<SocialMediaWhereInput[] | SocialMediaWhereInput>;
@@ -700,20 +740,10 @@ export interface AuthWhereInput {
   firebase_id_not_starts_with?: Maybe<String>;
   firebase_id_ends_with?: Maybe<String>;
   firebase_id_not_ends_with?: Maybe<String>;
-  email?: Maybe<String>;
-  email_not?: Maybe<String>;
-  email_in?: Maybe<String[] | String>;
-  email_not_in?: Maybe<String[] | String>;
-  email_lt?: Maybe<String>;
-  email_lte?: Maybe<String>;
-  email_gt?: Maybe<String>;
-  email_gte?: Maybe<String>;
-  email_contains?: Maybe<String>;
-  email_not_contains?: Maybe<String>;
-  email_starts_with?: Maybe<String>;
-  email_not_starts_with?: Maybe<String>;
-  email_ends_with?: Maybe<String>;
-  email_not_ends_with?: Maybe<String>;
+  account_type?: Maybe<AccountType>;
+  account_type_not?: Maybe<AccountType>;
+  account_type_in?: Maybe<AccountType[] | AccountType>;
+  account_type_not_in?: Maybe<AccountType[] | AccountType>;
   details?: Maybe<PersonalDetailWhereInput>;
   social_media_every?: Maybe<SocialMediaWhereInput>;
   social_media_some?: Maybe<SocialMediaWhereInput>;
@@ -757,7 +787,21 @@ export interface PersonalDetailWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  auth_id?: Maybe<AuthWhereInput>;
+  email?: Maybe<String>;
+  email_not?: Maybe<String>;
+  email_in?: Maybe<String[] | String>;
+  email_not_in?: Maybe<String[] | String>;
+  email_lt?: Maybe<String>;
+  email_lte?: Maybe<String>;
+  email_gt?: Maybe<String>;
+  email_gte?: Maybe<String>;
+  email_contains?: Maybe<String>;
+  email_not_contains?: Maybe<String>;
+  email_starts_with?: Maybe<String>;
+  email_not_starts_with?: Maybe<String>;
+  email_ends_with?: Maybe<String>;
+  email_not_ends_with?: Maybe<String>;
+  auth?: Maybe<AuthWhereInput>;
   first_name?: Maybe<String>;
   first_name_not?: Maybe<String>;
   first_name_in?: Maybe<String[] | String>;
@@ -868,6 +912,62 @@ export interface PersonalDetailWhereInput {
   home_address_not_starts_with?: Maybe<String>;
   home_address_ends_with?: Maybe<String>;
   home_address_not_ends_with?: Maybe<String>;
+  social_handle?: Maybe<String>;
+  social_handle_not?: Maybe<String>;
+  social_handle_in?: Maybe<String[] | String>;
+  social_handle_not_in?: Maybe<String[] | String>;
+  social_handle_lt?: Maybe<String>;
+  social_handle_lte?: Maybe<String>;
+  social_handle_gt?: Maybe<String>;
+  social_handle_gte?: Maybe<String>;
+  social_handle_contains?: Maybe<String>;
+  social_handle_not_contains?: Maybe<String>;
+  social_handle_starts_with?: Maybe<String>;
+  social_handle_not_starts_with?: Maybe<String>;
+  social_handle_ends_with?: Maybe<String>;
+  social_handle_not_ends_with?: Maybe<String>;
+  kin_name?: Maybe<String>;
+  kin_name_not?: Maybe<String>;
+  kin_name_in?: Maybe<String[] | String>;
+  kin_name_not_in?: Maybe<String[] | String>;
+  kin_name_lt?: Maybe<String>;
+  kin_name_lte?: Maybe<String>;
+  kin_name_gt?: Maybe<String>;
+  kin_name_gte?: Maybe<String>;
+  kin_name_contains?: Maybe<String>;
+  kin_name_not_contains?: Maybe<String>;
+  kin_name_starts_with?: Maybe<String>;
+  kin_name_not_starts_with?: Maybe<String>;
+  kin_name_ends_with?: Maybe<String>;
+  kin_name_not_ends_with?: Maybe<String>;
+  kin_phone?: Maybe<String>;
+  kin_phone_not?: Maybe<String>;
+  kin_phone_in?: Maybe<String[] | String>;
+  kin_phone_not_in?: Maybe<String[] | String>;
+  kin_phone_lt?: Maybe<String>;
+  kin_phone_lte?: Maybe<String>;
+  kin_phone_gt?: Maybe<String>;
+  kin_phone_gte?: Maybe<String>;
+  kin_phone_contains?: Maybe<String>;
+  kin_phone_not_contains?: Maybe<String>;
+  kin_phone_starts_with?: Maybe<String>;
+  kin_phone_not_starts_with?: Maybe<String>;
+  kin_phone_ends_with?: Maybe<String>;
+  kin_phone_not_ends_with?: Maybe<String>;
+  kin_relation?: Maybe<String>;
+  kin_relation_not?: Maybe<String>;
+  kin_relation_in?: Maybe<String[] | String>;
+  kin_relation_not_in?: Maybe<String[] | String>;
+  kin_relation_lt?: Maybe<String>;
+  kin_relation_lte?: Maybe<String>;
+  kin_relation_gt?: Maybe<String>;
+  kin_relation_gte?: Maybe<String>;
+  kin_relation_contains?: Maybe<String>;
+  kin_relation_not_contains?: Maybe<String>;
+  kin_relation_starts_with?: Maybe<String>;
+  kin_relation_not_starts_with?: Maybe<String>;
+  kin_relation_ends_with?: Maybe<String>;
+  kin_relation_not_ends_with?: Maybe<String>;
   AND?: Maybe<PersonalDetailWhereInput[] | PersonalDetailWhereInput>;
   OR?: Maybe<PersonalDetailWhereInput[] | PersonalDetailWhereInput>;
   NOT?: Maybe<PersonalDetailWhereInput[] | PersonalDetailWhereInput>;
@@ -888,15 +988,497 @@ export interface ApplicationWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  application_type?: Maybe<String>;
+  application_type_not?: Maybe<String>;
+  application_type_in?: Maybe<String[] | String>;
+  application_type_not_in?: Maybe<String[] | String>;
+  application_type_lt?: Maybe<String>;
+  application_type_lte?: Maybe<String>;
+  application_type_gt?: Maybe<String>;
+  application_type_gte?: Maybe<String>;
+  application_type_contains?: Maybe<String>;
+  application_type_not_contains?: Maybe<String>;
+  application_type_starts_with?: Maybe<String>;
+  application_type_not_starts_with?: Maybe<String>;
+  application_type_ends_with?: Maybe<String>;
+  application_type_not_ends_with?: Maybe<String>;
   auth?: Maybe<AuthWhereInput>;
+  fund_details?: Maybe<FundDetailWhereInput>;
   personal_details?: Maybe<PersonalDetailWhereInput>;
-  next_of_kin?: Maybe<NextOfKinDetailWhereInput>;
   business_details?: Maybe<BusinessDetailWhereInput>;
-  finance_options?: Maybe<FinanceOptionWhereInput>;
+  business_financials?: Maybe<BusinessFinancialWhereInput>;
+  validations?: Maybe<BusinessValidationWhereInput>;
+  fund_status?: Maybe<FundStatus>;
+  fund_status_not?: Maybe<FundStatus>;
+  fund_status_in?: Maybe<FundStatus[] | FundStatus>;
+  fund_status_not_in?: Maybe<FundStatus[] | FundStatus>;
   AND?: Maybe<ApplicationWhereInput[] | ApplicationWhereInput>;
   OR?: Maybe<ApplicationWhereInput[] | ApplicationWhereInput>;
   NOT?: Maybe<ApplicationWhereInput[] | ApplicationWhereInput>;
 }
+
+export interface FundDetailWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  amount?: Maybe<Float>;
+  amount_not?: Maybe<Float>;
+  amount_in?: Maybe<Float[] | Float>;
+  amount_not_in?: Maybe<Float[] | Float>;
+  amount_lt?: Maybe<Float>;
+  amount_lte?: Maybe<Float>;
+  amount_gt?: Maybe<Float>;
+  amount_gte?: Maybe<Float>;
+  reason?: Maybe<String>;
+  reason_not?: Maybe<String>;
+  reason_in?: Maybe<String[] | String>;
+  reason_not_in?: Maybe<String[] | String>;
+  reason_lt?: Maybe<String>;
+  reason_lte?: Maybe<String>;
+  reason_gt?: Maybe<String>;
+  reason_gte?: Maybe<String>;
+  reason_contains?: Maybe<String>;
+  reason_not_contains?: Maybe<String>;
+  reason_starts_with?: Maybe<String>;
+  reason_not_starts_with?: Maybe<String>;
+  reason_ends_with?: Maybe<String>;
+  reason_not_ends_with?: Maybe<String>;
+  dispense_date?: Maybe<DateTimeInput>;
+  dispense_date_not?: Maybe<DateTimeInput>;
+  dispense_date_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  dispense_date_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  dispense_date_lt?: Maybe<DateTimeInput>;
+  dispense_date_lte?: Maybe<DateTimeInput>;
+  dispense_date_gt?: Maybe<DateTimeInput>;
+  dispense_date_gte?: Maybe<DateTimeInput>;
+  spread?: Maybe<Float>;
+  spread_not?: Maybe<Float>;
+  spread_in?: Maybe<Float[] | Float>;
+  spread_not_in?: Maybe<Float[] | Float>;
+  spread_lt?: Maybe<Float>;
+  spread_lte?: Maybe<Float>;
+  spread_gt?: Maybe<Float>;
+  spread_gte?: Maybe<Float>;
+  AND?: Maybe<FundDetailWhereInput[] | FundDetailWhereInput>;
+  OR?: Maybe<FundDetailWhereInput[] | FundDetailWhereInput>;
+  NOT?: Maybe<FundDetailWhereInput[] | FundDetailWhereInput>;
+}
+
+export interface BusinessDetailWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  business_type?: Maybe<String>;
+  business_type_not?: Maybe<String>;
+  business_type_in?: Maybe<String[] | String>;
+  business_type_not_in?: Maybe<String[] | String>;
+  business_type_lt?: Maybe<String>;
+  business_type_lte?: Maybe<String>;
+  business_type_gt?: Maybe<String>;
+  business_type_gte?: Maybe<String>;
+  business_type_contains?: Maybe<String>;
+  business_type_not_contains?: Maybe<String>;
+  business_type_starts_with?: Maybe<String>;
+  business_type_not_starts_with?: Maybe<String>;
+  business_type_ends_with?: Maybe<String>;
+  business_type_not_ends_with?: Maybe<String>;
+  registation_id?: Maybe<String>;
+  registation_id_not?: Maybe<String>;
+  registation_id_in?: Maybe<String[] | String>;
+  registation_id_not_in?: Maybe<String[] | String>;
+  registation_id_lt?: Maybe<String>;
+  registation_id_lte?: Maybe<String>;
+  registation_id_gt?: Maybe<String>;
+  registation_id_gte?: Maybe<String>;
+  registation_id_contains?: Maybe<String>;
+  registation_id_not_contains?: Maybe<String>;
+  registation_id_starts_with?: Maybe<String>;
+  registation_id_not_starts_with?: Maybe<String>;
+  registation_id_ends_with?: Maybe<String>;
+  registation_id_not_ends_with?: Maybe<String>;
+  cac_file_link?: Maybe<String>;
+  cac_file_link_not?: Maybe<String>;
+  cac_file_link_in?: Maybe<String[] | String>;
+  cac_file_link_not_in?: Maybe<String[] | String>;
+  cac_file_link_lt?: Maybe<String>;
+  cac_file_link_lte?: Maybe<String>;
+  cac_file_link_gt?: Maybe<String>;
+  cac_file_link_gte?: Maybe<String>;
+  cac_file_link_contains?: Maybe<String>;
+  cac_file_link_not_contains?: Maybe<String>;
+  cac_file_link_starts_with?: Maybe<String>;
+  cac_file_link_not_starts_with?: Maybe<String>;
+  cac_file_link_ends_with?: Maybe<String>;
+  cac_file_link_not_ends_with?: Maybe<String>;
+  industry_type?: Maybe<String>;
+  industry_type_not?: Maybe<String>;
+  industry_type_in?: Maybe<String[] | String>;
+  industry_type_not_in?: Maybe<String[] | String>;
+  industry_type_lt?: Maybe<String>;
+  industry_type_lte?: Maybe<String>;
+  industry_type_gt?: Maybe<String>;
+  industry_type_gte?: Maybe<String>;
+  industry_type_contains?: Maybe<String>;
+  industry_type_not_contains?: Maybe<String>;
+  industry_type_starts_with?: Maybe<String>;
+  industry_type_not_starts_with?: Maybe<String>;
+  industry_type_ends_with?: Maybe<String>;
+  industry_type_not_ends_with?: Maybe<String>;
+  business_start_year?: Maybe<Int>;
+  business_start_year_not?: Maybe<Int>;
+  business_start_year_in?: Maybe<Int[] | Int>;
+  business_start_year_not_in?: Maybe<Int[] | Int>;
+  business_start_year_lt?: Maybe<Int>;
+  business_start_year_lte?: Maybe<Int>;
+  business_start_year_gt?: Maybe<Int>;
+  business_start_year_gte?: Maybe<Int>;
+  street_address?: Maybe<String>;
+  street_address_not?: Maybe<String>;
+  street_address_in?: Maybe<String[] | String>;
+  street_address_not_in?: Maybe<String[] | String>;
+  street_address_lt?: Maybe<String>;
+  street_address_lte?: Maybe<String>;
+  street_address_gt?: Maybe<String>;
+  street_address_gte?: Maybe<String>;
+  street_address_contains?: Maybe<String>;
+  street_address_not_contains?: Maybe<String>;
+  street_address_starts_with?: Maybe<String>;
+  street_address_not_starts_with?: Maybe<String>;
+  street_address_ends_with?: Maybe<String>;
+  street_address_not_ends_with?: Maybe<String>;
+  state?: Maybe<String>;
+  state_not?: Maybe<String>;
+  state_in?: Maybe<String[] | String>;
+  state_not_in?: Maybe<String[] | String>;
+  state_lt?: Maybe<String>;
+  state_lte?: Maybe<String>;
+  state_gt?: Maybe<String>;
+  state_gte?: Maybe<String>;
+  state_contains?: Maybe<String>;
+  state_not_contains?: Maybe<String>;
+  state_starts_with?: Maybe<String>;
+  state_not_starts_with?: Maybe<String>;
+  state_ends_with?: Maybe<String>;
+  state_not_ends_with?: Maybe<String>;
+  local_goverment_area?: Maybe<String>;
+  local_goverment_area_not?: Maybe<String>;
+  local_goverment_area_in?: Maybe<String[] | String>;
+  local_goverment_area_not_in?: Maybe<String[] | String>;
+  local_goverment_area_lt?: Maybe<String>;
+  local_goverment_area_lte?: Maybe<String>;
+  local_goverment_area_gt?: Maybe<String>;
+  local_goverment_area_gte?: Maybe<String>;
+  local_goverment_area_contains?: Maybe<String>;
+  local_goverment_area_not_contains?: Maybe<String>;
+  local_goverment_area_starts_with?: Maybe<String>;
+  local_goverment_area_not_starts_with?: Maybe<String>;
+  local_goverment_area_ends_with?: Maybe<String>;
+  local_goverment_area_not_ends_with?: Maybe<String>;
+  website_url?: Maybe<String>;
+  website_url_not?: Maybe<String>;
+  website_url_in?: Maybe<String[] | String>;
+  website_url_not_in?: Maybe<String[] | String>;
+  website_url_lt?: Maybe<String>;
+  website_url_lte?: Maybe<String>;
+  website_url_gt?: Maybe<String>;
+  website_url_gte?: Maybe<String>;
+  website_url_contains?: Maybe<String>;
+  website_url_not_contains?: Maybe<String>;
+  website_url_starts_with?: Maybe<String>;
+  website_url_not_starts_with?: Maybe<String>;
+  website_url_ends_with?: Maybe<String>;
+  website_url_not_ends_with?: Maybe<String>;
+  social_media_url?: Maybe<String>;
+  social_media_url_not?: Maybe<String>;
+  social_media_url_in?: Maybe<String[] | String>;
+  social_media_url_not_in?: Maybe<String[] | String>;
+  social_media_url_lt?: Maybe<String>;
+  social_media_url_lte?: Maybe<String>;
+  social_media_url_gt?: Maybe<String>;
+  social_media_url_gte?: Maybe<String>;
+  social_media_url_contains?: Maybe<String>;
+  social_media_url_not_contains?: Maybe<String>;
+  social_media_url_starts_with?: Maybe<String>;
+  social_media_url_not_starts_with?: Maybe<String>;
+  social_media_url_ends_with?: Maybe<String>;
+  social_media_url_not_ends_with?: Maybe<String>;
+  created_at?: Maybe<DateTimeInput>;
+  created_at_not?: Maybe<DateTimeInput>;
+  created_at_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  created_at_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  created_at_lt?: Maybe<DateTimeInput>;
+  created_at_lte?: Maybe<DateTimeInput>;
+  created_at_gt?: Maybe<DateTimeInput>;
+  created_at_gte?: Maybe<DateTimeInput>;
+  updated_at?: Maybe<DateTimeInput>;
+  updated_at_not?: Maybe<DateTimeInput>;
+  updated_at_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updated_at_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updated_at_lt?: Maybe<DateTimeInput>;
+  updated_at_lte?: Maybe<DateTimeInput>;
+  updated_at_gt?: Maybe<DateTimeInput>;
+  updated_at_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<BusinessDetailWhereInput[] | BusinessDetailWhereInput>;
+  OR?: Maybe<BusinessDetailWhereInput[] | BusinessDetailWhereInput>;
+  NOT?: Maybe<BusinessDetailWhereInput[] | BusinessDetailWhereInput>;
+}
+
+export interface BusinessFinancialWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  avg_monthly_revenue?: Maybe<Float>;
+  avg_monthly_revenue_not?: Maybe<Float>;
+  avg_monthly_revenue_in?: Maybe<Float[] | Float>;
+  avg_monthly_revenue_not_in?: Maybe<Float[] | Float>;
+  avg_monthly_revenue_lt?: Maybe<Float>;
+  avg_monthly_revenue_lte?: Maybe<Float>;
+  avg_monthly_revenue_gt?: Maybe<Float>;
+  avg_monthly_revenue_gte?: Maybe<Float>;
+  avg_monthly_expense?: Maybe<Float>;
+  avg_monthly_expense_not?: Maybe<Float>;
+  avg_monthly_expense_in?: Maybe<Float[] | Float>;
+  avg_monthly_expense_not_in?: Maybe<Float[] | Float>;
+  avg_monthly_expense_lt?: Maybe<Float>;
+  avg_monthly_expense_lte?: Maybe<Float>;
+  avg_monthly_expense_gt?: Maybe<Float>;
+  avg_monthly_expense_gte?: Maybe<Float>;
+  serving_loan?: Maybe<Boolean>;
+  serving_loan_not?: Maybe<Boolean>;
+  bank_account_name?: Maybe<String>;
+  bank_account_name_not?: Maybe<String>;
+  bank_account_name_in?: Maybe<String[] | String>;
+  bank_account_name_not_in?: Maybe<String[] | String>;
+  bank_account_name_lt?: Maybe<String>;
+  bank_account_name_lte?: Maybe<String>;
+  bank_account_name_gt?: Maybe<String>;
+  bank_account_name_gte?: Maybe<String>;
+  bank_account_name_contains?: Maybe<String>;
+  bank_account_name_not_contains?: Maybe<String>;
+  bank_account_name_starts_with?: Maybe<String>;
+  bank_account_name_not_starts_with?: Maybe<String>;
+  bank_account_name_ends_with?: Maybe<String>;
+  bank_account_name_not_ends_with?: Maybe<String>;
+  bank_account_number?: Maybe<String>;
+  bank_account_number_not?: Maybe<String>;
+  bank_account_number_in?: Maybe<String[] | String>;
+  bank_account_number_not_in?: Maybe<String[] | String>;
+  bank_account_number_lt?: Maybe<String>;
+  bank_account_number_lte?: Maybe<String>;
+  bank_account_number_gt?: Maybe<String>;
+  bank_account_number_gte?: Maybe<String>;
+  bank_account_number_contains?: Maybe<String>;
+  bank_account_number_not_contains?: Maybe<String>;
+  bank_account_number_starts_with?: Maybe<String>;
+  bank_account_number_not_starts_with?: Maybe<String>;
+  bank_account_number_ends_with?: Maybe<String>;
+  bank_account_number_not_ends_with?: Maybe<String>;
+  bank_name?: Maybe<String>;
+  bank_name_not?: Maybe<String>;
+  bank_name_in?: Maybe<String[] | String>;
+  bank_name_not_in?: Maybe<String[] | String>;
+  bank_name_lt?: Maybe<String>;
+  bank_name_lte?: Maybe<String>;
+  bank_name_gt?: Maybe<String>;
+  bank_name_gte?: Maybe<String>;
+  bank_name_contains?: Maybe<String>;
+  bank_name_not_contains?: Maybe<String>;
+  bank_name_starts_with?: Maybe<String>;
+  bank_name_not_starts_with?: Maybe<String>;
+  bank_name_ends_with?: Maybe<String>;
+  bank_name_not_ends_with?: Maybe<String>;
+  AND?: Maybe<BusinessFinancialWhereInput[] | BusinessFinancialWhereInput>;
+  OR?: Maybe<BusinessFinancialWhereInput[] | BusinessFinancialWhereInput>;
+  NOT?: Maybe<BusinessFinancialWhereInput[] | BusinessFinancialWhereInput>;
+}
+
+export interface BusinessValidationWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  bvn?: Maybe<String>;
+  bvn_not?: Maybe<String>;
+  bvn_in?: Maybe<String[] | String>;
+  bvn_not_in?: Maybe<String[] | String>;
+  bvn_lt?: Maybe<String>;
+  bvn_lte?: Maybe<String>;
+  bvn_gt?: Maybe<String>;
+  bvn_gte?: Maybe<String>;
+  bvn_contains?: Maybe<String>;
+  bvn_not_contains?: Maybe<String>;
+  bvn_starts_with?: Maybe<String>;
+  bvn_not_starts_with?: Maybe<String>;
+  bvn_ends_with?: Maybe<String>;
+  bvn_not_ends_with?: Maybe<String>;
+  person_id_type?: Maybe<String>;
+  person_id_type_not?: Maybe<String>;
+  person_id_type_in?: Maybe<String[] | String>;
+  person_id_type_not_in?: Maybe<String[] | String>;
+  person_id_type_lt?: Maybe<String>;
+  person_id_type_lte?: Maybe<String>;
+  person_id_type_gt?: Maybe<String>;
+  person_id_type_gte?: Maybe<String>;
+  person_id_type_contains?: Maybe<String>;
+  person_id_type_not_contains?: Maybe<String>;
+  person_id_type_starts_with?: Maybe<String>;
+  person_id_type_not_starts_with?: Maybe<String>;
+  person_id_type_ends_with?: Maybe<String>;
+  person_id_type_not_ends_with?: Maybe<String>;
+  person_id_number?: Maybe<String>;
+  person_id_number_not?: Maybe<String>;
+  person_id_number_in?: Maybe<String[] | String>;
+  person_id_number_not_in?: Maybe<String[] | String>;
+  person_id_number_lt?: Maybe<String>;
+  person_id_number_lte?: Maybe<String>;
+  person_id_number_gt?: Maybe<String>;
+  person_id_number_gte?: Maybe<String>;
+  person_id_number_contains?: Maybe<String>;
+  person_id_number_not_contains?: Maybe<String>;
+  person_id_number_starts_with?: Maybe<String>;
+  person_id_number_not_starts_with?: Maybe<String>;
+  person_id_number_ends_with?: Maybe<String>;
+  person_id_number_not_ends_with?: Maybe<String>;
+  statement_url?: Maybe<String>;
+  statement_url_not?: Maybe<String>;
+  statement_url_in?: Maybe<String[] | String>;
+  statement_url_not_in?: Maybe<String[] | String>;
+  statement_url_lt?: Maybe<String>;
+  statement_url_lte?: Maybe<String>;
+  statement_url_gt?: Maybe<String>;
+  statement_url_gte?: Maybe<String>;
+  statement_url_contains?: Maybe<String>;
+  statement_url_not_contains?: Maybe<String>;
+  statement_url_starts_with?: Maybe<String>;
+  statement_url_not_starts_with?: Maybe<String>;
+  statement_url_ends_with?: Maybe<String>;
+  statement_url_not_ends_with?: Maybe<String>;
+  AND?: Maybe<BusinessValidationWhereInput[] | BusinessValidationWhereInput>;
+  OR?: Maybe<BusinessValidationWhereInput[] | BusinessValidationWhereInput>;
+  NOT?: Maybe<BusinessValidationWhereInput[] | BusinessValidationWhereInput>;
+}
+
+export type AuthWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  firebase_id?: Maybe<String>;
+}>;
+
+export type BusinessDetailWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  registation_id?: Maybe<String>;
+}>;
+
+export type BusinessFinancialWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type BusinessValidationWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type FundDetailWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type IndustryWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  name?: Maybe<String>;
+}>;
+
+export interface IndustryWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  AND?: Maybe<IndustryWhereInput[] | IndustryWhereInput>;
+  OR?: Maybe<IndustryWhereInput[] | IndustryWhereInput>;
+  NOT?: Maybe<IndustryWhereInput[] | IndustryWhereInput>;
+}
+
+export type NextOfKinDetailWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
 
 export interface NextOfKinDetailWhereInput {
   id?: Maybe<ID_Input>;
@@ -974,377 +1556,6 @@ export interface NextOfKinDetailWhereInput {
   NOT?: Maybe<NextOfKinDetailWhereInput[] | NextOfKinDetailWhereInput>;
 }
 
-export interface BusinessDetailWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  industry_type?: Maybe<String>;
-  industry_type_not?: Maybe<String>;
-  industry_type_in?: Maybe<String[] | String>;
-  industry_type_not_in?: Maybe<String[] | String>;
-  industry_type_lt?: Maybe<String>;
-  industry_type_lte?: Maybe<String>;
-  industry_type_gt?: Maybe<String>;
-  industry_type_gte?: Maybe<String>;
-  industry_type_contains?: Maybe<String>;
-  industry_type_not_contains?: Maybe<String>;
-  industry_type_starts_with?: Maybe<String>;
-  industry_type_not_starts_with?: Maybe<String>;
-  industry_type_ends_with?: Maybe<String>;
-  industry_type_not_ends_with?: Maybe<String>;
-  business_type?: Maybe<String>;
-  business_type_not?: Maybe<String>;
-  business_type_in?: Maybe<String[] | String>;
-  business_type_not_in?: Maybe<String[] | String>;
-  business_type_lt?: Maybe<String>;
-  business_type_lte?: Maybe<String>;
-  business_type_gt?: Maybe<String>;
-  business_type_gte?: Maybe<String>;
-  business_type_contains?: Maybe<String>;
-  business_type_not_contains?: Maybe<String>;
-  business_type_starts_with?: Maybe<String>;
-  business_type_not_starts_with?: Maybe<String>;
-  business_type_ends_with?: Maybe<String>;
-  business_type_not_ends_with?: Maybe<String>;
-  registration_type?: Maybe<String>;
-  registration_type_not?: Maybe<String>;
-  registration_type_in?: Maybe<String[] | String>;
-  registration_type_not_in?: Maybe<String[] | String>;
-  registration_type_lt?: Maybe<String>;
-  registration_type_lte?: Maybe<String>;
-  registration_type_gt?: Maybe<String>;
-  registration_type_gte?: Maybe<String>;
-  registration_type_contains?: Maybe<String>;
-  registration_type_not_contains?: Maybe<String>;
-  registration_type_starts_with?: Maybe<String>;
-  registration_type_not_starts_with?: Maybe<String>;
-  registration_type_ends_with?: Maybe<String>;
-  registration_type_not_ends_with?: Maybe<String>;
-  registation_id?: Maybe<String>;
-  registation_id_not?: Maybe<String>;
-  registation_id_in?: Maybe<String[] | String>;
-  registation_id_not_in?: Maybe<String[] | String>;
-  registation_id_lt?: Maybe<String>;
-  registation_id_lte?: Maybe<String>;
-  registation_id_gt?: Maybe<String>;
-  registation_id_gte?: Maybe<String>;
-  registation_id_contains?: Maybe<String>;
-  registation_id_not_contains?: Maybe<String>;
-  registation_id_starts_with?: Maybe<String>;
-  registation_id_not_starts_with?: Maybe<String>;
-  registation_id_ends_with?: Maybe<String>;
-  registation_id_not_ends_with?: Maybe<String>;
-  business_start_year?: Maybe<DateTimeInput>;
-  business_start_year_not?: Maybe<DateTimeInput>;
-  business_start_year_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  business_start_year_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  business_start_year_lt?: Maybe<DateTimeInput>;
-  business_start_year_lte?: Maybe<DateTimeInput>;
-  business_start_year_gt?: Maybe<DateTimeInput>;
-  business_start_year_gte?: Maybe<DateTimeInput>;
-  bank_verification_number?: Maybe<String>;
-  bank_verification_number_not?: Maybe<String>;
-  bank_verification_number_in?: Maybe<String[] | String>;
-  bank_verification_number_not_in?: Maybe<String[] | String>;
-  bank_verification_number_lt?: Maybe<String>;
-  bank_verification_number_lte?: Maybe<String>;
-  bank_verification_number_gt?: Maybe<String>;
-  bank_verification_number_gte?: Maybe<String>;
-  bank_verification_number_contains?: Maybe<String>;
-  bank_verification_number_not_contains?: Maybe<String>;
-  bank_verification_number_starts_with?: Maybe<String>;
-  bank_verification_number_not_starts_with?: Maybe<String>;
-  bank_verification_number_ends_with?: Maybe<String>;
-  bank_verification_number_not_ends_with?: Maybe<String>;
-  fund_details?: Maybe<FundDetailWhereInput>;
-  fund_status?: Maybe<FundStatus>;
-  fund_status_not?: Maybe<FundStatus>;
-  fund_status_in?: Maybe<FundStatus[] | FundStatus>;
-  fund_status_not_in?: Maybe<FundStatus[] | FundStatus>;
-  application?: Maybe<ApplicationWhereInput>;
-  created_at?: Maybe<DateTimeInput>;
-  created_at_not?: Maybe<DateTimeInput>;
-  created_at_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  created_at_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  created_at_lt?: Maybe<DateTimeInput>;
-  created_at_lte?: Maybe<DateTimeInput>;
-  created_at_gt?: Maybe<DateTimeInput>;
-  created_at_gte?: Maybe<DateTimeInput>;
-  updated_at?: Maybe<DateTimeInput>;
-  updated_at_not?: Maybe<DateTimeInput>;
-  updated_at_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updated_at_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updated_at_lt?: Maybe<DateTimeInput>;
-  updated_at_lte?: Maybe<DateTimeInput>;
-  updated_at_gt?: Maybe<DateTimeInput>;
-  updated_at_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<BusinessDetailWhereInput[] | BusinessDetailWhereInput>;
-  OR?: Maybe<BusinessDetailWhereInput[] | BusinessDetailWhereInput>;
-  NOT?: Maybe<BusinessDetailWhereInput[] | BusinessDetailWhereInput>;
-}
-
-export interface FundDetailWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  fund_type?: Maybe<FundType>;
-  fund_type_not?: Maybe<FundType>;
-  fund_type_in?: Maybe<FundType[] | FundType>;
-  fund_type_not_in?: Maybe<FundType[] | FundType>;
-  reason?: Maybe<String>;
-  reason_not?: Maybe<String>;
-  reason_in?: Maybe<String[] | String>;
-  reason_not_in?: Maybe<String[] | String>;
-  reason_lt?: Maybe<String>;
-  reason_lte?: Maybe<String>;
-  reason_gt?: Maybe<String>;
-  reason_gte?: Maybe<String>;
-  reason_contains?: Maybe<String>;
-  reason_not_contains?: Maybe<String>;
-  reason_starts_with?: Maybe<String>;
-  reason_not_starts_with?: Maybe<String>;
-  reason_ends_with?: Maybe<String>;
-  reason_not_ends_with?: Maybe<String>;
-  payment_due_date?: Maybe<String>;
-  payment_due_date_not?: Maybe<String>;
-  payment_due_date_in?: Maybe<String[] | String>;
-  payment_due_date_not_in?: Maybe<String[] | String>;
-  payment_due_date_lt?: Maybe<String>;
-  payment_due_date_lte?: Maybe<String>;
-  payment_due_date_gt?: Maybe<String>;
-  payment_due_date_gte?: Maybe<String>;
-  payment_due_date_contains?: Maybe<String>;
-  payment_due_date_not_contains?: Maybe<String>;
-  payment_due_date_starts_with?: Maybe<String>;
-  payment_due_date_not_starts_with?: Maybe<String>;
-  payment_due_date_ends_with?: Maybe<String>;
-  payment_due_date_not_ends_with?: Maybe<String>;
-  disbursement_date?: Maybe<DateTimeInput>;
-  disbursement_date_not?: Maybe<DateTimeInput>;
-  disbursement_date_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  disbursement_date_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  disbursement_date_lt?: Maybe<DateTimeInput>;
-  disbursement_date_lte?: Maybe<DateTimeInput>;
-  disbursement_date_gt?: Maybe<DateTimeInput>;
-  disbursement_date_gte?: Maybe<DateTimeInput>;
-  amount?: Maybe<Float>;
-  amount_not?: Maybe<Float>;
-  amount_in?: Maybe<Float[] | Float>;
-  amount_not_in?: Maybe<Float[] | Float>;
-  amount_lt?: Maybe<Float>;
-  amount_lte?: Maybe<Float>;
-  amount_gt?: Maybe<Float>;
-  amount_gte?: Maybe<Float>;
-  AND?: Maybe<FundDetailWhereInput[] | FundDetailWhereInput>;
-  OR?: Maybe<FundDetailWhereInput[] | FundDetailWhereInput>;
-  NOT?: Maybe<FundDetailWhereInput[] | FundDetailWhereInput>;
-}
-
-export interface FinanceOptionWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  fund_type?: Maybe<FundType>;
-  fund_type_not?: Maybe<FundType>;
-  fund_type_in?: Maybe<FundType[] | FundType>;
-  fund_type_not_in?: Maybe<FundType[] | FundType>;
-  fund_range?: Maybe<FundRangeWhereInput>;
-  reason_for_fund?: Maybe<String>;
-  reason_for_fund_not?: Maybe<String>;
-  reason_for_fund_in?: Maybe<String[] | String>;
-  reason_for_fund_not_in?: Maybe<String[] | String>;
-  reason_for_fund_lt?: Maybe<String>;
-  reason_for_fund_lte?: Maybe<String>;
-  reason_for_fund_gt?: Maybe<String>;
-  reason_for_fund_gte?: Maybe<String>;
-  reason_for_fund_contains?: Maybe<String>;
-  reason_for_fund_not_contains?: Maybe<String>;
-  reason_for_fund_starts_with?: Maybe<String>;
-  reason_for_fund_not_starts_with?: Maybe<String>;
-  reason_for_fund_ends_with?: Maybe<String>;
-  reason_for_fund_not_ends_with?: Maybe<String>;
-  disbursement_time?: Maybe<DateTimeInput>;
-  disbursement_time_not?: Maybe<DateTimeInput>;
-  disbursement_time_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  disbursement_time_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  disbursement_time_lt?: Maybe<DateTimeInput>;
-  disbursement_time_lte?: Maybe<DateTimeInput>;
-  disbursement_time_gt?: Maybe<DateTimeInput>;
-  disbursement_time_gte?: Maybe<DateTimeInput>;
-  avg_month_rev?: Maybe<Float>;
-  avg_month_rev_not?: Maybe<Float>;
-  avg_month_rev_in?: Maybe<Float[] | Float>;
-  avg_month_rev_not_in?: Maybe<Float[] | Float>;
-  avg_month_rev_lt?: Maybe<Float>;
-  avg_month_rev_lte?: Maybe<Float>;
-  avg_month_rev_gt?: Maybe<Float>;
-  avg_month_rev_gte?: Maybe<Float>;
-  avg_month_exp?: Maybe<Float>;
-  avg_month_exp_not?: Maybe<Float>;
-  avg_month_exp_in?: Maybe<Float[] | Float>;
-  avg_month_exp_not_in?: Maybe<Float[] | Float>;
-  avg_month_exp_lt?: Maybe<Float>;
-  avg_month_exp_lte?: Maybe<Float>;
-  avg_month_exp_gt?: Maybe<Float>;
-  avg_month_exp_gte?: Maybe<Float>;
-  is_serving_loan?: Maybe<Boolean>;
-  is_serving_loan_not?: Maybe<Boolean>;
-  application?: Maybe<ApplicationWhereInput>;
-  AND?: Maybe<FinanceOptionWhereInput[] | FinanceOptionWhereInput>;
-  OR?: Maybe<FinanceOptionWhereInput[] | FinanceOptionWhereInput>;
-  NOT?: Maybe<FinanceOptionWhereInput[] | FinanceOptionWhereInput>;
-}
-
-export interface FundRangeWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  min?: Maybe<Float>;
-  min_not?: Maybe<Float>;
-  min_in?: Maybe<Float[] | Float>;
-  min_not_in?: Maybe<Float[] | Float>;
-  min_lt?: Maybe<Float>;
-  min_lte?: Maybe<Float>;
-  min_gt?: Maybe<Float>;
-  min_gte?: Maybe<Float>;
-  max?: Maybe<Float>;
-  max_not?: Maybe<Float>;
-  max_in?: Maybe<Float[] | Float>;
-  max_not_in?: Maybe<Float[] | Float>;
-  max_lt?: Maybe<Float>;
-  max_lte?: Maybe<Float>;
-  max_gt?: Maybe<Float>;
-  max_gte?: Maybe<Float>;
-  AND?: Maybe<FundRangeWhereInput[] | FundRangeWhereInput>;
-  OR?: Maybe<FundRangeWhereInput[] | FundRangeWhereInput>;
-  NOT?: Maybe<FundRangeWhereInput[] | FundRangeWhereInput>;
-}
-
-export type AuthWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-  firebase_id?: Maybe<String>;
-  email?: Maybe<String>;
-}>;
-
-export type BusinessDetailWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-  registation_id?: Maybe<String>;
-  bank_verification_number?: Maybe<String>;
-}>;
-
-export type FinanceOptionWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export type FundDetailWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export type FundRangeWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export type IndustryWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-  name?: Maybe<String>;
-}>;
-
-export interface IndustryWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  AND?: Maybe<IndustryWhereInput[] | IndustryWhereInput>;
-  OR?: Maybe<IndustryWhereInput[] | IndustryWhereInput>;
-  NOT?: Maybe<IndustryWhereInput[] | IndustryWhereInput>;
-}
-
-export type NextOfKinDetailWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
 export type PersonalDetailWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
@@ -1355,11 +1566,14 @@ export type SocialMediaWhereUniqueInput = AtLeastOne<{
 
 export interface ApplicationCreateInput {
   id?: Maybe<ID_Input>;
-  auth: AuthCreateOneWithoutApplicationsInput;
+  application_type: String;
+  auth?: Maybe<AuthCreateOneWithoutApplicationsInput>;
+  fund_details: FundDetailCreateOneInput;
   personal_details: PersonalDetailCreateOneInput;
-  next_of_kin: NextOfKinDetailCreateOneInput;
-  business_details: BusinessDetailCreateOneWithoutApplicationInput;
-  finance_options: FinanceOptionCreateOneWithoutApplicationInput;
+  business_details: BusinessDetailCreateOneInput;
+  business_financials: BusinessFinancialCreateOneInput;
+  validations: BusinessValidationCreateOneInput;
+  fund_status?: Maybe<FundStatus>;
 }
 
 export interface AuthCreateOneWithoutApplicationsInput {
@@ -1370,18 +1584,19 @@ export interface AuthCreateOneWithoutApplicationsInput {
 export interface AuthCreateWithoutApplicationsInput {
   id?: Maybe<ID_Input>;
   firebase_id: String;
-  email: String;
-  details?: Maybe<PersonalDetailCreateOneWithoutAuth_idInput>;
+  account_type?: Maybe<AccountType>;
+  details: PersonalDetailCreateOneWithoutAuthInput;
   social_media?: Maybe<SocialMediaCreateManyWithoutAuthInput>;
 }
 
-export interface PersonalDetailCreateOneWithoutAuth_idInput {
-  create?: Maybe<PersonalDetailCreateWithoutAuth_idInput>;
+export interface PersonalDetailCreateOneWithoutAuthInput {
+  create?: Maybe<PersonalDetailCreateWithoutAuthInput>;
   connect?: Maybe<PersonalDetailWhereUniqueInput>;
 }
 
-export interface PersonalDetailCreateWithoutAuth_idInput {
+export interface PersonalDetailCreateWithoutAuthInput {
   id?: Maybe<ID_Input>;
+  email: String;
   first_name: String;
   last_name: String;
   phone_number?: Maybe<String>;
@@ -1391,6 +1606,10 @@ export interface PersonalDetailCreateWithoutAuth_idInput {
   nationality?: Maybe<String>;
   state?: Maybe<String>;
   home_address?: Maybe<String>;
+  social_handle?: Maybe<String>;
+  kin_name?: Maybe<String>;
+  kin_phone?: Maybe<String>;
+  kin_relation?: Maybe<String>;
 }
 
 export interface SocialMediaCreateManyWithoutAuthInput {
@@ -1406,6 +1625,19 @@ export interface SocialMediaCreateWithoutAuthInput {
   link: String;
 }
 
+export interface FundDetailCreateOneInput {
+  create?: Maybe<FundDetailCreateInput>;
+  connect?: Maybe<FundDetailWhereUniqueInput>;
+}
+
+export interface FundDetailCreateInput {
+  id?: Maybe<ID_Input>;
+  amount: Float;
+  reason: String;
+  dispense_date: DateTimeInput;
+  spread?: Maybe<Float>;
+}
+
 export interface PersonalDetailCreateOneInput {
   create?: Maybe<PersonalDetailCreateInput>;
   connect?: Maybe<PersonalDetailWhereUniqueInput>;
@@ -1413,7 +1645,8 @@ export interface PersonalDetailCreateOneInput {
 
 export interface PersonalDetailCreateInput {
   id?: Maybe<ID_Input>;
-  auth_id: AuthCreateOneWithoutDetailsInput;
+  email: String;
+  auth?: Maybe<AuthCreateOneWithoutDetailsInput>;
   first_name: String;
   last_name: String;
   phone_number?: Maybe<String>;
@@ -1423,6 +1656,10 @@ export interface PersonalDetailCreateInput {
   nationality?: Maybe<String>;
   state?: Maybe<String>;
   home_address?: Maybe<String>;
+  social_handle?: Maybe<String>;
+  kin_name?: Maybe<String>;
+  kin_phone?: Maybe<String>;
+  kin_relation?: Maybe<String>;
 }
 
 export interface AuthCreateOneWithoutDetailsInput {
@@ -1433,7 +1670,7 @@ export interface AuthCreateOneWithoutDetailsInput {
 export interface AuthCreateWithoutDetailsInput {
   id?: Maybe<ID_Input>;
   firebase_id: String;
-  email: String;
+  account_type?: Maybe<AccountType>;
   social_media?: Maybe<SocialMediaCreateManyWithoutAuthInput>;
   applications?: Maybe<ApplicationCreateManyWithoutAuthInput>;
 }
@@ -1447,120 +1684,99 @@ export interface ApplicationCreateManyWithoutAuthInput {
 
 export interface ApplicationCreateWithoutAuthInput {
   id?: Maybe<ID_Input>;
+  application_type: String;
+  fund_details: FundDetailCreateOneInput;
   personal_details: PersonalDetailCreateOneInput;
-  next_of_kin: NextOfKinDetailCreateOneInput;
-  business_details: BusinessDetailCreateOneWithoutApplicationInput;
-  finance_options: FinanceOptionCreateOneWithoutApplicationInput;
-}
-
-export interface NextOfKinDetailCreateOneInput {
-  create?: Maybe<NextOfKinDetailCreateInput>;
-  connect?: Maybe<NextOfKinDetailWhereUniqueInput>;
-}
-
-export interface NextOfKinDetailCreateInput {
-  id?: Maybe<ID_Input>;
-  first_name: String;
-  last_name: String;
-  phone_number: String;
-  relationship: String;
-}
-
-export interface BusinessDetailCreateOneWithoutApplicationInput {
-  create?: Maybe<BusinessDetailCreateWithoutApplicationInput>;
-  connect?: Maybe<BusinessDetailWhereUniqueInput>;
-}
-
-export interface BusinessDetailCreateWithoutApplicationInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  industry_type: String;
-  business_type: String;
-  registration_type: String;
-  registation_id: String;
-  business_start_year: DateTimeInput;
-  bank_verification_number: String;
-  fund_details?: Maybe<FundDetailCreateOneInput>;
+  business_details: BusinessDetailCreateOneInput;
+  business_financials: BusinessFinancialCreateOneInput;
+  validations: BusinessValidationCreateOneInput;
   fund_status?: Maybe<FundStatus>;
 }
 
-export interface FundDetailCreateOneInput {
-  create?: Maybe<FundDetailCreateInput>;
-  connect?: Maybe<FundDetailWhereUniqueInput>;
+export interface BusinessDetailCreateOneInput {
+  create?: Maybe<BusinessDetailCreateInput>;
+  connect?: Maybe<BusinessDetailWhereUniqueInput>;
 }
 
-export interface FundDetailCreateInput {
+export interface BusinessDetailCreateInput {
   id?: Maybe<ID_Input>;
-  fund_type: FundType;
-  reason: String;
-  payment_due_date?: Maybe<String>;
-  disbursement_date: DateTimeInput;
-  amount: Float;
+  name: String;
+  business_type: String;
+  registation_id: String;
+  cac_file_link: String;
+  industry_type: String;
+  business_start_year: Int;
+  street_address: String;
+  state: String;
+  local_goverment_area: String;
+  website_url?: Maybe<String>;
+  social_media_url?: Maybe<String>;
 }
 
-export interface FinanceOptionCreateOneWithoutApplicationInput {
-  create?: Maybe<FinanceOptionCreateWithoutApplicationInput>;
-  connect?: Maybe<FinanceOptionWhereUniqueInput>;
+export interface BusinessFinancialCreateOneInput {
+  create?: Maybe<BusinessFinancialCreateInput>;
+  connect?: Maybe<BusinessFinancialWhereUniqueInput>;
 }
 
-export interface FinanceOptionCreateWithoutApplicationInput {
+export interface BusinessFinancialCreateInput {
   id?: Maybe<ID_Input>;
-  fund_type: FundType;
-  fund_range: FundRangeCreateOneInput;
-  reason_for_fund: String;
-  disbursement_time: DateTimeInput;
-  avg_month_rev: Float;
-  avg_month_exp: Float;
-  is_serving_loan: Boolean;
+  avg_monthly_revenue: Float;
+  avg_monthly_expense: Float;
+  serving_loan: Boolean;
+  bank_account_name: String;
+  bank_account_number: String;
+  bank_name: String;
 }
 
-export interface FundRangeCreateOneInput {
-  create?: Maybe<FundRangeCreateInput>;
-  connect?: Maybe<FundRangeWhereUniqueInput>;
+export interface BusinessValidationCreateOneInput {
+  create?: Maybe<BusinessValidationCreateInput>;
+  connect?: Maybe<BusinessValidationWhereUniqueInput>;
 }
 
-export interface FundRangeCreateInput {
+export interface BusinessValidationCreateInput {
   id?: Maybe<ID_Input>;
-  min: Float;
-  max: Float;
+  bvn: String;
+  person_id_type: String;
+  person_id_number: String;
+  statement_url: String;
 }
 
 export interface ApplicationUpdateInput {
-  auth?: Maybe<AuthUpdateOneRequiredWithoutApplicationsInput>;
+  application_type?: Maybe<String>;
+  auth?: Maybe<AuthUpdateOneWithoutApplicationsInput>;
+  fund_details?: Maybe<FundDetailUpdateOneRequiredInput>;
   personal_details?: Maybe<PersonalDetailUpdateOneRequiredInput>;
-  next_of_kin?: Maybe<NextOfKinDetailUpdateOneRequiredInput>;
-  business_details?: Maybe<
-    BusinessDetailUpdateOneRequiredWithoutApplicationInput
-  >;
-  finance_options?: Maybe<
-    FinanceOptionUpdateOneRequiredWithoutApplicationInput
-  >;
+  business_details?: Maybe<BusinessDetailUpdateOneRequiredInput>;
+  business_financials?: Maybe<BusinessFinancialUpdateOneRequiredInput>;
+  validations?: Maybe<BusinessValidationUpdateOneRequiredInput>;
+  fund_status?: Maybe<FundStatus>;
 }
 
-export interface AuthUpdateOneRequiredWithoutApplicationsInput {
+export interface AuthUpdateOneWithoutApplicationsInput {
   create?: Maybe<AuthCreateWithoutApplicationsInput>;
   update?: Maybe<AuthUpdateWithoutApplicationsDataInput>;
   upsert?: Maybe<AuthUpsertWithoutApplicationsInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
   connect?: Maybe<AuthWhereUniqueInput>;
 }
 
 export interface AuthUpdateWithoutApplicationsDataInput {
   firebase_id?: Maybe<String>;
-  email?: Maybe<String>;
-  details?: Maybe<PersonalDetailUpdateOneWithoutAuth_idInput>;
+  account_type?: Maybe<AccountType>;
+  details?: Maybe<PersonalDetailUpdateOneRequiredWithoutAuthInput>;
   social_media?: Maybe<SocialMediaUpdateManyWithoutAuthInput>;
 }
 
-export interface PersonalDetailUpdateOneWithoutAuth_idInput {
-  create?: Maybe<PersonalDetailCreateWithoutAuth_idInput>;
-  update?: Maybe<PersonalDetailUpdateWithoutAuth_idDataInput>;
-  upsert?: Maybe<PersonalDetailUpsertWithoutAuth_idInput>;
-  delete?: Maybe<Boolean>;
-  disconnect?: Maybe<Boolean>;
+export interface PersonalDetailUpdateOneRequiredWithoutAuthInput {
+  create?: Maybe<PersonalDetailCreateWithoutAuthInput>;
+  update?: Maybe<PersonalDetailUpdateWithoutAuthDataInput>;
+  upsert?: Maybe<PersonalDetailUpsertWithoutAuthInput>;
   connect?: Maybe<PersonalDetailWhereUniqueInput>;
 }
 
-export interface PersonalDetailUpdateWithoutAuth_idDataInput {
+export interface PersonalDetailUpdateWithoutAuthDataInput {
+  email?: Maybe<String>;
   first_name?: Maybe<String>;
   last_name?: Maybe<String>;
   phone_number?: Maybe<String>;
@@ -1570,11 +1786,15 @@ export interface PersonalDetailUpdateWithoutAuth_idDataInput {
   nationality?: Maybe<String>;
   state?: Maybe<String>;
   home_address?: Maybe<String>;
+  social_handle?: Maybe<String>;
+  kin_name?: Maybe<String>;
+  kin_phone?: Maybe<String>;
+  kin_relation?: Maybe<String>;
 }
 
-export interface PersonalDetailUpsertWithoutAuth_idInput {
-  update: PersonalDetailUpdateWithoutAuth_idDataInput;
-  create: PersonalDetailCreateWithoutAuth_idInput;
+export interface PersonalDetailUpsertWithoutAuthInput {
+  update: PersonalDetailUpdateWithoutAuthDataInput;
+  create: PersonalDetailCreateWithoutAuthInput;
 }
 
 export interface SocialMediaUpdateManyWithoutAuthInput {
@@ -1683,6 +1903,25 @@ export interface AuthUpsertWithoutApplicationsInput {
   create: AuthCreateWithoutApplicationsInput;
 }
 
+export interface FundDetailUpdateOneRequiredInput {
+  create?: Maybe<FundDetailCreateInput>;
+  update?: Maybe<FundDetailUpdateDataInput>;
+  upsert?: Maybe<FundDetailUpsertNestedInput>;
+  connect?: Maybe<FundDetailWhereUniqueInput>;
+}
+
+export interface FundDetailUpdateDataInput {
+  amount?: Maybe<Float>;
+  reason?: Maybe<String>;
+  dispense_date?: Maybe<DateTimeInput>;
+  spread?: Maybe<Float>;
+}
+
+export interface FundDetailUpsertNestedInput {
+  update: FundDetailUpdateDataInput;
+  create: FundDetailCreateInput;
+}
+
 export interface PersonalDetailUpdateOneRequiredInput {
   create?: Maybe<PersonalDetailCreateInput>;
   update?: Maybe<PersonalDetailUpdateDataInput>;
@@ -1691,7 +1930,8 @@ export interface PersonalDetailUpdateOneRequiredInput {
 }
 
 export interface PersonalDetailUpdateDataInput {
-  auth_id?: Maybe<AuthUpdateOneRequiredWithoutDetailsInput>;
+  email?: Maybe<String>;
+  auth?: Maybe<AuthUpdateOneWithoutDetailsInput>;
   first_name?: Maybe<String>;
   last_name?: Maybe<String>;
   phone_number?: Maybe<String>;
@@ -1701,18 +1941,24 @@ export interface PersonalDetailUpdateDataInput {
   nationality?: Maybe<String>;
   state?: Maybe<String>;
   home_address?: Maybe<String>;
+  social_handle?: Maybe<String>;
+  kin_name?: Maybe<String>;
+  kin_phone?: Maybe<String>;
+  kin_relation?: Maybe<String>;
 }
 
-export interface AuthUpdateOneRequiredWithoutDetailsInput {
+export interface AuthUpdateOneWithoutDetailsInput {
   create?: Maybe<AuthCreateWithoutDetailsInput>;
   update?: Maybe<AuthUpdateWithoutDetailsDataInput>;
   upsert?: Maybe<AuthUpsertWithoutDetailsInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
   connect?: Maybe<AuthWhereUniqueInput>;
 }
 
 export interface AuthUpdateWithoutDetailsDataInput {
   firebase_id?: Maybe<String>;
-  email?: Maybe<String>;
+  account_type?: Maybe<AccountType>;
   social_media?: Maybe<SocialMediaUpdateManyWithoutAuthInput>;
   applications?: Maybe<ApplicationUpdateManyWithoutAuthInput>;
 }
@@ -1738,6 +1984,10 @@ export interface ApplicationUpdateManyWithoutAuthInput {
   deleteMany?: Maybe<
     ApplicationScalarWhereInput[] | ApplicationScalarWhereInput
   >;
+  updateMany?: Maybe<
+    | ApplicationUpdateManyWithWhereNestedInput[]
+    | ApplicationUpdateManyWithWhereNestedInput
+  >;
 }
 
 export interface ApplicationUpdateWithWhereUniqueWithoutAuthInput {
@@ -1746,118 +1996,79 @@ export interface ApplicationUpdateWithWhereUniqueWithoutAuthInput {
 }
 
 export interface ApplicationUpdateWithoutAuthDataInput {
+  application_type?: Maybe<String>;
+  fund_details?: Maybe<FundDetailUpdateOneRequiredInput>;
   personal_details?: Maybe<PersonalDetailUpdateOneRequiredInput>;
-  next_of_kin?: Maybe<NextOfKinDetailUpdateOneRequiredInput>;
-  business_details?: Maybe<
-    BusinessDetailUpdateOneRequiredWithoutApplicationInput
-  >;
-  finance_options?: Maybe<
-    FinanceOptionUpdateOneRequiredWithoutApplicationInput
-  >;
-}
-
-export interface NextOfKinDetailUpdateOneRequiredInput {
-  create?: Maybe<NextOfKinDetailCreateInput>;
-  update?: Maybe<NextOfKinDetailUpdateDataInput>;
-  upsert?: Maybe<NextOfKinDetailUpsertNestedInput>;
-  connect?: Maybe<NextOfKinDetailWhereUniqueInput>;
-}
-
-export interface NextOfKinDetailUpdateDataInput {
-  first_name?: Maybe<String>;
-  last_name?: Maybe<String>;
-  phone_number?: Maybe<String>;
-  relationship?: Maybe<String>;
-}
-
-export interface NextOfKinDetailUpsertNestedInput {
-  update: NextOfKinDetailUpdateDataInput;
-  create: NextOfKinDetailCreateInput;
-}
-
-export interface BusinessDetailUpdateOneRequiredWithoutApplicationInput {
-  create?: Maybe<BusinessDetailCreateWithoutApplicationInput>;
-  update?: Maybe<BusinessDetailUpdateWithoutApplicationDataInput>;
-  upsert?: Maybe<BusinessDetailUpsertWithoutApplicationInput>;
-  connect?: Maybe<BusinessDetailWhereUniqueInput>;
-}
-
-export interface BusinessDetailUpdateWithoutApplicationDataInput {
-  name?: Maybe<String>;
-  industry_type?: Maybe<String>;
-  business_type?: Maybe<String>;
-  registration_type?: Maybe<String>;
-  registation_id?: Maybe<String>;
-  business_start_year?: Maybe<DateTimeInput>;
-  bank_verification_number?: Maybe<String>;
-  fund_details?: Maybe<FundDetailUpdateOneInput>;
+  business_details?: Maybe<BusinessDetailUpdateOneRequiredInput>;
+  business_financials?: Maybe<BusinessFinancialUpdateOneRequiredInput>;
+  validations?: Maybe<BusinessValidationUpdateOneRequiredInput>;
   fund_status?: Maybe<FundStatus>;
 }
 
-export interface FundDetailUpdateOneInput {
-  create?: Maybe<FundDetailCreateInput>;
-  update?: Maybe<FundDetailUpdateDataInput>;
-  upsert?: Maybe<FundDetailUpsertNestedInput>;
-  delete?: Maybe<Boolean>;
-  disconnect?: Maybe<Boolean>;
-  connect?: Maybe<FundDetailWhereUniqueInput>;
+export interface BusinessDetailUpdateOneRequiredInput {
+  create?: Maybe<BusinessDetailCreateInput>;
+  update?: Maybe<BusinessDetailUpdateDataInput>;
+  upsert?: Maybe<BusinessDetailUpsertNestedInput>;
+  connect?: Maybe<BusinessDetailWhereUniqueInput>;
 }
 
-export interface FundDetailUpdateDataInput {
-  fund_type?: Maybe<FundType>;
-  reason?: Maybe<String>;
-  payment_due_date?: Maybe<String>;
-  disbursement_date?: Maybe<DateTimeInput>;
-  amount?: Maybe<Float>;
+export interface BusinessDetailUpdateDataInput {
+  name?: Maybe<String>;
+  business_type?: Maybe<String>;
+  registation_id?: Maybe<String>;
+  cac_file_link?: Maybe<String>;
+  industry_type?: Maybe<String>;
+  business_start_year?: Maybe<Int>;
+  street_address?: Maybe<String>;
+  state?: Maybe<String>;
+  local_goverment_area?: Maybe<String>;
+  website_url?: Maybe<String>;
+  social_media_url?: Maybe<String>;
 }
 
-export interface FundDetailUpsertNestedInput {
-  update: FundDetailUpdateDataInput;
-  create: FundDetailCreateInput;
+export interface BusinessDetailUpsertNestedInput {
+  update: BusinessDetailUpdateDataInput;
+  create: BusinessDetailCreateInput;
 }
 
-export interface BusinessDetailUpsertWithoutApplicationInput {
-  update: BusinessDetailUpdateWithoutApplicationDataInput;
-  create: BusinessDetailCreateWithoutApplicationInput;
+export interface BusinessFinancialUpdateOneRequiredInput {
+  create?: Maybe<BusinessFinancialCreateInput>;
+  update?: Maybe<BusinessFinancialUpdateDataInput>;
+  upsert?: Maybe<BusinessFinancialUpsertNestedInput>;
+  connect?: Maybe<BusinessFinancialWhereUniqueInput>;
 }
 
-export interface FinanceOptionUpdateOneRequiredWithoutApplicationInput {
-  create?: Maybe<FinanceOptionCreateWithoutApplicationInput>;
-  update?: Maybe<FinanceOptionUpdateWithoutApplicationDataInput>;
-  upsert?: Maybe<FinanceOptionUpsertWithoutApplicationInput>;
-  connect?: Maybe<FinanceOptionWhereUniqueInput>;
+export interface BusinessFinancialUpdateDataInput {
+  avg_monthly_revenue?: Maybe<Float>;
+  avg_monthly_expense?: Maybe<Float>;
+  serving_loan?: Maybe<Boolean>;
+  bank_account_name?: Maybe<String>;
+  bank_account_number?: Maybe<String>;
+  bank_name?: Maybe<String>;
 }
 
-export interface FinanceOptionUpdateWithoutApplicationDataInput {
-  fund_type?: Maybe<FundType>;
-  fund_range?: Maybe<FundRangeUpdateOneRequiredInput>;
-  reason_for_fund?: Maybe<String>;
-  disbursement_time?: Maybe<DateTimeInput>;
-  avg_month_rev?: Maybe<Float>;
-  avg_month_exp?: Maybe<Float>;
-  is_serving_loan?: Maybe<Boolean>;
+export interface BusinessFinancialUpsertNestedInput {
+  update: BusinessFinancialUpdateDataInput;
+  create: BusinessFinancialCreateInput;
 }
 
-export interface FundRangeUpdateOneRequiredInput {
-  create?: Maybe<FundRangeCreateInput>;
-  update?: Maybe<FundRangeUpdateDataInput>;
-  upsert?: Maybe<FundRangeUpsertNestedInput>;
-  connect?: Maybe<FundRangeWhereUniqueInput>;
+export interface BusinessValidationUpdateOneRequiredInput {
+  create?: Maybe<BusinessValidationCreateInput>;
+  update?: Maybe<BusinessValidationUpdateDataInput>;
+  upsert?: Maybe<BusinessValidationUpsertNestedInput>;
+  connect?: Maybe<BusinessValidationWhereUniqueInput>;
 }
 
-export interface FundRangeUpdateDataInput {
-  min?: Maybe<Float>;
-  max?: Maybe<Float>;
+export interface BusinessValidationUpdateDataInput {
+  bvn?: Maybe<String>;
+  person_id_type?: Maybe<String>;
+  person_id_number?: Maybe<String>;
+  statement_url?: Maybe<String>;
 }
 
-export interface FundRangeUpsertNestedInput {
-  update: FundRangeUpdateDataInput;
-  create: FundRangeCreateInput;
-}
-
-export interface FinanceOptionUpsertWithoutApplicationInput {
-  update: FinanceOptionUpdateWithoutApplicationDataInput;
-  create: FinanceOptionCreateWithoutApplicationInput;
+export interface BusinessValidationUpsertNestedInput {
+  update: BusinessValidationUpdateDataInput;
+  create: BusinessValidationCreateInput;
 }
 
 export interface ApplicationUpsertWithWhereUniqueWithoutAuthInput {
@@ -1881,9 +2092,37 @@ export interface ApplicationScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  application_type?: Maybe<String>;
+  application_type_not?: Maybe<String>;
+  application_type_in?: Maybe<String[] | String>;
+  application_type_not_in?: Maybe<String[] | String>;
+  application_type_lt?: Maybe<String>;
+  application_type_lte?: Maybe<String>;
+  application_type_gt?: Maybe<String>;
+  application_type_gte?: Maybe<String>;
+  application_type_contains?: Maybe<String>;
+  application_type_not_contains?: Maybe<String>;
+  application_type_starts_with?: Maybe<String>;
+  application_type_not_starts_with?: Maybe<String>;
+  application_type_ends_with?: Maybe<String>;
+  application_type_not_ends_with?: Maybe<String>;
+  fund_status?: Maybe<FundStatus>;
+  fund_status_not?: Maybe<FundStatus>;
+  fund_status_in?: Maybe<FundStatus[] | FundStatus>;
+  fund_status_not_in?: Maybe<FundStatus[] | FundStatus>;
   AND?: Maybe<ApplicationScalarWhereInput[] | ApplicationScalarWhereInput>;
   OR?: Maybe<ApplicationScalarWhereInput[] | ApplicationScalarWhereInput>;
   NOT?: Maybe<ApplicationScalarWhereInput[] | ApplicationScalarWhereInput>;
+}
+
+export interface ApplicationUpdateManyWithWhereNestedInput {
+  where: ApplicationScalarWhereInput;
+  data: ApplicationUpdateManyDataInput;
+}
+
+export interface ApplicationUpdateManyDataInput {
+  application_type?: Maybe<String>;
+  fund_status?: Maybe<FundStatus>;
 }
 
 export interface AuthUpsertWithoutDetailsInput {
@@ -1896,190 +2135,105 @@ export interface PersonalDetailUpsertNestedInput {
   create: PersonalDetailCreateInput;
 }
 
+export interface ApplicationUpdateManyMutationInput {
+  application_type?: Maybe<String>;
+  fund_status?: Maybe<FundStatus>;
+}
+
 export interface AuthCreateInput {
   id?: Maybe<ID_Input>;
   firebase_id: String;
-  email: String;
-  details?: Maybe<PersonalDetailCreateOneWithoutAuth_idInput>;
+  account_type?: Maybe<AccountType>;
+  details: PersonalDetailCreateOneWithoutAuthInput;
   social_media?: Maybe<SocialMediaCreateManyWithoutAuthInput>;
   applications?: Maybe<ApplicationCreateManyWithoutAuthInput>;
 }
 
 export interface AuthUpdateInput {
   firebase_id?: Maybe<String>;
-  email?: Maybe<String>;
-  details?: Maybe<PersonalDetailUpdateOneWithoutAuth_idInput>;
+  account_type?: Maybe<AccountType>;
+  details?: Maybe<PersonalDetailUpdateOneRequiredWithoutAuthInput>;
   social_media?: Maybe<SocialMediaUpdateManyWithoutAuthInput>;
   applications?: Maybe<ApplicationUpdateManyWithoutAuthInput>;
 }
 
 export interface AuthUpdateManyMutationInput {
   firebase_id?: Maybe<String>;
-  email?: Maybe<String>;
-}
-
-export interface BusinessDetailCreateInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  industry_type: String;
-  business_type: String;
-  registration_type: String;
-  registation_id: String;
-  business_start_year: DateTimeInput;
-  bank_verification_number: String;
-  fund_details?: Maybe<FundDetailCreateOneInput>;
-  fund_status?: Maybe<FundStatus>;
-  application: ApplicationCreateOneWithoutBusiness_detailsInput;
-}
-
-export interface ApplicationCreateOneWithoutBusiness_detailsInput {
-  create?: Maybe<ApplicationCreateWithoutBusiness_detailsInput>;
-  connect?: Maybe<ApplicationWhereUniqueInput>;
-}
-
-export interface ApplicationCreateWithoutBusiness_detailsInput {
-  id?: Maybe<ID_Input>;
-  auth: AuthCreateOneWithoutApplicationsInput;
-  personal_details: PersonalDetailCreateOneInput;
-  next_of_kin: NextOfKinDetailCreateOneInput;
-  finance_options: FinanceOptionCreateOneWithoutApplicationInput;
+  account_type?: Maybe<AccountType>;
 }
 
 export interface BusinessDetailUpdateInput {
   name?: Maybe<String>;
-  industry_type?: Maybe<String>;
   business_type?: Maybe<String>;
-  registration_type?: Maybe<String>;
   registation_id?: Maybe<String>;
-  business_start_year?: Maybe<DateTimeInput>;
-  bank_verification_number?: Maybe<String>;
-  fund_details?: Maybe<FundDetailUpdateOneInput>;
-  fund_status?: Maybe<FundStatus>;
-  application?: Maybe<ApplicationUpdateOneRequiredWithoutBusiness_detailsInput>;
-}
-
-export interface ApplicationUpdateOneRequiredWithoutBusiness_detailsInput {
-  create?: Maybe<ApplicationCreateWithoutBusiness_detailsInput>;
-  update?: Maybe<ApplicationUpdateWithoutBusiness_detailsDataInput>;
-  upsert?: Maybe<ApplicationUpsertWithoutBusiness_detailsInput>;
-  connect?: Maybe<ApplicationWhereUniqueInput>;
-}
-
-export interface ApplicationUpdateWithoutBusiness_detailsDataInput {
-  auth?: Maybe<AuthUpdateOneRequiredWithoutApplicationsInput>;
-  personal_details?: Maybe<PersonalDetailUpdateOneRequiredInput>;
-  next_of_kin?: Maybe<NextOfKinDetailUpdateOneRequiredInput>;
-  finance_options?: Maybe<
-    FinanceOptionUpdateOneRequiredWithoutApplicationInput
-  >;
-}
-
-export interface ApplicationUpsertWithoutBusiness_detailsInput {
-  update: ApplicationUpdateWithoutBusiness_detailsDataInput;
-  create: ApplicationCreateWithoutBusiness_detailsInput;
+  cac_file_link?: Maybe<String>;
+  industry_type?: Maybe<String>;
+  business_start_year?: Maybe<Int>;
+  street_address?: Maybe<String>;
+  state?: Maybe<String>;
+  local_goverment_area?: Maybe<String>;
+  website_url?: Maybe<String>;
+  social_media_url?: Maybe<String>;
 }
 
 export interface BusinessDetailUpdateManyMutationInput {
   name?: Maybe<String>;
-  industry_type?: Maybe<String>;
   business_type?: Maybe<String>;
-  registration_type?: Maybe<String>;
   registation_id?: Maybe<String>;
-  business_start_year?: Maybe<DateTimeInput>;
-  bank_verification_number?: Maybe<String>;
-  fund_status?: Maybe<FundStatus>;
+  cac_file_link?: Maybe<String>;
+  industry_type?: Maybe<String>;
+  business_start_year?: Maybe<Int>;
+  street_address?: Maybe<String>;
+  state?: Maybe<String>;
+  local_goverment_area?: Maybe<String>;
+  website_url?: Maybe<String>;
+  social_media_url?: Maybe<String>;
 }
 
-export interface FinanceOptionCreateInput {
-  id?: Maybe<ID_Input>;
-  fund_type: FundType;
-  fund_range: FundRangeCreateOneInput;
-  reason_for_fund: String;
-  disbursement_time: DateTimeInput;
-  avg_month_rev: Float;
-  avg_month_exp: Float;
-  is_serving_loan: Boolean;
-  application: ApplicationCreateOneWithoutFinance_optionsInput;
+export interface BusinessFinancialUpdateInput {
+  avg_monthly_revenue?: Maybe<Float>;
+  avg_monthly_expense?: Maybe<Float>;
+  serving_loan?: Maybe<Boolean>;
+  bank_account_name?: Maybe<String>;
+  bank_account_number?: Maybe<String>;
+  bank_name?: Maybe<String>;
 }
 
-export interface ApplicationCreateOneWithoutFinance_optionsInput {
-  create?: Maybe<ApplicationCreateWithoutFinance_optionsInput>;
-  connect?: Maybe<ApplicationWhereUniqueInput>;
+export interface BusinessFinancialUpdateManyMutationInput {
+  avg_monthly_revenue?: Maybe<Float>;
+  avg_monthly_expense?: Maybe<Float>;
+  serving_loan?: Maybe<Boolean>;
+  bank_account_name?: Maybe<String>;
+  bank_account_number?: Maybe<String>;
+  bank_name?: Maybe<String>;
 }
 
-export interface ApplicationCreateWithoutFinance_optionsInput {
-  id?: Maybe<ID_Input>;
-  auth: AuthCreateOneWithoutApplicationsInput;
-  personal_details: PersonalDetailCreateOneInput;
-  next_of_kin: NextOfKinDetailCreateOneInput;
-  business_details: BusinessDetailCreateOneWithoutApplicationInput;
+export interface BusinessValidationUpdateInput {
+  bvn?: Maybe<String>;
+  person_id_type?: Maybe<String>;
+  person_id_number?: Maybe<String>;
+  statement_url?: Maybe<String>;
 }
 
-export interface FinanceOptionUpdateInput {
-  fund_type?: Maybe<FundType>;
-  fund_range?: Maybe<FundRangeUpdateOneRequiredInput>;
-  reason_for_fund?: Maybe<String>;
-  disbursement_time?: Maybe<DateTimeInput>;
-  avg_month_rev?: Maybe<Float>;
-  avg_month_exp?: Maybe<Float>;
-  is_serving_loan?: Maybe<Boolean>;
-  application?: Maybe<ApplicationUpdateOneRequiredWithoutFinance_optionsInput>;
-}
-
-export interface ApplicationUpdateOneRequiredWithoutFinance_optionsInput {
-  create?: Maybe<ApplicationCreateWithoutFinance_optionsInput>;
-  update?: Maybe<ApplicationUpdateWithoutFinance_optionsDataInput>;
-  upsert?: Maybe<ApplicationUpsertWithoutFinance_optionsInput>;
-  connect?: Maybe<ApplicationWhereUniqueInput>;
-}
-
-export interface ApplicationUpdateWithoutFinance_optionsDataInput {
-  auth?: Maybe<AuthUpdateOneRequiredWithoutApplicationsInput>;
-  personal_details?: Maybe<PersonalDetailUpdateOneRequiredInput>;
-  next_of_kin?: Maybe<NextOfKinDetailUpdateOneRequiredInput>;
-  business_details?: Maybe<
-    BusinessDetailUpdateOneRequiredWithoutApplicationInput
-  >;
-}
-
-export interface ApplicationUpsertWithoutFinance_optionsInput {
-  update: ApplicationUpdateWithoutFinance_optionsDataInput;
-  create: ApplicationCreateWithoutFinance_optionsInput;
-}
-
-export interface FinanceOptionUpdateManyMutationInput {
-  fund_type?: Maybe<FundType>;
-  reason_for_fund?: Maybe<String>;
-  disbursement_time?: Maybe<DateTimeInput>;
-  avg_month_rev?: Maybe<Float>;
-  avg_month_exp?: Maybe<Float>;
-  is_serving_loan?: Maybe<Boolean>;
+export interface BusinessValidationUpdateManyMutationInput {
+  bvn?: Maybe<String>;
+  person_id_type?: Maybe<String>;
+  person_id_number?: Maybe<String>;
+  statement_url?: Maybe<String>;
 }
 
 export interface FundDetailUpdateInput {
-  fund_type?: Maybe<FundType>;
-  reason?: Maybe<String>;
-  payment_due_date?: Maybe<String>;
-  disbursement_date?: Maybe<DateTimeInput>;
   amount?: Maybe<Float>;
+  reason?: Maybe<String>;
+  dispense_date?: Maybe<DateTimeInput>;
+  spread?: Maybe<Float>;
 }
 
 export interface FundDetailUpdateManyMutationInput {
-  fund_type?: Maybe<FundType>;
-  reason?: Maybe<String>;
-  payment_due_date?: Maybe<String>;
-  disbursement_date?: Maybe<DateTimeInput>;
   amount?: Maybe<Float>;
-}
-
-export interface FundRangeUpdateInput {
-  min?: Maybe<Float>;
-  max?: Maybe<Float>;
-}
-
-export interface FundRangeUpdateManyMutationInput {
-  min?: Maybe<Float>;
-  max?: Maybe<Float>;
+  reason?: Maybe<String>;
+  dispense_date?: Maybe<DateTimeInput>;
+  spread?: Maybe<Float>;
 }
 
 export interface IndustryCreateInput {
@@ -2093,6 +2247,14 @@ export interface IndustryUpdateInput {
 
 export interface IndustryUpdateManyMutationInput {
   name?: Maybe<String>;
+}
+
+export interface NextOfKinDetailCreateInput {
+  id?: Maybe<ID_Input>;
+  first_name: String;
+  last_name: String;
+  phone_number: String;
+  relationship: String;
 }
 
 export interface NextOfKinDetailUpdateInput {
@@ -2110,7 +2272,8 @@ export interface NextOfKinDetailUpdateManyMutationInput {
 }
 
 export interface PersonalDetailUpdateInput {
-  auth_id?: Maybe<AuthUpdateOneRequiredWithoutDetailsInput>;
+  email?: Maybe<String>;
+  auth?: Maybe<AuthUpdateOneWithoutDetailsInput>;
   first_name?: Maybe<String>;
   last_name?: Maybe<String>;
   phone_number?: Maybe<String>;
@@ -2120,9 +2283,14 @@ export interface PersonalDetailUpdateInput {
   nationality?: Maybe<String>;
   state?: Maybe<String>;
   home_address?: Maybe<String>;
+  social_handle?: Maybe<String>;
+  kin_name?: Maybe<String>;
+  kin_phone?: Maybe<String>;
+  kin_relation?: Maybe<String>;
 }
 
 export interface PersonalDetailUpdateManyMutationInput {
+  email?: Maybe<String>;
   first_name?: Maybe<String>;
   last_name?: Maybe<String>;
   phone_number?: Maybe<String>;
@@ -2132,13 +2300,17 @@ export interface PersonalDetailUpdateManyMutationInput {
   nationality?: Maybe<String>;
   state?: Maybe<String>;
   home_address?: Maybe<String>;
+  social_handle?: Maybe<String>;
+  kin_name?: Maybe<String>;
+  kin_phone?: Maybe<String>;
+  kin_relation?: Maybe<String>;
 }
 
 export interface SocialMediaCreateInput {
   id?: Maybe<ID_Input>;
+  auth: AuthCreateOneWithoutSocial_mediaInput;
   media_type: String;
   link: String;
-  auth: AuthCreateOneWithoutSocial_mediaInput;
 }
 
 export interface AuthCreateOneWithoutSocial_mediaInput {
@@ -2149,15 +2321,15 @@ export interface AuthCreateOneWithoutSocial_mediaInput {
 export interface AuthCreateWithoutSocial_mediaInput {
   id?: Maybe<ID_Input>;
   firebase_id: String;
-  email: String;
-  details?: Maybe<PersonalDetailCreateOneWithoutAuth_idInput>;
+  account_type?: Maybe<AccountType>;
+  details: PersonalDetailCreateOneWithoutAuthInput;
   applications?: Maybe<ApplicationCreateManyWithoutAuthInput>;
 }
 
 export interface SocialMediaUpdateInput {
+  auth?: Maybe<AuthUpdateOneRequiredWithoutSocial_mediaInput>;
   media_type?: Maybe<String>;
   link?: Maybe<String>;
-  auth?: Maybe<AuthUpdateOneRequiredWithoutSocial_mediaInput>;
 }
 
 export interface AuthUpdateOneRequiredWithoutSocial_mediaInput {
@@ -2169,8 +2341,8 @@ export interface AuthUpdateOneRequiredWithoutSocial_mediaInput {
 
 export interface AuthUpdateWithoutSocial_mediaDataInput {
   firebase_id?: Maybe<String>;
-  email?: Maybe<String>;
-  details?: Maybe<PersonalDetailUpdateOneWithoutAuth_idInput>;
+  account_type?: Maybe<AccountType>;
+  details?: Maybe<PersonalDetailUpdateOneRequiredWithoutAuthInput>;
   applications?: Maybe<ApplicationUpdateManyWithoutAuthInput>;
 }
 
@@ -2232,20 +2404,43 @@ export interface BusinessDetailSubscriptionWhereInput {
   >;
 }
 
-export interface FinanceOptionSubscriptionWhereInput {
+export interface BusinessFinancialSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<FinanceOptionWhereInput>;
+  node?: Maybe<BusinessFinancialWhereInput>;
   AND?: Maybe<
-    FinanceOptionSubscriptionWhereInput[] | FinanceOptionSubscriptionWhereInput
+    | BusinessFinancialSubscriptionWhereInput[]
+    | BusinessFinancialSubscriptionWhereInput
   >;
   OR?: Maybe<
-    FinanceOptionSubscriptionWhereInput[] | FinanceOptionSubscriptionWhereInput
+    | BusinessFinancialSubscriptionWhereInput[]
+    | BusinessFinancialSubscriptionWhereInput
   >;
   NOT?: Maybe<
-    FinanceOptionSubscriptionWhereInput[] | FinanceOptionSubscriptionWhereInput
+    | BusinessFinancialSubscriptionWhereInput[]
+    | BusinessFinancialSubscriptionWhereInput
+  >;
+}
+
+export interface BusinessValidationSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<BusinessValidationWhereInput>;
+  AND?: Maybe<
+    | BusinessValidationSubscriptionWhereInput[]
+    | BusinessValidationSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    | BusinessValidationSubscriptionWhereInput[]
+    | BusinessValidationSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    | BusinessValidationSubscriptionWhereInput[]
+    | BusinessValidationSubscriptionWhereInput
   >;
 }
 
@@ -2263,23 +2458,6 @@ export interface FundDetailSubscriptionWhereInput {
   >;
   NOT?: Maybe<
     FundDetailSubscriptionWhereInput[] | FundDetailSubscriptionWhereInput
-  >;
-}
-
-export interface FundRangeSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<FundRangeWhereInput>;
-  AND?: Maybe<
-    FundRangeSubscriptionWhereInput[] | FundRangeSubscriptionWhereInput
-  >;
-  OR?: Maybe<
-    FundRangeSubscriptionWhereInput[] | FundRangeSubscriptionWhereInput
-  >;
-  NOT?: Maybe<
-    FundRangeSubscriptionWhereInput[] | FundRangeSubscriptionWhereInput
   >;
 }
 
@@ -2361,43 +2539,54 @@ export interface NodeNode {
 
 export interface Application {
   id: ID_Output;
+  application_type: String;
+  fund_status: FundStatus;
 }
 
 export interface ApplicationPromise extends Promise<Application>, Fragmentable {
   id: () => Promise<ID_Output>;
+  application_type: () => Promise<String>;
   auth: <T = AuthPromise>() => T;
+  fund_details: <T = FundDetailPromise>() => T;
   personal_details: <T = PersonalDetailPromise>() => T;
-  next_of_kin: <T = NextOfKinDetailPromise>() => T;
   business_details: <T = BusinessDetailPromise>() => T;
-  finance_options: <T = FinanceOptionPromise>() => T;
+  business_financials: <T = BusinessFinancialPromise>() => T;
+  validations: <T = BusinessValidationPromise>() => T;
+  fund_status: () => Promise<FundStatus>;
 }
 
 export interface ApplicationSubscription
   extends Promise<AsyncIterator<Application>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  application_type: () => Promise<AsyncIterator<String>>;
   auth: <T = AuthSubscription>() => T;
+  fund_details: <T = FundDetailSubscription>() => T;
   personal_details: <T = PersonalDetailSubscription>() => T;
-  next_of_kin: <T = NextOfKinDetailSubscription>() => T;
   business_details: <T = BusinessDetailSubscription>() => T;
-  finance_options: <T = FinanceOptionSubscription>() => T;
+  business_financials: <T = BusinessFinancialSubscription>() => T;
+  validations: <T = BusinessValidationSubscription>() => T;
+  fund_status: () => Promise<AsyncIterator<FundStatus>>;
 }
 
 export interface ApplicationNullablePromise
   extends Promise<Application | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  application_type: () => Promise<String>;
   auth: <T = AuthPromise>() => T;
+  fund_details: <T = FundDetailPromise>() => T;
   personal_details: <T = PersonalDetailPromise>() => T;
-  next_of_kin: <T = NextOfKinDetailPromise>() => T;
   business_details: <T = BusinessDetailPromise>() => T;
-  finance_options: <T = FinanceOptionPromise>() => T;
+  business_financials: <T = BusinessFinancialPromise>() => T;
+  validations: <T = BusinessValidationPromise>() => T;
+  fund_status: () => Promise<FundStatus>;
 }
 
 export interface Auth {
   id: ID_Output;
   firebase_id: String;
-  email: String;
+  account_type: AccountType;
   created_at: DateTimeOutput;
   updated_at: DateTimeOutput;
 }
@@ -2405,7 +2594,7 @@ export interface Auth {
 export interface AuthPromise extends Promise<Auth>, Fragmentable {
   id: () => Promise<ID_Output>;
   firebase_id: () => Promise<String>;
-  email: () => Promise<String>;
+  account_type: () => Promise<AccountType>;
   details: <T = PersonalDetailPromise>() => T;
   social_media: <T = FragmentableArray<SocialMedia>>(args?: {
     where?: SocialMediaWhereInput;
@@ -2434,7 +2623,7 @@ export interface AuthSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   firebase_id: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
+  account_type: () => Promise<AsyncIterator<AccountType>>;
   details: <T = PersonalDetailSubscription>() => T;
   social_media: <T = Promise<AsyncIterator<SocialMediaSubscription>>>(args?: {
     where?: SocialMediaWhereInput;
@@ -2463,7 +2652,7 @@ export interface AuthNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   firebase_id: () => Promise<String>;
-  email: () => Promise<String>;
+  account_type: () => Promise<AccountType>;
   details: <T = PersonalDetailPromise>() => T;
   social_media: <T = FragmentableArray<SocialMedia>>(args?: {
     where?: SocialMediaWhereInput;
@@ -2489,6 +2678,7 @@ export interface AuthNullablePromise
 
 export interface PersonalDetail {
   id: ID_Output;
+  email: String;
   first_name: String;
   last_name: String;
   phone_number?: String;
@@ -2498,13 +2688,18 @@ export interface PersonalDetail {
   nationality?: String;
   state?: String;
   home_address?: String;
+  social_handle?: String;
+  kin_name?: String;
+  kin_phone?: String;
+  kin_relation?: String;
 }
 
 export interface PersonalDetailPromise
   extends Promise<PersonalDetail>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  auth_id: <T = AuthPromise>() => T;
+  email: () => Promise<String>;
+  auth: <T = AuthPromise>() => T;
   first_name: () => Promise<String>;
   last_name: () => Promise<String>;
   phone_number: () => Promise<String>;
@@ -2514,13 +2709,18 @@ export interface PersonalDetailPromise
   nationality: () => Promise<String>;
   state: () => Promise<String>;
   home_address: () => Promise<String>;
+  social_handle: () => Promise<String>;
+  kin_name: () => Promise<String>;
+  kin_phone: () => Promise<String>;
+  kin_relation: () => Promise<String>;
 }
 
 export interface PersonalDetailSubscription
   extends Promise<AsyncIterator<PersonalDetail>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  auth_id: <T = AuthSubscription>() => T;
+  email: () => Promise<AsyncIterator<String>>;
+  auth: <T = AuthSubscription>() => T;
   first_name: () => Promise<AsyncIterator<String>>;
   last_name: () => Promise<AsyncIterator<String>>;
   phone_number: () => Promise<AsyncIterator<String>>;
@@ -2530,13 +2730,18 @@ export interface PersonalDetailSubscription
   nationality: () => Promise<AsyncIterator<String>>;
   state: () => Promise<AsyncIterator<String>>;
   home_address: () => Promise<AsyncIterator<String>>;
+  social_handle: () => Promise<AsyncIterator<String>>;
+  kin_name: () => Promise<AsyncIterator<String>>;
+  kin_phone: () => Promise<AsyncIterator<String>>;
+  kin_relation: () => Promise<AsyncIterator<String>>;
 }
 
 export interface PersonalDetailNullablePromise
   extends Promise<PersonalDetail | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  auth_id: <T = AuthPromise>() => T;
+  email: () => Promise<String>;
+  auth: <T = AuthPromise>() => T;
   first_name: () => Promise<String>;
   last_name: () => Promise<String>;
   phone_number: () => Promise<String>;
@@ -2546,6 +2751,10 @@ export interface PersonalDetailNullablePromise
   nationality: () => Promise<String>;
   state: () => Promise<String>;
   home_address: () => Promise<String>;
+  social_handle: () => Promise<String>;
+  kin_name: () => Promise<String>;
+  kin_phone: () => Promise<String>;
+  kin_relation: () => Promise<String>;
 }
 
 export interface SocialMedia {
@@ -2556,77 +2765,78 @@ export interface SocialMedia {
 
 export interface SocialMediaPromise extends Promise<SocialMedia>, Fragmentable {
   id: () => Promise<ID_Output>;
+  auth: <T = AuthPromise>() => T;
   media_type: () => Promise<String>;
   link: () => Promise<String>;
-  auth: <T = AuthPromise>() => T;
 }
 
 export interface SocialMediaSubscription
   extends Promise<AsyncIterator<SocialMedia>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  auth: <T = AuthSubscription>() => T;
   media_type: () => Promise<AsyncIterator<String>>;
   link: () => Promise<AsyncIterator<String>>;
-  auth: <T = AuthSubscription>() => T;
 }
 
 export interface SocialMediaNullablePromise
   extends Promise<SocialMedia | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  auth: <T = AuthPromise>() => T;
   media_type: () => Promise<String>;
   link: () => Promise<String>;
-  auth: <T = AuthPromise>() => T;
 }
 
-export interface NextOfKinDetail {
+export interface FundDetail {
   id: ID_Output;
-  first_name: String;
-  last_name: String;
-  phone_number: String;
-  relationship: String;
+  amount: Float;
+  reason: String;
+  dispense_date: DateTimeOutput;
+  spread?: Float;
 }
 
-export interface NextOfKinDetailPromise
-  extends Promise<NextOfKinDetail>,
-    Fragmentable {
+export interface FundDetailPromise extends Promise<FundDetail>, Fragmentable {
   id: () => Promise<ID_Output>;
-  first_name: () => Promise<String>;
-  last_name: () => Promise<String>;
-  phone_number: () => Promise<String>;
-  relationship: () => Promise<String>;
+  amount: () => Promise<Float>;
+  reason: () => Promise<String>;
+  dispense_date: () => Promise<DateTimeOutput>;
+  spread: () => Promise<Float>;
 }
 
-export interface NextOfKinDetailSubscription
-  extends Promise<AsyncIterator<NextOfKinDetail>>,
+export interface FundDetailSubscription
+  extends Promise<AsyncIterator<FundDetail>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  first_name: () => Promise<AsyncIterator<String>>;
-  last_name: () => Promise<AsyncIterator<String>>;
-  phone_number: () => Promise<AsyncIterator<String>>;
-  relationship: () => Promise<AsyncIterator<String>>;
+  amount: () => Promise<AsyncIterator<Float>>;
+  reason: () => Promise<AsyncIterator<String>>;
+  dispense_date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  spread: () => Promise<AsyncIterator<Float>>;
 }
 
-export interface NextOfKinDetailNullablePromise
-  extends Promise<NextOfKinDetail | null>,
+export interface FundDetailNullablePromise
+  extends Promise<FundDetail | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  first_name: () => Promise<String>;
-  last_name: () => Promise<String>;
-  phone_number: () => Promise<String>;
-  relationship: () => Promise<String>;
+  amount: () => Promise<Float>;
+  reason: () => Promise<String>;
+  dispense_date: () => Promise<DateTimeOutput>;
+  spread: () => Promise<Float>;
 }
 
 export interface BusinessDetail {
   id: ID_Output;
   name: String;
-  industry_type: String;
   business_type: String;
-  registration_type: String;
   registation_id: String;
-  business_start_year: DateTimeOutput;
-  bank_verification_number: String;
-  fund_status: FundStatus;
+  cac_file_link: String;
+  industry_type: String;
+  business_start_year: Int;
+  street_address: String;
+  state: String;
+  local_goverment_area: String;
+  website_url?: String;
+  social_media_url?: String;
   created_at: DateTimeOutput;
   updated_at: DateTimeOutput;
 }
@@ -2636,15 +2846,16 @@ export interface BusinessDetailPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
-  industry_type: () => Promise<String>;
   business_type: () => Promise<String>;
-  registration_type: () => Promise<String>;
   registation_id: () => Promise<String>;
-  business_start_year: () => Promise<DateTimeOutput>;
-  bank_verification_number: () => Promise<String>;
-  fund_details: <T = FundDetailPromise>() => T;
-  fund_status: () => Promise<FundStatus>;
-  application: <T = ApplicationPromise>() => T;
+  cac_file_link: () => Promise<String>;
+  industry_type: () => Promise<String>;
+  business_start_year: () => Promise<Int>;
+  street_address: () => Promise<String>;
+  state: () => Promise<String>;
+  local_goverment_area: () => Promise<String>;
+  website_url: () => Promise<String>;
+  social_media_url: () => Promise<String>;
   created_at: () => Promise<DateTimeOutput>;
   updated_at: () => Promise<DateTimeOutput>;
 }
@@ -2654,15 +2865,16 @@ export interface BusinessDetailSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
-  industry_type: () => Promise<AsyncIterator<String>>;
   business_type: () => Promise<AsyncIterator<String>>;
-  registration_type: () => Promise<AsyncIterator<String>>;
   registation_id: () => Promise<AsyncIterator<String>>;
-  business_start_year: () => Promise<AsyncIterator<DateTimeOutput>>;
-  bank_verification_number: () => Promise<AsyncIterator<String>>;
-  fund_details: <T = FundDetailSubscription>() => T;
-  fund_status: () => Promise<AsyncIterator<FundStatus>>;
-  application: <T = ApplicationSubscription>() => T;
+  cac_file_link: () => Promise<AsyncIterator<String>>;
+  industry_type: () => Promise<AsyncIterator<String>>;
+  business_start_year: () => Promise<AsyncIterator<Int>>;
+  street_address: () => Promise<AsyncIterator<String>>;
+  state: () => Promise<AsyncIterator<String>>;
+  local_goverment_area: () => Promise<AsyncIterator<String>>;
+  website_url: () => Promise<AsyncIterator<String>>;
+  social_media_url: () => Promise<AsyncIterator<String>>;
   created_at: () => Promise<AsyncIterator<DateTimeOutput>>;
   updated_at: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -2672,137 +2884,102 @@ export interface BusinessDetailNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
-  industry_type: () => Promise<String>;
   business_type: () => Promise<String>;
-  registration_type: () => Promise<String>;
   registation_id: () => Promise<String>;
-  business_start_year: () => Promise<DateTimeOutput>;
-  bank_verification_number: () => Promise<String>;
-  fund_details: <T = FundDetailPromise>() => T;
-  fund_status: () => Promise<FundStatus>;
-  application: <T = ApplicationPromise>() => T;
+  cac_file_link: () => Promise<String>;
+  industry_type: () => Promise<String>;
+  business_start_year: () => Promise<Int>;
+  street_address: () => Promise<String>;
+  state: () => Promise<String>;
+  local_goverment_area: () => Promise<String>;
+  website_url: () => Promise<String>;
+  social_media_url: () => Promise<String>;
   created_at: () => Promise<DateTimeOutput>;
   updated_at: () => Promise<DateTimeOutput>;
 }
 
-export interface FundDetail {
+export interface BusinessFinancial {
   id: ID_Output;
-  fund_type: FundType;
-  reason: String;
-  payment_due_date?: String;
-  disbursement_date: DateTimeOutput;
-  amount: Float;
+  avg_monthly_revenue: Float;
+  avg_monthly_expense: Float;
+  serving_loan: Boolean;
+  bank_account_name: String;
+  bank_account_number: String;
+  bank_name: String;
 }
 
-export interface FundDetailPromise extends Promise<FundDetail>, Fragmentable {
+export interface BusinessFinancialPromise
+  extends Promise<BusinessFinancial>,
+    Fragmentable {
   id: () => Promise<ID_Output>;
-  fund_type: () => Promise<FundType>;
-  reason: () => Promise<String>;
-  payment_due_date: () => Promise<String>;
-  disbursement_date: () => Promise<DateTimeOutput>;
-  amount: () => Promise<Float>;
+  avg_monthly_revenue: () => Promise<Float>;
+  avg_monthly_expense: () => Promise<Float>;
+  serving_loan: () => Promise<Boolean>;
+  bank_account_name: () => Promise<String>;
+  bank_account_number: () => Promise<String>;
+  bank_name: () => Promise<String>;
 }
 
-export interface FundDetailSubscription
-  extends Promise<AsyncIterator<FundDetail>>,
+export interface BusinessFinancialSubscription
+  extends Promise<AsyncIterator<BusinessFinancial>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  fund_type: () => Promise<AsyncIterator<FundType>>;
-  reason: () => Promise<AsyncIterator<String>>;
-  payment_due_date: () => Promise<AsyncIterator<String>>;
-  disbursement_date: () => Promise<AsyncIterator<DateTimeOutput>>;
-  amount: () => Promise<AsyncIterator<Float>>;
+  avg_monthly_revenue: () => Promise<AsyncIterator<Float>>;
+  avg_monthly_expense: () => Promise<AsyncIterator<Float>>;
+  serving_loan: () => Promise<AsyncIterator<Boolean>>;
+  bank_account_name: () => Promise<AsyncIterator<String>>;
+  bank_account_number: () => Promise<AsyncIterator<String>>;
+  bank_name: () => Promise<AsyncIterator<String>>;
 }
 
-export interface FundDetailNullablePromise
-  extends Promise<FundDetail | null>,
+export interface BusinessFinancialNullablePromise
+  extends Promise<BusinessFinancial | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  fund_type: () => Promise<FundType>;
-  reason: () => Promise<String>;
-  payment_due_date: () => Promise<String>;
-  disbursement_date: () => Promise<DateTimeOutput>;
-  amount: () => Promise<Float>;
+  avg_monthly_revenue: () => Promise<Float>;
+  avg_monthly_expense: () => Promise<Float>;
+  serving_loan: () => Promise<Boolean>;
+  bank_account_name: () => Promise<String>;
+  bank_account_number: () => Promise<String>;
+  bank_name: () => Promise<String>;
 }
 
-export interface FinanceOption {
+export interface BusinessValidation {
   id: ID_Output;
-  fund_type: FundType;
-  reason_for_fund: String;
-  disbursement_time: DateTimeOutput;
-  avg_month_rev: Float;
-  avg_month_exp: Float;
-  is_serving_loan: Boolean;
+  bvn: String;
+  person_id_type: String;
+  person_id_number: String;
+  statement_url: String;
 }
 
-export interface FinanceOptionPromise
-  extends Promise<FinanceOption>,
+export interface BusinessValidationPromise
+  extends Promise<BusinessValidation>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  fund_type: () => Promise<FundType>;
-  fund_range: <T = FundRangePromise>() => T;
-  reason_for_fund: () => Promise<String>;
-  disbursement_time: () => Promise<DateTimeOutput>;
-  avg_month_rev: () => Promise<Float>;
-  avg_month_exp: () => Promise<Float>;
-  is_serving_loan: () => Promise<Boolean>;
-  application: <T = ApplicationPromise>() => T;
+  bvn: () => Promise<String>;
+  person_id_type: () => Promise<String>;
+  person_id_number: () => Promise<String>;
+  statement_url: () => Promise<String>;
 }
 
-export interface FinanceOptionSubscription
-  extends Promise<AsyncIterator<FinanceOption>>,
+export interface BusinessValidationSubscription
+  extends Promise<AsyncIterator<BusinessValidation>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  fund_type: () => Promise<AsyncIterator<FundType>>;
-  fund_range: <T = FundRangeSubscription>() => T;
-  reason_for_fund: () => Promise<AsyncIterator<String>>;
-  disbursement_time: () => Promise<AsyncIterator<DateTimeOutput>>;
-  avg_month_rev: () => Promise<AsyncIterator<Float>>;
-  avg_month_exp: () => Promise<AsyncIterator<Float>>;
-  is_serving_loan: () => Promise<AsyncIterator<Boolean>>;
-  application: <T = ApplicationSubscription>() => T;
+  bvn: () => Promise<AsyncIterator<String>>;
+  person_id_type: () => Promise<AsyncIterator<String>>;
+  person_id_number: () => Promise<AsyncIterator<String>>;
+  statement_url: () => Promise<AsyncIterator<String>>;
 }
 
-export interface FinanceOptionNullablePromise
-  extends Promise<FinanceOption | null>,
+export interface BusinessValidationNullablePromise
+  extends Promise<BusinessValidation | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  fund_type: () => Promise<FundType>;
-  fund_range: <T = FundRangePromise>() => T;
-  reason_for_fund: () => Promise<String>;
-  disbursement_time: () => Promise<DateTimeOutput>;
-  avg_month_rev: () => Promise<Float>;
-  avg_month_exp: () => Promise<Float>;
-  is_serving_loan: () => Promise<Boolean>;
-  application: <T = ApplicationPromise>() => T;
-}
-
-export interface FundRange {
-  id: ID_Output;
-  min: Float;
-  max: Float;
-}
-
-export interface FundRangePromise extends Promise<FundRange>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  min: () => Promise<Float>;
-  max: () => Promise<Float>;
-}
-
-export interface FundRangeSubscription
-  extends Promise<AsyncIterator<FundRange>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  min: () => Promise<AsyncIterator<Float>>;
-  max: () => Promise<AsyncIterator<Float>>;
-}
-
-export interface FundRangeNullablePromise
-  extends Promise<FundRange | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  min: () => Promise<Float>;
-  max: () => Promise<Float>;
+  bvn: () => Promise<String>;
+  person_id_type: () => Promise<String>;
+  person_id_number: () => Promise<String>;
+  statement_url: () => Promise<String>;
 }
 
 export interface ApplicationConnection {
@@ -2994,58 +3171,116 @@ export interface AggregateBusinessDetailSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface FinanceOptionConnection {
+export interface BusinessFinancialConnection {
   pageInfo: PageInfo;
-  edges: FinanceOptionEdge[];
+  edges: BusinessFinancialEdge[];
 }
 
-export interface FinanceOptionConnectionPromise
-  extends Promise<FinanceOptionConnection>,
+export interface BusinessFinancialConnectionPromise
+  extends Promise<BusinessFinancialConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<FinanceOptionEdge>>() => T;
-  aggregate: <T = AggregateFinanceOptionPromise>() => T;
+  edges: <T = FragmentableArray<BusinessFinancialEdge>>() => T;
+  aggregate: <T = AggregateBusinessFinancialPromise>() => T;
 }
 
-export interface FinanceOptionConnectionSubscription
-  extends Promise<AsyncIterator<FinanceOptionConnection>>,
+export interface BusinessFinancialConnectionSubscription
+  extends Promise<AsyncIterator<BusinessFinancialConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<FinanceOptionEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateFinanceOptionSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<BusinessFinancialEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateBusinessFinancialSubscription>() => T;
 }
 
-export interface FinanceOptionEdge {
-  node: FinanceOption;
+export interface BusinessFinancialEdge {
+  node: BusinessFinancial;
   cursor: String;
 }
 
-export interface FinanceOptionEdgePromise
-  extends Promise<FinanceOptionEdge>,
+export interface BusinessFinancialEdgePromise
+  extends Promise<BusinessFinancialEdge>,
     Fragmentable {
-  node: <T = FinanceOptionPromise>() => T;
+  node: <T = BusinessFinancialPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface FinanceOptionEdgeSubscription
-  extends Promise<AsyncIterator<FinanceOptionEdge>>,
+export interface BusinessFinancialEdgeSubscription
+  extends Promise<AsyncIterator<BusinessFinancialEdge>>,
     Fragmentable {
-  node: <T = FinanceOptionSubscription>() => T;
+  node: <T = BusinessFinancialSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateFinanceOption {
+export interface AggregateBusinessFinancial {
   count: Int;
 }
 
-export interface AggregateFinanceOptionPromise
-  extends Promise<AggregateFinanceOption>,
+export interface AggregateBusinessFinancialPromise
+  extends Promise<AggregateBusinessFinancial>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateFinanceOptionSubscription
-  extends Promise<AsyncIterator<AggregateFinanceOption>>,
+export interface AggregateBusinessFinancialSubscription
+  extends Promise<AsyncIterator<AggregateBusinessFinancial>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface BusinessValidationConnection {
+  pageInfo: PageInfo;
+  edges: BusinessValidationEdge[];
+}
+
+export interface BusinessValidationConnectionPromise
+  extends Promise<BusinessValidationConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<BusinessValidationEdge>>() => T;
+  aggregate: <T = AggregateBusinessValidationPromise>() => T;
+}
+
+export interface BusinessValidationConnectionSubscription
+  extends Promise<AsyncIterator<BusinessValidationConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<BusinessValidationEdgeSubscription>>
+  >() => T;
+  aggregate: <T = AggregateBusinessValidationSubscription>() => T;
+}
+
+export interface BusinessValidationEdge {
+  node: BusinessValidation;
+  cursor: String;
+}
+
+export interface BusinessValidationEdgePromise
+  extends Promise<BusinessValidationEdge>,
+    Fragmentable {
+  node: <T = BusinessValidationPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface BusinessValidationEdgeSubscription
+  extends Promise<AsyncIterator<BusinessValidationEdge>>,
+    Fragmentable {
+  node: <T = BusinessValidationSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateBusinessValidation {
+  count: Int;
+}
+
+export interface AggregateBusinessValidationPromise
+  extends Promise<AggregateBusinessValidation>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateBusinessValidationSubscription
+  extends Promise<AsyncIterator<AggregateBusinessValidation>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -3102,62 +3337,6 @@ export interface AggregateFundDetailPromise
 
 export interface AggregateFundDetailSubscription
   extends Promise<AsyncIterator<AggregateFundDetail>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface FundRangeConnection {
-  pageInfo: PageInfo;
-  edges: FundRangeEdge[];
-}
-
-export interface FundRangeConnectionPromise
-  extends Promise<FundRangeConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<FundRangeEdge>>() => T;
-  aggregate: <T = AggregateFundRangePromise>() => T;
-}
-
-export interface FundRangeConnectionSubscription
-  extends Promise<AsyncIterator<FundRangeConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<FundRangeEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateFundRangeSubscription>() => T;
-}
-
-export interface FundRangeEdge {
-  node: FundRange;
-  cursor: String;
-}
-
-export interface FundRangeEdgePromise
-  extends Promise<FundRangeEdge>,
-    Fragmentable {
-  node: <T = FundRangePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface FundRangeEdgeSubscription
-  extends Promise<AsyncIterator<FundRangeEdge>>,
-    Fragmentable {
-  node: <T = FundRangeSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateFundRange {
-  count: Int;
-}
-
-export interface AggregateFundRangePromise
-  extends Promise<AggregateFundRange>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateFundRangeSubscription
-  extends Promise<AsyncIterator<AggregateFundRange>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -3240,6 +3419,44 @@ export interface AggregateIndustrySubscription
   extends Promise<AsyncIterator<AggregateIndustry>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface NextOfKinDetail {
+  id: ID_Output;
+  first_name: String;
+  last_name: String;
+  phone_number: String;
+  relationship: String;
+}
+
+export interface NextOfKinDetailPromise
+  extends Promise<NextOfKinDetail>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  first_name: () => Promise<String>;
+  last_name: () => Promise<String>;
+  phone_number: () => Promise<String>;
+  relationship: () => Promise<String>;
+}
+
+export interface NextOfKinDetailSubscription
+  extends Promise<AsyncIterator<NextOfKinDetail>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  first_name: () => Promise<AsyncIterator<String>>;
+  last_name: () => Promise<AsyncIterator<String>>;
+  phone_number: () => Promise<AsyncIterator<String>>;
+  relationship: () => Promise<AsyncIterator<String>>;
+}
+
+export interface NextOfKinDetailNullablePromise
+  extends Promise<NextOfKinDetail | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  first_name: () => Promise<String>;
+  last_name: () => Promise<String>;
+  phone_number: () => Promise<String>;
+  relationship: () => Promise<String>;
 }
 
 export interface NextOfKinDetailConnection {
@@ -3453,18 +3670,24 @@ export interface ApplicationSubscriptionPayloadSubscription
 
 export interface ApplicationPreviousValues {
   id: ID_Output;
+  application_type: String;
+  fund_status: FundStatus;
 }
 
 export interface ApplicationPreviousValuesPromise
   extends Promise<ApplicationPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  application_type: () => Promise<String>;
+  fund_status: () => Promise<FundStatus>;
 }
 
 export interface ApplicationPreviousValuesSubscription
   extends Promise<AsyncIterator<ApplicationPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  application_type: () => Promise<AsyncIterator<String>>;
+  fund_status: () => Promise<AsyncIterator<FundStatus>>;
 }
 
 export interface AuthSubscriptionPayload {
@@ -3495,7 +3718,7 @@ export interface AuthSubscriptionPayloadSubscription
 export interface AuthPreviousValues {
   id: ID_Output;
   firebase_id: String;
-  email: String;
+  account_type: AccountType;
   created_at: DateTimeOutput;
   updated_at: DateTimeOutput;
 }
@@ -3505,7 +3728,7 @@ export interface AuthPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   firebase_id: () => Promise<String>;
-  email: () => Promise<String>;
+  account_type: () => Promise<AccountType>;
   created_at: () => Promise<DateTimeOutput>;
   updated_at: () => Promise<DateTimeOutput>;
 }
@@ -3515,7 +3738,7 @@ export interface AuthPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   firebase_id: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
+  account_type: () => Promise<AsyncIterator<AccountType>>;
   created_at: () => Promise<AsyncIterator<DateTimeOutput>>;
   updated_at: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -3548,13 +3771,16 @@ export interface BusinessDetailSubscriptionPayloadSubscription
 export interface BusinessDetailPreviousValues {
   id: ID_Output;
   name: String;
-  industry_type: String;
   business_type: String;
-  registration_type: String;
   registation_id: String;
-  business_start_year: DateTimeOutput;
-  bank_verification_number: String;
-  fund_status: FundStatus;
+  cac_file_link: String;
+  industry_type: String;
+  business_start_year: Int;
+  street_address: String;
+  state: String;
+  local_goverment_area: String;
+  website_url?: String;
+  social_media_url?: String;
   created_at: DateTimeOutput;
   updated_at: DateTimeOutput;
 }
@@ -3564,13 +3790,16 @@ export interface BusinessDetailPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
-  industry_type: () => Promise<String>;
   business_type: () => Promise<String>;
-  registration_type: () => Promise<String>;
   registation_id: () => Promise<String>;
-  business_start_year: () => Promise<DateTimeOutput>;
-  bank_verification_number: () => Promise<String>;
-  fund_status: () => Promise<FundStatus>;
+  cac_file_link: () => Promise<String>;
+  industry_type: () => Promise<String>;
+  business_start_year: () => Promise<Int>;
+  street_address: () => Promise<String>;
+  state: () => Promise<String>;
+  local_goverment_area: () => Promise<String>;
+  website_url: () => Promise<String>;
+  social_media_url: () => Promise<String>;
   created_at: () => Promise<DateTimeOutput>;
   updated_at: () => Promise<DateTimeOutput>;
 }
@@ -3580,74 +3809,130 @@ export interface BusinessDetailPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
-  industry_type: () => Promise<AsyncIterator<String>>;
   business_type: () => Promise<AsyncIterator<String>>;
-  registration_type: () => Promise<AsyncIterator<String>>;
   registation_id: () => Promise<AsyncIterator<String>>;
-  business_start_year: () => Promise<AsyncIterator<DateTimeOutput>>;
-  bank_verification_number: () => Promise<AsyncIterator<String>>;
-  fund_status: () => Promise<AsyncIterator<FundStatus>>;
+  cac_file_link: () => Promise<AsyncIterator<String>>;
+  industry_type: () => Promise<AsyncIterator<String>>;
+  business_start_year: () => Promise<AsyncIterator<Int>>;
+  street_address: () => Promise<AsyncIterator<String>>;
+  state: () => Promise<AsyncIterator<String>>;
+  local_goverment_area: () => Promise<AsyncIterator<String>>;
+  website_url: () => Promise<AsyncIterator<String>>;
+  social_media_url: () => Promise<AsyncIterator<String>>;
   created_at: () => Promise<AsyncIterator<DateTimeOutput>>;
   updated_at: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface FinanceOptionSubscriptionPayload {
+export interface BusinessFinancialSubscriptionPayload {
   mutation: MutationType;
-  node: FinanceOption;
+  node: BusinessFinancial;
   updatedFields: String[];
-  previousValues: FinanceOptionPreviousValues;
+  previousValues: BusinessFinancialPreviousValues;
 }
 
-export interface FinanceOptionSubscriptionPayloadPromise
-  extends Promise<FinanceOptionSubscriptionPayload>,
+export interface BusinessFinancialSubscriptionPayloadPromise
+  extends Promise<BusinessFinancialSubscriptionPayload>,
     Fragmentable {
   mutation: () => Promise<MutationType>;
-  node: <T = FinanceOptionPromise>() => T;
+  node: <T = BusinessFinancialPromise>() => T;
   updatedFields: () => Promise<String[]>;
-  previousValues: <T = FinanceOptionPreviousValuesPromise>() => T;
+  previousValues: <T = BusinessFinancialPreviousValuesPromise>() => T;
 }
 
-export interface FinanceOptionSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<FinanceOptionSubscriptionPayload>>,
+export interface BusinessFinancialSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<BusinessFinancialSubscriptionPayload>>,
     Fragmentable {
   mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = FinanceOptionSubscription>() => T;
+  node: <T = BusinessFinancialSubscription>() => T;
   updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = FinanceOptionPreviousValuesSubscription>() => T;
+  previousValues: <T = BusinessFinancialPreviousValuesSubscription>() => T;
 }
 
-export interface FinanceOptionPreviousValues {
+export interface BusinessFinancialPreviousValues {
   id: ID_Output;
-  fund_type: FundType;
-  reason_for_fund: String;
-  disbursement_time: DateTimeOutput;
-  avg_month_rev: Float;
-  avg_month_exp: Float;
-  is_serving_loan: Boolean;
+  avg_monthly_revenue: Float;
+  avg_monthly_expense: Float;
+  serving_loan: Boolean;
+  bank_account_name: String;
+  bank_account_number: String;
+  bank_name: String;
 }
 
-export interface FinanceOptionPreviousValuesPromise
-  extends Promise<FinanceOptionPreviousValues>,
+export interface BusinessFinancialPreviousValuesPromise
+  extends Promise<BusinessFinancialPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  fund_type: () => Promise<FundType>;
-  reason_for_fund: () => Promise<String>;
-  disbursement_time: () => Promise<DateTimeOutput>;
-  avg_month_rev: () => Promise<Float>;
-  avg_month_exp: () => Promise<Float>;
-  is_serving_loan: () => Promise<Boolean>;
+  avg_monthly_revenue: () => Promise<Float>;
+  avg_monthly_expense: () => Promise<Float>;
+  serving_loan: () => Promise<Boolean>;
+  bank_account_name: () => Promise<String>;
+  bank_account_number: () => Promise<String>;
+  bank_name: () => Promise<String>;
 }
 
-export interface FinanceOptionPreviousValuesSubscription
-  extends Promise<AsyncIterator<FinanceOptionPreviousValues>>,
+export interface BusinessFinancialPreviousValuesSubscription
+  extends Promise<AsyncIterator<BusinessFinancialPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  fund_type: () => Promise<AsyncIterator<FundType>>;
-  reason_for_fund: () => Promise<AsyncIterator<String>>;
-  disbursement_time: () => Promise<AsyncIterator<DateTimeOutput>>;
-  avg_month_rev: () => Promise<AsyncIterator<Float>>;
-  avg_month_exp: () => Promise<AsyncIterator<Float>>;
-  is_serving_loan: () => Promise<AsyncIterator<Boolean>>;
+  avg_monthly_revenue: () => Promise<AsyncIterator<Float>>;
+  avg_monthly_expense: () => Promise<AsyncIterator<Float>>;
+  serving_loan: () => Promise<AsyncIterator<Boolean>>;
+  bank_account_name: () => Promise<AsyncIterator<String>>;
+  bank_account_number: () => Promise<AsyncIterator<String>>;
+  bank_name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface BusinessValidationSubscriptionPayload {
+  mutation: MutationType;
+  node: BusinessValidation;
+  updatedFields: String[];
+  previousValues: BusinessValidationPreviousValues;
+}
+
+export interface BusinessValidationSubscriptionPayloadPromise
+  extends Promise<BusinessValidationSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = BusinessValidationPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = BusinessValidationPreviousValuesPromise>() => T;
+}
+
+export interface BusinessValidationSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<BusinessValidationSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = BusinessValidationSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = BusinessValidationPreviousValuesSubscription>() => T;
+}
+
+export interface BusinessValidationPreviousValues {
+  id: ID_Output;
+  bvn: String;
+  person_id_type: String;
+  person_id_number: String;
+  statement_url: String;
+}
+
+export interface BusinessValidationPreviousValuesPromise
+  extends Promise<BusinessValidationPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  bvn: () => Promise<String>;
+  person_id_type: () => Promise<String>;
+  person_id_number: () => Promise<String>;
+  statement_url: () => Promise<String>;
+}
+
+export interface BusinessValidationPreviousValuesSubscription
+  extends Promise<AsyncIterator<BusinessValidationPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  bvn: () => Promise<AsyncIterator<String>>;
+  person_id_type: () => Promise<AsyncIterator<String>>;
+  person_id_number: () => Promise<AsyncIterator<String>>;
+  statement_url: () => Promise<AsyncIterator<String>>;
 }
 
 export interface FundDetailSubscriptionPayload {
@@ -3677,80 +3962,30 @@ export interface FundDetailSubscriptionPayloadSubscription
 
 export interface FundDetailPreviousValues {
   id: ID_Output;
-  fund_type: FundType;
-  reason: String;
-  payment_due_date?: String;
-  disbursement_date: DateTimeOutput;
   amount: Float;
+  reason: String;
+  dispense_date: DateTimeOutput;
+  spread?: Float;
 }
 
 export interface FundDetailPreviousValuesPromise
   extends Promise<FundDetailPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  fund_type: () => Promise<FundType>;
-  reason: () => Promise<String>;
-  payment_due_date: () => Promise<String>;
-  disbursement_date: () => Promise<DateTimeOutput>;
   amount: () => Promise<Float>;
+  reason: () => Promise<String>;
+  dispense_date: () => Promise<DateTimeOutput>;
+  spread: () => Promise<Float>;
 }
 
 export interface FundDetailPreviousValuesSubscription
   extends Promise<AsyncIterator<FundDetailPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  fund_type: () => Promise<AsyncIterator<FundType>>;
-  reason: () => Promise<AsyncIterator<String>>;
-  payment_due_date: () => Promise<AsyncIterator<String>>;
-  disbursement_date: () => Promise<AsyncIterator<DateTimeOutput>>;
   amount: () => Promise<AsyncIterator<Float>>;
-}
-
-export interface FundRangeSubscriptionPayload {
-  mutation: MutationType;
-  node: FundRange;
-  updatedFields: String[];
-  previousValues: FundRangePreviousValues;
-}
-
-export interface FundRangeSubscriptionPayloadPromise
-  extends Promise<FundRangeSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = FundRangePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = FundRangePreviousValuesPromise>() => T;
-}
-
-export interface FundRangeSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<FundRangeSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = FundRangeSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = FundRangePreviousValuesSubscription>() => T;
-}
-
-export interface FundRangePreviousValues {
-  id: ID_Output;
-  min: Float;
-  max: Float;
-}
-
-export interface FundRangePreviousValuesPromise
-  extends Promise<FundRangePreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  min: () => Promise<Float>;
-  max: () => Promise<Float>;
-}
-
-export interface FundRangePreviousValuesSubscription
-  extends Promise<AsyncIterator<FundRangePreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  min: () => Promise<AsyncIterator<Float>>;
-  max: () => Promise<AsyncIterator<Float>>;
+  reason: () => Promise<AsyncIterator<String>>;
+  dispense_date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  spread: () => Promise<AsyncIterator<Float>>;
 }
 
 export interface IndustrySubscriptionPayload {
@@ -3877,6 +4112,7 @@ export interface PersonalDetailSubscriptionPayloadSubscription
 
 export interface PersonalDetailPreviousValues {
   id: ID_Output;
+  email: String;
   first_name: String;
   last_name: String;
   phone_number?: String;
@@ -3886,12 +4122,17 @@ export interface PersonalDetailPreviousValues {
   nationality?: String;
   state?: String;
   home_address?: String;
+  social_handle?: String;
+  kin_name?: String;
+  kin_phone?: String;
+  kin_relation?: String;
 }
 
 export interface PersonalDetailPreviousValuesPromise
   extends Promise<PersonalDetailPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  email: () => Promise<String>;
   first_name: () => Promise<String>;
   last_name: () => Promise<String>;
   phone_number: () => Promise<String>;
@@ -3901,12 +4142,17 @@ export interface PersonalDetailPreviousValuesPromise
   nationality: () => Promise<String>;
   state: () => Promise<String>;
   home_address: () => Promise<String>;
+  social_handle: () => Promise<String>;
+  kin_name: () => Promise<String>;
+  kin_phone: () => Promise<String>;
+  kin_relation: () => Promise<String>;
 }
 
 export interface PersonalDetailPreviousValuesSubscription
   extends Promise<AsyncIterator<PersonalDetailPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  email: () => Promise<AsyncIterator<String>>;
   first_name: () => Promise<AsyncIterator<String>>;
   last_name: () => Promise<AsyncIterator<String>>;
   phone_number: () => Promise<AsyncIterator<String>>;
@@ -3916,6 +4162,10 @@ export interface PersonalDetailPreviousValuesSubscription
   nationality: () => Promise<AsyncIterator<String>>;
   state: () => Promise<AsyncIterator<String>>;
   home_address: () => Promise<AsyncIterator<String>>;
+  social_handle: () => Promise<AsyncIterator<String>>;
+  kin_name: () => Promise<AsyncIterator<String>>;
+  kin_phone: () => Promise<AsyncIterator<String>>;
+  kin_relation: () => Promise<AsyncIterator<String>>;
 }
 
 export interface SocialMediaSubscriptionPayload {
@@ -3992,14 +4242,14 @@ The `Float` scalar type represents signed double-precision fractional values as 
 export type Float = number;
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
-
-/*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
 export type Int = number;
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
 
 export type Long = string;
 
@@ -4010,6 +4260,10 @@ export type Long = string;
 export const models: Model[] = [
   {
     name: "Gender",
+    embedded: false
+  },
+  {
+    name: "AccountType",
     embedded: false
   },
   {
@@ -4037,11 +4291,11 @@ export const models: Model[] = [
     embedded: false
   },
   {
-    name: "FinanceOption",
+    name: "BusinessValidation",
     embedded: false
   },
   {
-    name: "FundRange",
+    name: "BusinessFinancial",
     embedded: false
   },
   {

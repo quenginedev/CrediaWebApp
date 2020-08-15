@@ -9,6 +9,10 @@ var models = [
     embedded: false
   },
   {
+    name: "AccountType",
+    embedded: false
+  },
+  {
     name: "FundType",
     embedded: false
   },
@@ -33,11 +37,11 @@ var models = [
     embedded: false
   },
   {
-    name: "FinanceOption",
+    name: "BusinessValidation",
     embedded: false
   },
   {
-    name: "FundRange",
+    name: "BusinessFinancial",
     embedded: false
   },
   {

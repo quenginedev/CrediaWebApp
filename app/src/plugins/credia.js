@@ -11,7 +11,9 @@ const creadia = {
     createUser : (user) => {
         return http.post('/create_user', user)
             .then(res=>res.data)
-            .catch(err=>err.response)
+            .catch(err=> {
+                throw err.response
+            })
     }
 }
 

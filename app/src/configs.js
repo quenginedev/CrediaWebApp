@@ -7,3 +7,7 @@ export const prisma = {
         http: 'https://eu1.prisma.sh/ernest-hayford-4ed24c/Consol/dev',
         ws: 'wss://eu1.prisma.sh/ernest-hayford-4ed24c/Consol/dev'
 }
+
+export const web = {
+        url: 'https://credia.web.app'
+}

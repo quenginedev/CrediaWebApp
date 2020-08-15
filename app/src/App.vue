@@ -19,11 +19,13 @@ export default {
     }
   },
     created() {
-
     }
 };
 </script>
 <style>
+  *{
+    font-family: 'Open Sans', sans-serif;
+  }
   .slide-fade-enter-active {
     transition: all .2s ease;
   }

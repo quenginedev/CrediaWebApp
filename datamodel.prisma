@@ -3,6 +3,12 @@ enum Gender {
     FEMALE
 }
 
+enum AccountType {
+    SME
+    LENDER
+    ADMIN
+}
+
 enum FundType {
     LOAN
     GRANT
@@ -18,9 +24,9 @@ enum FundStatus {
 type Auth {
     id: ID! @id
     firebase_id: String! @unique
-    email: String! @unique
+    account_type: AccountType! @default(value: SME)
 
-    details: PersonalDetail
+    details: PersonalDetail! @relation(link: INLINE)
     social_media: [SocialMedia!]!
     applications: [Application!]!
 
@@ -30,14 +36,15 @@ type Auth {
 
 type SocialMedia {
     id: ID! @id
+    auth: Auth! @relation(link: INLINE)
     media_type: String!
     link: String!
-    auth: Auth! @relation(link: INLINE)
 }
 
 type PersonalDetail {
     id: ID! @id
-    auth_id: Auth! @relation(link: INLINE)
+    email: String!
+    auth: Auth
 
     first_name: String!
     last_name: String!
@@ -49,34 +56,47 @@ type PersonalDetail {
     nationality: String
     state: String
     home_address: String
+
+    social_handle: String
+
+    kin_name: String
+    kin_phone: String
+    kin_relation: String
 }
 
 type Application {
     id: ID! @id
+    application_type: String!
     auth: Auth! @relation(link: INLINE)
-    personal_details: PersonalDetail!
-    next_of_kin: NextOfKinDetail!
-    business_details: BusinessDetail!
-    finance_options: FinanceOption! @relation(link: INLINE)
+
+    fund_details: FundDetail! @relation(link: INLINE)
+    personal_details: PersonalDetail! @relation(link: INLINE)
+    business_details: BusinessDetail! @relation(link: INLINE)
+    business_financials: BusinessFinancial! @relation(link: INLINE)
+    validations: BusinessValidation! @relation(link: INLINE)
+
+    fund_status: FundStatus! @default(value: PENDING)
 }
 
-type FinanceOption {
+type BusinessValidation {
     id: ID! @id
-    fund_type: FundType!
-    fund_range: FundRange!
-    reason_for_fund: String!
-    disbursement_time: DateTime!
-    avg_month_rev: Float!
-    avg_month_exp: Float!
-    is_serving_loan: Boolean!
-    application: Application!
+    bvn: String!
+    person_id_type: String!
+    person_id_number: String!
+    statement_url: String!
 }
 
-type FundRange {
+type BusinessFinancial {
     id: ID! @id
-    min: Float!
-    max: Float!
+    avg_monthly_revenue: Float!
+    avg_monthly_expense: Float!
+    serving_loan: Boolean!
+    bank_account_name: String!
+    bank_account_number: String!
+    bank_name: String!
 }
+
+
 
 type NextOfKinDetail {
     id: ID! @id
@@ -89,17 +109,22 @@ type NextOfKinDetail {
 type BusinessDetail {
     id: ID! @id
     name: String!
-    industry_type: String!
     business_type: String!
-
-    registration_type: String!
     registation_id: String! @unique
-    business_start_year: DateTime!
-    bank_verification_number: String! @unique
 
-    fund_details: FundDetail
-    fund_status: FundStatus! @default(value: PENDING)
-    application: Application! @relation(link: INLINE)
+    cac_file_link: String!
+
+    industry_type: String!
+    business_start_year: Int!
+    street_address: String!
+    state: String!
+    local_goverment_area: String!
+
+    website_url: String
+    social_media_url: String
+
+
+
 
     created_at: DateTime! @createdAt
     updated_at: DateTime! @updatedAt
@@ -109,11 +134,10 @@ type BusinessDetail {
 
 type FundDetail {
     id: ID! @id
-    fund_type: FundType!
-    reason: String!
-    payment_due_date: String
-    disbursement_date: DateTime!
     amount: Float!
+    reason: String!
+    dispense_date: DateTime!
+    spread: Float
 }
 
 

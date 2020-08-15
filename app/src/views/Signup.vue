@@ -1,24 +1,40 @@
 <template>
-    <v-main class="primary">
-        <v-row class="fill-height">
-            <v-col v-if="$vuetify.breakpoint.smAndUp" sm="2" md="5" lg="6"></v-col>
-            <v-col class="py-0 fill-height" sm="10" md="7" lg="6">
-                <v-card tile class="px-8 px-sm-16 fill-height" :class="{ 'pt-12': !alert.show }">
+    <v-main class="blue-grey lighten-5 auth-bg">
+        <v-row justify="end" class="fill-height">
+            <v-col class="pa-0" v-if="$vuetify.breakpoint.smAndUp" sm="2" md="5" lg="6">
+                <v-img height="100vh" src="../assets/img/auth_bg.png"></v-img>
+            </v-col>
+            <v-col class="pa-0 fill-height" sm="10" md="7" lg="6">
+                <v-card style="overflow-y: scroll; height: 100vh" flat tile class="px-8 px-sm-16 fill-height" :class="{ 'pt-12': !alert.show }">
                     <v-alert dense v-if="alert.show" :type="alert.type || 'info'">
                         {{alert.message}}
                         <v-btn @click="alert.show = false" absolute right small icon><v-icon size="18">mdi-close</v-icon></v-btn>
                     </v-alert>
                     <v-form
+                            class="text-center"
                             ref="form"
                             v-model="validators.valid"
                             lazy-validation
                     >
-                        <v-card-title class="grey--text justify-center">
-                            <h1 class="display-1">LOGO</h1>
+                        <v-card-title class="grey--text justify-center mb-7">
+                            <img height="46px" src="../assets/img/credia-logo.svg"/>
                         </v-card-title>
+                        <v-btn-toggle
+                            active-class="accent white--text"
+                            v-model="user.account_type"
+                            mandatory
+                        >
+                            <v-btn :outlined="user.account_type !== 'sme'" value="SME" min-width="120">
+                                SME
+                            </v-btn>
+                            <v-btn :outlined="user.account_type !== 'lender'" value="LENDER" min-width="120">
+                                Lender
+                            </v-btn>
+                        </v-btn-toggle>
                         <v-card-subtitle class="text-center">
-                            <h3 class="headline mt-10 mb-7 primary--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit</h3>
-                            <p class="">Already signed up? <router-link :to="{name: 'login'}" class="font-weight-bold">Log in</router-link></p>
+                            <h3 class="headline mt-7 primary--text">Welcome to Credia</h3>
+                            <p class="mb-7">The digital financial marketplace where you can apply for the funds you need conveniently anytime, anywhere from your device.</p>
+                            <p class="">Already signed up? <router-link :to="{name: 'login'}" class="font-weight-bold secondary--text">Log in</router-link></p>
                         </v-card-subtitle>
                         <v-card-text>
                             <v-text-field
@@ -113,7 +129,8 @@
                     first_name: '',
                     last_name: '',
                     email: '',
-                    password: ''
+                    password: '',
+                    account_type: 'sme'
                 }
             }
         },
@@ -127,6 +144,7 @@
                         await this.$firebase.auth().signInWithEmailAndPassword(this.user.email, this.user.password)
                         await this.$router.push({name: 'home'})
                     }catch (e) {
+                        console.log(e)
                         this.alert = {
                             show: true,
                             type: 'warning',
